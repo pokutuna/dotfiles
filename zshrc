@@ -66,7 +66,7 @@ setopt share_history        # share command history data
 
 
 ## completion ##
-fpath=(~/.zsh/zsh_functions $fpath)
+fpath=(~/.zsh.d/zsh_functions $fpath)
 autoload -U compinit
 compinit -u
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -75,7 +75,7 @@ zstyle ':completion:*:cd:*' tag-order local-directories path-directories
 autoload -U predict-on
 
 # cd functions from hitode909
-[ -f ~/.zsh/hitode_cd.sh ] && source ~/.zsh/hitode_cd.sh
+[ -f ~/.zsh.d/hitode_cd.sh ] && source ~/.zsh.d/hitode_cd.sh
 
 
 ## for git ##

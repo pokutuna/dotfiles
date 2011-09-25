@@ -50,4 +50,4 @@ export GISTY_DIR=$HOME/gists
 
 
 ## secret ##
-[ -f ~/.zsh/env_secret ] && source ~/.zsh/env_secret
+[ -f ~/.zsh.d/env_secret ] && source ~/.zsh.d/env_secret
