@@ -66,7 +66,7 @@ setopt share_history        # share command history data
 
 
 ## completion ##
-fpath=(~/.zsh.d/zsh_functions $fpath)
+fpath=(~/.zsh.d/functions $fpath)
 autoload -U compinit
 compinit -u
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
