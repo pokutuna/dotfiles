@@ -1,0 +1,15 @@
+Host pokutuna.com
+  HostName pokutuna.com
+  User pokutuna
+
+Host sakura_vps
+  HostName www30398u.sakura.ne.jp
+  User pokutuna
+
+Host hcilab
+  HostName ns.hcilab.jp
+  User tokuami
+
+Host with-iProxy
+  HostName pokutuna.com
+  ProxyCommand corkscrew 192.168.1.101 8888 %h %p

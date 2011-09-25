@@ -1,0 +1,85 @@
+#http://shyouhei.tumblr.com/post/313410522/screenrc
+startup_message off
+multiuser off
+idle off
+termcapinfo xterm* ti@:te@
+#termcapinfo * XT
+#termcapinfo xterm*|kterm*|screen* is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l
+autodetach off
+vbell off
+
+#defbce on
+term xterm-256color
+#term screen-256color
+#term screen
+
+altscreen on
+
+escape ^Tt
+zombie ^[
+bind w windowlist -b
+bind ^] paste [.]
+bind ^x remove
+
+bind u eval "encoding UTF-8"
+bind e eval "encoding eucJP"
+bind s eval "encoding SJIS"
+setenv LANG ja_JP.UTF-8
+defencoding utf-8
+
+#log
+log on
+deflog on
+logfile "$HOME/.screen/screen-%Y%m%d-%n.log"
+defscrollback 5120
+
+#http://d.hatena.ne.jp/l1o0/20100803/1280844729
+# C-b 左, C-f 右, C-a 行頭, C-e 行末
+# C-p 下, C-n 上, C-v 1ページ進む, 
+markkeys h=^b:l=^f:0=^a:j=^n:k=^p:$=^e:^d=^v:^u=^[v
+
+# M-v 1ページ戻る
+# M-< バッファの先頭に移動, M-> バッファの最後に移動
+# M-b, M-fで単語ごとに移動
+#bindkey -m ^[[5;3~ stuff ^u # alt-page-up sends page-up in copy mode
+#bindkey -m ^[v stuff U
+bindkey -m ^[< stuff g
+bindkey -m ^[> stuff G
+bindkey -m ^[b stuff B
+bindkey -m ^[f stuff E
+
+# 行末までコピーする(C-k)
+bindkey -m ^k stuff ' $ '
+# C-g コピーモード終了
+#bindkey -m ^g stuff !
+
+
+
+# コピー。 ctrl-space は動かないので諦めた
+# bindkey -m ^' ' stuff ' '
+
+# Xclip を使って、 X のクリップボードへ
+# Space で選択開始、 M-w (または M-W) でコピー
+bindkey -m ^[w eval 'msgwait 0' 'stuff \040' writebuf 'exec !!! xclip /tmp/screen-exchange' 'msgwait 1'
+bindkey -m ^[W eval 'msgwait 0' 'stuff \040' writebuf 'exec !!! xclip /tmp/screen-exchange' 'msgwait 1'
+
+
+caption always "%?%F%{= wk}%:%{= ww}%?%-w%{=ub bw}%n %t%{-}%+w"
+#hardstatus alwayslastline "%{= wk} %-w%{=bu kW}%n %t%{-}%+w %= %{=b wb} %Y/%m/%d%{=b wb}%c:%s "
+
+#hardstatus alwayslastline "%{= Gk} %-Lw%40L>%{b kg} %n %t %{-}%+Lw%-040=%{b km} %l %{.b} %Y/%m/%d %C:%s %A "
+
+
+#http://fkmn.exblog.jp/6116062/
+bind -c REGION 2 split
+bind -c REGION 1 only
+bind -c REGION 0 remove
+bind -c REGION o focus
+bind -c REGION ^ resize
+bind x command -c REGION
+
+
+msgwait 3
+msgminwait 2
+
+
