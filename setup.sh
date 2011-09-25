@@ -30,3 +30,8 @@ done
 echo "ssh"
 mv ${HOME_PATH}/.ssh/config ${HOME_PATH}/.old_dotfiles/ssh-config
 ln -s ${DOTFILES_PATH}/ssh-config ${HOME_PATH}/.ssh/config
+
+echo "etc for emacs"
+mv ${HOME_PATH}/.emacs.d/etc ${HOME_PATH}/.old_dotfiles/etc_emacs
+ln -s ${HOME_PATH}/Dropbox/etc_emacs ${HOME_PATH}/.emacs.d/etc
+ls -l ${HOME_PATH}/Dropbox/etc_emacs > etc_emacs
