@@ -18,6 +18,7 @@ export RSENSE_HOME=$HOME/.emacs.d/elisp/rsense-0.3
 # scala
 export SCALA_HOME=/usr/local/share/scala
 export PATH=$SCALA_HOME/bin:$PATH
+export SBT_OPT="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256m"
 
 # perl
 export PERLBREW_ROOT=$HOME/perl5/perlbrew
