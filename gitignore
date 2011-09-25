@@ -1,0 +1,12 @@
+#*#
+.*~
+*~
+.#*
+.DS_Store
+*.log
+*.aux
+*.dvi
+*.log
+test.db
+.bundle
+.class
