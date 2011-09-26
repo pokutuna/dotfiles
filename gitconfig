@@ -2,7 +2,7 @@
   name = pokutuna
   email = popopopopokutuna@gmail.com
 [core]
-  excludefiles = /Users/pokutuna/.gitignore
+  excludesfile = /Users/pokutuna/.gitignore
 [github]
   user = pokutuna
 [color]
