@@ -72,12 +72,17 @@
 (setq uniquify-min-dir-content 1)
 
 
-;;C-Fで右のバッファ
+;; C-x p を C-x o の逆順にwindow切り替える
+(define-key ctl-x-map "p"
+  #'(lambda (arg) (interactive "p") (other-window (- arg))))
+
+
+;; C-c [hjkl] で window切り替え
 (setq windmove-wrap-around t)
-(define-key global-map [(C shift n)] 'windmove-down)
-(define-key global-map [(C shift p)] 'windmove-up)
-(define-key global-map [(C shift b)] 'windmove-left)
-(define-key global-map [(C shift f)] 'windmove-right)
+(define-key global-map (kbd "C-c j") 'windmove-down)
+(define-key global-map (kbd "C-c k") 'windmove-up)
+(define-key global-map (kbd "C-c h") 'windmove-left)
+(define-key global-map (kbd "C-c l") 'windmove-right)
 
 
 ;; kill-ring に同じ内容の文字列を複数入れない
