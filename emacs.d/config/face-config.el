@@ -50,7 +50,7 @@
 ;; 全角SPC、tab、行末スペースを強調表示
 (defface my-face-b-1 '((t (:background "medium aquamarine"))) nil)
 (defface my-face-b-2 '((t (:background "gray26"))) nil)
-(defface my-face-u-1 '((t (:background "red"))) nil)
+(defface my-face-u-1 '((t (:foreground "red" :underline t))) nil)
 (defvar my-face-b-1 'my-face-b-1)
 (defvar my-face-b-2 'my-face-b-2)
 (defvar my-face-u-1 'my-face-u-1)

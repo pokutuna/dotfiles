@@ -12,7 +12,6 @@
     (local-set-key (kbd "M-p") 'flymake-goto-prev-error)))
 
 
-
 ;;flyspell
 (defun flyspell-correct-word-popup-el ()
   "Pop up a menu of possible corrections for misspelled word before point."

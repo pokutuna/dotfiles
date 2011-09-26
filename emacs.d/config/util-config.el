@@ -83,3 +83,9 @@
    (function (lambda ()
       (define-key shell-mode-map [up] 'comint-previous-input)
       (define-key shell-mode-map [down] 'comint-next-input))))
+
+
+;;Egg emacs got git
+;(install-elisp "http://github.com/byplayer/egg/raw/master/egg.el")
+(when (executable-find "git")
+  (require 'egg nil t))
