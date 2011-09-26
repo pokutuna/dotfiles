@@ -27,11 +27,17 @@ done
 
 
 ## with specific path  ##
-echo "ssh"
+echo ".ssh/config"
 mv ${HOME_PATH}/.ssh/config ${HOME_PATH}/.old_dotfiles/ssh-config
 ln -s ${DOTFILES_PATH}/ssh-config ${HOME_PATH}/.ssh/config
 
-echo "etc for emacs"
+echo ".emacs.d/etc/"
 mv ${HOME_PATH}/.emacs.d/etc ${HOME_PATH}/.old_dotfiles/etc_emacs
 ln -s ${HOME_PATH}/Dropbox/etc_emacs ${HOME_PATH}/.emacs.d/etc
 ls -l ${HOME_PATH}/Dropbox/etc_emacs > etc_emacs
+
+echo "--- submodule ---"
+cd ${DOTFILES_PATH}
+git submodule init
+git submodule update
+
