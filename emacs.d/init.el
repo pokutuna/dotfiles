@@ -1,364 +1,16 @@
-;;;init.el
+;; load-path & PATH
+(load-file "~/.emacs.d/config/load-path-config.el")
+(load-file "~/.emacs.d/config/basic-config.el")
+(load-file "~/.emacs.d/config/util-config.el")
+(load-file "~/.emacs.d/config/face-config.el")
+(load-file "~/.emacs.d/config/find-config.el")
+(load-file "~/.emacs.d/config/undo-redo-config.el")
 
-;; load-path追加関数
-(defun add-to-load-path (&rest paths)
-  (let (path)
-    (dolist (path paths paths)
-      (let ((default-directory (expand-file-name (concat user-emacs-directory path))))
-        (add-to-list 'load-path default-directory)
-        (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-            (normal-top-level-add-subdirs-to-load-path))))))
-(add-to-load-path "elisp")
-
-;; PATH
-(setq shell-file-name "/usr/local/bin/zsh");;zshenv見に行く
-(add-to-list 'exec-path "/opt/local/bin")
-(add-to-list 'exec-path "/usr/local/bin")
-(setenv "PATH" (mapconcat 'identity exec-path ":"))
-
-;; proxy
-(defun activate-kgu-proxy ()
-  (interactive)
-  (setq url-proxy-services
-        '(("http" . "proxy.ksc.kwansei.ac.jp:8080")
-          ("https" . "proxy.ksc.kwansei.ac.jp:8080"))))
-(defun deactivate-proxy ()
-  (interactive)
-  (setq url-proxy-services
-        '(("no_proxy" . ""))))
-(deactivate-proxy)
-
-;; auto-install
-;; (install-elisp "http://www.emacswiki.org/emacs/download/auto-install.el")
-(when (require 'auto-install nil t)
-  (setq auto-install-directory "~/.emacs.d/elisp/")
-  (auto-install-update-emacswiki-package-name t)
-  (auto-install-compatibility-setup))
-
-;; window
-(setq inhibit-startup-message t) ;スタートアップメッセージ消す
-;(tool-bar-mode 0) ;ツールバー無し
-(menu-bar-mode t) ;メニューバー無し
-(setq frame-title-format (format "%%f - emacs@%s" (system-name))) ;タイトルバーにパス表示
-(display-time) ;バーに時刻表示
-(column-number-mode t) ;バーにカーソル位置表示
-(blink-cursor-mode t) ;カーソル点滅
-;(global-linum-mode t) ;行番号表示
-
-;;color-theme
-(if window-system
-    (progn
-      (when (require 'color-theme nil t)
-        (color-theme-initialize)
-        ;;(color-theme-clarity)
-        ;;(color-theme-euphoria)
-        (color-theme-gnome2)
-        ;;(color-theme-gray30)
-        ;;(color-theme-robin-hood)
-        ;;(color-theme-subtle-hacker)
-        ;;(color-theme-dark-laptop)
-        ;;(color-theme-hober)
-        )
-      )
-    )
-
-;;paren
-(setq show-paren-delay 0) ;カッコ強調表示ディレイ0
-(show-paren-mode t) ;カッコ強調表示
-(setq show-paren-style 'expression) ;カッコ内強調表示
-(set-face-background 'show-paren-match-face nil) ;カッコ内背景強調オフ
-(set-face-underline-p 'show-paren-match-face "yellow") ;カッコ内アンダーライン
+;; auto-complete.el smartchr.el parenthesis.el
+(load-file "~/.emacs.d/config/completion-config.el")
 
 
-(cd "~/") ;カレントディレクトリをHOMEに
 
-;;backup
-(setq backup-directory-alist '(("" . "~/.emacs.d/backup"))) ;backup先
-(setq version-control t)
-(setq kept-new-version 5)
-(setq kept-old-version 5)
-(setq vc-make-backup-files t)
-
-;;indent
-(setq-default tab-width 2) ;タブ幅を2に設定
-(setq tab-stop-list '(2 4 6 8 10 12 14 16 18 20 22 24)) ;タブ幅の倍数を設定
-(setq-default indent-tabs-mode nil) ;タブではなくスペースを使う
-(setq indent-line-function 'indent-relative-maybe)
-
-;;line
-(setq line-move-visual t) ;物理行移動
-(global-set-key "\C-c\C-l" 'toggle-truncate-lines) ;C-c C-l で行折り返しon/off
-
-(defface my-hl-line-face ;themeの背景に応じたカーソル行強調
-  '((((class color) (background dark))
-     (:background "MidnightBlue" t))
-    (((class color) (background light))
-     (:background "LightGoldenrodYellow" t))
-    (t (:bold t)))
-  "hl-line's my face")
-(setq hl-line-face 'my-hl-line-face)
-(global-hl-line-mode t) ;カーソル行強調オン
-
-;;col-highlight
-(require 'col-highlight)
-(col-highlight-set-interval 1)
-(col-highlight-toggle-when-idle t)
-(setq col-highlight-face 'my-hl-line-face)
-
-;;charset in mac
-(set-language-environment "Japanese")
-;; (require 'ucs-normalize)
-(prefer-coding-system 'utf-8)
-;; (setq file-name-coding-system 'utf-8-hfs)
-;; (setq locale-coding-system 'utf-8-hfs)
-
-(cond
- ((or (eq window-system 'mac) (eq window-system 'ns))
-  ;; Mac OS X の HFS+ ファイルフォーマットではファイル名は NFD (の様な物)で扱うため以下の設定をする必要がある
-  (require 'ucs-normalize)
-  (setq file-name-coding-system 'utf-8-hfs)
-  (setq locale-coding-system 'utf-8-hfs))
- ((or (eq system-type 'cygwin) (eq system-type 'windows-nt)
-     (setq file-name-coding-system 'utf-8)
-     (setq locale-coding-system 'utf-8)
-     ;; もしコマンドプロンプトを利用するなら sjis にする
-     ;; (setq file-name-coding-system 'sjis)
-     ;; (setq locale-coding-system 'sjis)
-     ;; 古い Cygwin だと EUC-JP にする
-     ;; (setq file-name-coding-system 'euc-jp)
-     ;; (setq locale-coding-system 'euc-jp)
-     ))
- (t
-  (setq file-name-coding-system 'utf-8)
-  (setq locale-coding-system 'utf-8)))
-
-;charset in unix
-;; (set-language-environment "Japanese")
-;; (set-terminal-coding-system 'utf-8)
-;; (set-keyboard-coding-system 'utf-8)
-;; (set-buffer-file-coding-system 'utf-8-unix)
-;; (setq default-buffer-file-coding-system 'utf-8)
-;; (prefer-coding-system 'utf-8)
-;; (set-default-coding-systems 'utf-8)
-;; (setq file-name-coding-system 'utf-8)
-;; (set-clipboard-coding-system 'utf-8)
-;; (setq default-input-method 'japanese-anthy)
-
-;Command Option入れ替え in Mac
-(setq ns-command-modifier (quote meta))
-(setq ns-alternate-modifier (quote super))
-;システムに修飾キーを渡さない in Mac
-;; (setq mac-pass-control-to-system nil)
-;; (setq mac-pass-command-to-system nil)
-;; (setq mac-pass-option-to-system nil)
-
-
-(global-set-key (kbd "C-h") 'delete-backward-char)
-(global-set-key (kbd "C-x ?") 'help-command) ;C-x ? をhelp-command
-(global-set-key (kbd "C-Q") 'quoted-insert)
-
-;;cua 矩形選択
-(cua-mode t)
-(setq cua-enable-cua-keys nil)
-
-;;@レジスタコピペ C-w or M-w が連続で押されたらレジスタ@にコピペ
-(defvar clipboard-register ?@)
-(defadvice kill-region (before clipboard-cut activate)
-  (when (eq last-command this-command)
-    (set-register clipboard-register (car kill-ring))
-    (message "Copy to clipboard")))
-(defadvice kill-ring-save (before clipboard-copy activate)
-  (when (eq last-command this-command)
-    (set-register clipboard-register (car kill-ring))
-    (message "Copy to clipboard")))
-
-(defun clipboard-paste ()
-  (interactive)
-  (insert-register clipboard-register)
-  (message "Paste from clipboard"))
-(global-set-key (kbd "C-M-y") 'clipboard-paste) ;C-M-y でレジスタ@から貼り付け
-
-;;search region リージョン選択中にC-sで選択範囲で検索
-(defadvice isearch-mode (around isearch-mode-default-string (forward &optional regexp op-fun recursive-edit word-p) activate)
-  (if (and transient-mark-mode mark-active (not (eq (mark) (point))))
-      (progn
-        (isearch-update-ring (buffer-substring-no-properties (mark) (point)))
-        (deactivate-mark)
-        ad-do-it
-        (if (not forward)
-            (isearch-repeat-backward)
-          (goto-char (mark))
-          (isearch-repeat-forward)))
-    ad-do-it))
-
-(require 'thing-opt) ;範囲選択コマンド
-(define-thing-commands)
-(global-set-key (kbd "C-$") 'mark-word*)
-(global-set-key (kbd "C-\"") 'mark-string)
-(global-set-key (kbd "C-(") 'mark-up-list)
-
-
-;;parenthesis
-;;http://d.hatena.ne.jp/khiker/20080118/parenthesis
-(require 'parenthesis)
-(parenthesis-register-keys "{('\"[" global-map)
-
-
-;;Font
-(if window-system
-    (progn
-      (set-face-attribute 'default nil
-                          ;:family "Inconsolata"
-                          ;:family "Consolas"
-                          :family "VL Gothic"
-                          ;:family "Ricty"
-                          :height 130)
-      (set-fontset-font "fontset-default"
-                        'japanese-jisx0208
-                        '("NfMotoyaCedar" . "iso10646-1"))
-      (set-fontset-font "fontset-default"
-                        'katakana-jisx0201
-                        '("NfMotoyaCedar" . "iso10646-1"))
-      )
-  )
-;; (when window-system
-;;   (cond
-;;    ((eq window-system 'x)
-;;     (set-default-font "VL ゴシック-10")
-;;     (set-fontset-font
-;;      (frame-parameter nil 'font)
-;;      'japanese-jisx0208
-;;      '("VL ゴシック" . "unicode-bmp"))
-;;     )
-;;    ((eq window-system 'mac)
-;;     (set-face-attribute 'default nil
-;;                         :family "vl gothic"
-;;                         :height 120)
-;; ;    (set-fontset-font "fontset-default"
-;; ;                      'japanese-jisx0208
-;; ;                      '("vl gothic" . "jisx0201.*"))
-;;     )
-;;    )
-;;   )
-
-
-;;全角SPC、tab、行末スペースを強調表示
-(defface my-face-b-1 '((t (:background "medium aquamarine"))) nil)
-(defface my-face-b-2 '((t (:background "gray26"))) nil)
-(defface my-face-u-1 '((t (:foreground "SteelBlue" :underline t))) nil)
-(defvar my-face-b-1 'my-face-b-1)
-(defvar my-face-b-2 'my-face-b-2)
-(defvar my-face-u-1 'my-face-u-1)
-(defadvice font-lock-mode (before my-font-lock-mode ())
-  (font-lock-add-keywords
-   major-mode
-   '(
-     ("　" 0 my-face-b-1 append)
-     ("\t" 0 my-face-b-2 append)
-     ("[ ]+$" 0 my-face-u-1 append)
-     )))
-(ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
-(ad-activate 'font-lock-mode)
-(add-hook 'find-file-hooks '(lambda ()
-                              (if font-lock-mode nil
-                                (font-lock-mode t))) t)
-
-;;moccur
-;(install-elisp "http://www.emacswiki.org/emacs/download/color-moccur.el")
-;(install-elisp "http://www.emacswiki.org/emacs/download/moccur-edit.el")
-(when (require 'color-moccur nil t)
-  (define-key global-map (kbd "M-o") 'occur-by-moccur) ;M-o occur-by-moccur
-  (setq moccur-split-word t)
-  (add-to-list 'dmoccur-exclusion-mask "^#.+#$")
-  (require 'moccur-edit nil t)
-  (when (and (executable-find "cmigemo")
-             (require 'migemo nil t))
-    (setq moccur-user-migemo t)))
-;使い方TODO
-
-;;grep
-(require 'grep) ;lgrepで直下をgrep、rgrepで再帰的に
-;;grep-edit
-;(install-elisp "http://www.emacswiki.org/emacs/download/grep-edit.el")
-(require 'grep-edit) ;C-c C-e で編集を反映 C-x s ! で全部保存
-
-;;migemo
-(when (and (executable-find "cmigemo")
-           (require 'migemo nil t))
-  (setq migemo-command "cmigemo")
-  (setq migemo-options '("-q" "--emacs" "-i" "\a"))
-  (setq migemo-dictionary (expand-file-name "~/.emacs.d/etc/migemo/migemo-dict"))
-  (setq migemo-user-dictionary nil)
-  (setq migemo-regex-dictionary nil)
-  (setq migemo-user-pattern-alist t)
-  (setq migemo-use-frequent-pattern-alist t)
-  (setq migemo-pattern-alist-length 1000)
-  (setq migemo-coding-system 'utf-8-unix)
-  (migemo-init))
-
-;:redo C-'でリドゥ
-(when (require 'redo+ nil t)
-  (global-set-key (kbd "C-'") 'redo))
-
-;;undo-hist バッファを保存して消してもアンドゥで戻れる
-;(install-elisp "http://cx4a.org/pub/undohist.el")
-(when (require 'undohist nil t)
-  (undohist-initialize))
-
-;;undo-tree
-;(install-elisp "http://dr-qubit.org/undo-tree/undo-tree.el")
-(when (require 'undo-tree nil t)
-  (global-undo-tree-mode))
-;C-x u でundoの履歴を視覚化したバッファがでる、移動してqで抜ければその状態まで戻る
-
-;;point-undo
-;(install-elisp "http://www.emacswiki.org/cgi-bin/wiki/download/point-undo.el")
-(when (require 'point-undo nil t)
-  (define-key global-map [f5] 'point-undo)
-  (define-key global-map [f6] 'point-redo))
-
-;;wdired
-(require 'wdired)
-(define-key dired-mode-map "r"
-  'wdired-change-to-wdired-mode)
-
-;;auto-complete
-(when (require 'auto-complete-config nil t)
-  (ac-config-default)
-  (add-to-list 'ac-dictionary-directories (expand-file-name "~/.emacs.d/ac-dict"))
-  (global-set-key (kbd "M-i") 'auto-complete)
-  (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
-  (global-auto-complete-mode t)
-  (setq ac-auto-start 2)
-  (setq ac-auto-show-menu 0.5)
-  (setq ac-ignore-case t)
-  (define-key ac-complete-mode-map (kbd "M-n") 'ac-next)
-  (define-key ac-complete-mode-map (kbd "M-p") 'ac-previous)
-  (ac-set-trigger-key "TAB")
-  (setq popup-use-optimized-column-computation t)
-  (auto-complete-mode t)
-  )
-
-;;smartchr
-;(install-elisp "http://github.com/imakado/emacs-smartchr/raw/master/smartchr.el")
-(when (require 'smartchr nil t)
-  (define-key global-map (kbd "=") (smartchr '("=" "==" "===")))
-  (define-key global-map (kbd "+") (smartchr '("+" "++")))
-  (define-key global-map (kbd "{") (smartchr '("{ `!!' }" "{")))
-  (define-key global-map (kbd ">")
-    (smartchr '(">" "=>" "=> '`!!''" "=> \"`!!'\"")))
-  (define-key global-map (kbd "|")
-    (smartchr '("|" "|`!!'|" " || " )))
-  (define-key global-map (kbd "\"")
-    (smartchr '("\"" "\"`!!'\"" "\"\"\"`!!'\"\"\"")))
-  (define-key global-map (kbd "'")
-    (smartchr '("'" "'`!!''")))
-  )
-
-;;skeleton括弧補完
-(setq skeleton-pair 1)
-;;parenthesis
-(parenthesis-register-keys "{('\"[" text-mode-map)
 
 
 ;;Anything
@@ -445,7 +97,7 @@
                     (string= "font-lock-string-face"
                              (get-char-property (point) 'face))))
            '(require-snippet-condition . force-in-comment)))
- 
+
 ;;; yasnippet展開中はflymakeを無効にする
 (defvar flymake-is-active-flag nil)
 (defadvice yas/expand-snippet
@@ -479,36 +131,6 @@
 (yas/initialize)
 (yas/load-all-directories)
 
-
-
-
-;;shell ;使わなさそう
-;(install-elisp-from-emacswiki "multi-term.el")
-(when (require 'multi-term nil t)
-  (setq multi-term-program "/usr/local/bin/zsh"))
-(add-hook 'shell-mode-hook ;shell-modeで上下でヒストリ補完
-   (function (lambda ()
-      (define-key shell-mode-map [up] 'comint-previous-input)
-      (define-key shell-mode-map [down] 'comint-next-input))))
-
-
-;;Outputz
-;; (when (require 'outputz nil t)
-;;   (setq outputz-key "UYUaZynGnr3M");; 復活の呪文
-;;   (setq outputz-uri "http://%s") ;; 適当なURL。%sにmajor-modeの名前が入るので、major-modeごとのURLで投稿できます。
-;;   (global-outputz-mode t))
-
-;;zizo
-(require 'zizo)
-
-;;htmlize
-(require 'htmlize)
-
-;;dict
-;http://github.com/hitode909/dotfiles/raw/master/emacs.d/config/dictionary-config.el
-(require 'dictionary-config)
-(global-set-key (kbd "C-M-d") 'my-dictionary)
-(setq dict-log-file "~/Dropbox/memo/dictionaly.txt")
 
 ;;flyspell
 (defun flyspell-correct-word-popup-el ()
@@ -623,7 +245,7 @@ and source-file directory for your debugger." t)
              (find-multibyte-characters (point-min) (point-max) 1))
     (save-excursion
       (goto-char 1)
-      (when (looking-at "^#!") 
+      (when (looking-at "^#!")
         (forward-line 1))
       (if (re-search-forward "^#.+coding" (point-at-eol) t)
           (delete-region (point-at-bol) (point-at-eol))
@@ -990,10 +612,4 @@ and source-file directory for your debugger." t)
             ;(define-key cperl-mode-map (kbd ";") (smartchr '(";\n" ";")))
             ))
 
-
-;;ack
-(defun ack ()
-  (interactive)
-  (let ((grep-find-command "ack --nocolor --nogroup "))
-    (call-interactively 'grep-find)))
 
