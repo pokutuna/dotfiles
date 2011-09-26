@@ -1,3 +1,0 @@
-;; -*- mode: emacs-lisp -*-
-;; History entries used for anything adaptive display.
-(setq anything-c-adaptive-history (quote ((command ("ad-Orig-query-replace-regexp" ("replace-reg" . 1)) ("format-encode-buffer" ("encode" . 1)) ("lgrep" ("grep" . 1) ("lgrep" . 1))))))
