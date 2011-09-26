@@ -1,6 +1,7 @@
 ;; load-path & PATH
 (load-file "~/.emacs.d/config/load-path-config.el")
 (load-file "~/.emacs.d/config/basic-config.el")
+(load-file "~/.emacs.d/config/darwin-config.el")
 (load-file "~/.emacs.d/config/util-config.el")
 (load-file "~/.emacs.d/config/face-config.el")
 (load-file "~/.emacs.d/config/find-config.el")
