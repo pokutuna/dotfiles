@@ -18,6 +18,7 @@
 (load-file "~/.emacs.d/config/scala-config.el")
 (load-file "~/.emacs.d/config/perl-config.el")
 (load-file "~/.emacs.d/config/js-config.el")
+(load-file "~/.emacs.d/config/coffee-config.el")
 (load-file "~/.emacs.d/config/c-lang-config.el")
 (load-file "~/.emacs.d/config/haskell-config.el")
 (load-file "~/.emacs.d/config/markup-languages-config.el")

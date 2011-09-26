@@ -1,3 +1,6 @@
 [submodule "emacs.d/co/popwin-el"]
 	path = emacs.d/co/popwin-el
 	url = https://github.com/m2ym/popwin-el.git
+[submodule "emacs.d/co/coffee-mode"]
+	path = emacs.d/co/coffee-mode
+	url = https://github.com/defunkt/coffee-mode.git

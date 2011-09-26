@@ -1,21 +1,23 @@
+(add-to-load-path "co/coffee-mode")
 (require 'coffee-mode)
 (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
 (add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
 
 
 (defun coffee-custom ()
-  "coffee-mode-hook"
- (set (make-local-variable 'tab-width) 2)
- (define-key coffee-mode-map [(meta R)] 'coffee-compile-file)
-
- (add-hook 'after-save-hook
-           '(lambda ()
-              (when (string-match "\.coffee" (buffer-name)) ; ~~~.coffee<>
-                (coffee-compile-file)))))
-)
+  (set (make-local-variable 'tab-width) 2))
 
 (add-hook 'coffee-mode-hook
   '(lambda() (coffee-custom)))
+
+
+(add-hook 'after-save-hook
+          '(lambda ()
+             (when (string-match "\.coffee" (buffer-name)) ; ~~~.coffee<>
+               (coffee-compile-file))))
+
+(add-hook 'coffee-mode-hook
+          '(lambda() (coffee-custom)))
 
 (add-to-list 'auto-mode-alist '("\\.js.shd$" . coffee-mode))
 (setq coffee-args-compile '("-cb"))
@@ -24,7 +26,6 @@
 
 ;; flymake for coffeescript
 ;; http://d.hatena.ne.jp/antipop/20110508/1304838383
-(require 'flymake')
 (setq flymake-coffeescript-err-line-patterns
   '(("\\(Error: In \\([^,]+\\), .+ on line \\([0-9]+\\).*\\)" 2 3 nil 1)))
 
