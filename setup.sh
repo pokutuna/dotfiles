@@ -41,4 +41,5 @@ echo "--- submodule ---"
 cd ${DOTFILES_PATH}
 git submodule init
 git submodule update
+git submodule foreach 'git checkout master'
 
