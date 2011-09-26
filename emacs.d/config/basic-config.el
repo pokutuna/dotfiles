@@ -10,6 +10,8 @@
 
 (cd "~/") ;カレントディレクトリをHOMEに
 
+;(setq initial-scratch-message nil) ;*scratch* の初期メッセージ消す
+
 (setq line-move-visual t) ;物理行移動
 
 (setq completion-ignore-case t) ;ファイル名補完で大文字小文字を区別しない

@@ -19,5 +19,6 @@
 ;;point-undo
 ;;(install-elisp "http://www.emacswiki.org/cgi-bin/wiki/download/point-undo.el")
 (when (require 'point-undo nil t)
-  (define-key global-map [f5] 'point-undo)
-  (define-key global-map [f6] 'point-redo))
+  (define-key global-map [f6] 'point-undo)
+  (define-key global-map [f8] 'point-redo))
+
