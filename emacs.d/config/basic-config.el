@@ -39,11 +39,6 @@
 (global-set-key (kbd "C-Q") 'quoted-insert) ;C-q はランチャに割り当てる
 
 
-;; option <-> command
-(setq ns-command-modifier (quote meta))
-(setq ns-alternate-modifier (quote super))
-
-
 ;; 画面外の文字は折り返しして表示
 (setq truncate-lines nil)
 (setq truncate-partial-width-windows nil)
