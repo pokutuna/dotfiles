@@ -44,8 +44,8 @@ and source-file directory for your debugger." t)
 
 
 ;;rvm
-;(install-elisp "https://github.com/senny/rvm.el/raw/master/rvm.el")
-(require 'rvm) ;rvm
+(add-to-load-path "co/rvm")
+(require 'rvm)
 (rvm-use-default)
 
 

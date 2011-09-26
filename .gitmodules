@@ -10,3 +10,6 @@
 [submodule "emacs.d/co/rhtml"]
 	path = emacs.d/co/rhtml
 	url = https://github.com/eschulte/rhtml.git
+[submodule "emacs.d/co/rvm"]
+	path = emacs.d/co/rvm
+	url = https://github.com/senny/rvm.el.git
