@@ -4,3 +4,9 @@
 [submodule "emacs.d/co/coffee-mode"]
 	path = emacs.d/co/coffee-mode
 	url = https://github.com/defunkt/coffee-mode.git
+[submodule "emacs.d/co/rinari"]
+	path = emacs.d/co/rinari
+	url = git://github.com/eschulte/rinari.git
+[submodule "emacs.d/co/rhtml"]
+	path = emacs.d/co/rhtml
+	url = https://github.com/eschulte/rhtml.git

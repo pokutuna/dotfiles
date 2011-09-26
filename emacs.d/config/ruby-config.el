@@ -68,14 +68,11 @@ and source-file directory for your debugger." t)
 
 
 ;;rails
-;ido-mode
-;(when (require 'ido nil t) ;;recommended by rinari
-;  (ido-mode t))
 ;rinari
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/elisp/rinari"))
+(add-to-load-path "co/rinari")
 (require 'rinari)
 ;rhtml
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/elisp/rhtml"))
+(add-to-load-path "co/rhtml")
 (require 'rhtml-mode)
 (add-hook 'rhtml-mode-hook
   (lambda () (rinari-launch)))
