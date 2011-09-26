@@ -18,6 +18,7 @@
 (global-set-key (kbd "C-\"") 'mark-string)
 (global-set-key (kbd "C-(") 'mark-up-list)
 
+
 ;; proxy
 (defun activate-kgu-proxy ()
   (interactive)

@@ -9,12 +9,14 @@
 
 (add-to-load-path "elisp")
 
+
 ;; PATH
 (setq shell-file-name "/usr/local/bin/zsh");;zshenv見に行く
 (add-to-list 'exec-path "/opt/local/bin")
 (add-to-list 'exec-path "/usr/local/bin")
 (setenv "PATH" (mapconcat 'identity exec-path ":"))
 
+
 ;; LANG
-(setenv "LANG" "en_US.UTF-8")
+(setenv "LANG" "ja_JP.UTF-8")
 
