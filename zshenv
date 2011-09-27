@@ -23,7 +23,7 @@ export SBT_OPT="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256m"
 # perl
 export PERLBREW_ROOT=$HOME/perl5/perlbrew
 export PERL5LIB=$HOME/perl5/lib
-source $HOME/perl5/perlbrew/etc/bashrc
+[ -f $HOME/perl5/perlbrew/etc/bashrc ] && source $HOME/perl5/perlbrew/etc/bashrc
 
 # java
 export JAVA_HOME=$(/usr/libexec/java_home)
