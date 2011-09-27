@@ -6,8 +6,13 @@
 
 ;; anything
 (setq anything-samewindow nil)
-(push '("*anything*" :height 0.5) popwin:special-display-config)
+(push '("anything" :regexp t :height 0.5) popwin:special-display-config)
 
 
 ;; dired
-(push '(dired-mode :position top) popwin:special-display-config)
+(push '(dired-mode :height 0.5) popwin:special-display-config)
+
+
+;; backtrace
+(push '("*Backtrace*" :height 0.3) popwin:special-display-config)
+
