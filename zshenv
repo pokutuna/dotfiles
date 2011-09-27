@@ -26,7 +26,7 @@ export PERL5LIB=$HOME/perl5/lib
 [ -f $HOME/perl5/perlbrew/etc/bashrc ] && source $HOME/perl5/perlbrew/etc/bashrc
 
 # java
-export JAVA_HOME=$(/usr/libexec/java_home)
+[ -f /usr/libexec/java_home ] && export JAVA_HOME=$(/usr/libexec/java_home)
 export JAVA_BIN=$JAVA_HOME/bin
 
 
