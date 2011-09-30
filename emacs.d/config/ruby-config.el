@@ -11,14 +11,19 @@
 (autoload 'inf-ruby-keys "inf-ruby"
   "Set local key defs for inf-ruby in ruby-mode")
 (add-hook 'ruby-mode-hook
-          '(lambda ()
-             (inf-ruby-keys)))
+          (lambda ()
+            (inf-ruby-keys)))
 ; *.rbを開けばruby-modeになる。M-x run-rubyでirbが起動する。
 
 
 ;; ruby-electric
-(require 'ruby-electric)
-(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+(add-hook 'ruby-mode-hook
+          (lambda()
+            (require 'ruby-electric)
+            (ruby-electric-mode t)
+            ))
+
+
 (setq ruby-indent-level 2)
 (setq ruby-indent-tabs-mode nil)
 (setq ruby-deep-indent-paren-style nil) ;C-M-\ でindentととのえる
@@ -33,9 +38,9 @@ and source-file directory for your debugger." t)
 ;; ruby-block
 (require 'ruby-block)
 (add-hook 'ruby-mode-hook
-          '(lambda ()
-             (ruby-block-mode t)
-             (setq ruby-block-highlight-toggle t)))
+          (lambda ()
+            (ruby-block-mode t)
+            (setq ruby-block-highlight-toggle t)))
 
 
 ;; rcodetools
@@ -120,13 +125,13 @@ and source-file directory for your debugger." t)
  'ruby-mode-hook
  '(lambda ()
     ;; Don't want flymake mode for ruby regions in rhtml files
-    (if (not (null buffer-file-name)) (flymake-mode))))
+   (if (not (null buffer-file-name)) (flymake-mode))))
 
 
 ;; smartchr for ruby
 (add-hook 'ruby-mode-hook'
-          '(lambda ()
-             (define-key ruby-mode-map (kbd "|") (smartchr '("|" "|`!!'|" " || " )))
+          (lambda ()
+             (define-key ruby-mode-map (kbd "|") (smartchr '("|`!!'|" "|" "||")))
           ))
 
 
