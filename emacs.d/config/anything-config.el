@@ -30,6 +30,7 @@
        anything-c-source-buffers ; C-b使う
        anything-c-source-recentf
        anything-c-source-files-in-current-dir
+       anything-c-source-mac-spotlight
        anything-c-source-bookmarks
        anything-c-source-complex-command-history
        ))
