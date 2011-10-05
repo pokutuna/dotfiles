@@ -1,5 +1,5 @@
 # path
-export PATH=/usr/local/bin:$HOME/bin:/usr/bin:/bin:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:/usr/bin:/bin:$PATH
 
 
 ## basic config ##
