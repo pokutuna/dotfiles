@@ -13,3 +13,6 @@
 [submodule "emacs.d/co/rvm"]
 	path = emacs.d/co/rvm
 	url = https://github.com/senny/rvm.el.git
+[submodule "emacs.d/co/zencoding"]
+	path = emacs.d/co/zencoding
+	url = https://github.com/rooney/zencoding.git

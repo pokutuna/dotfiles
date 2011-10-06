@@ -42,3 +42,15 @@
              (rainbow-mode 1)
              ))
 
+
+;;zencoding
+(add-to-load-path "co/zencoding")
+(require 'zencoding-mode)
+(add-hook 'sgml-mode-hook 'zencoding-mode)
+
+
+;; http://d.hatena.ne.jp/hitode909/20111001/1317459632
+(define-key zencoding-mode-keymap (kbd "C-j") 'zencoding-expand-yas)
+(define-key zencoding-mode-keymap (kbd "<C-return>") 'zencoding-expand-line)
+(define-key zencoding-mode-keymap (kbd "C-c C-m") 'zencoding-expand-line)
+(define-key zencoding-preview-keymap (kbd "C-m") 'zencoding-preview-accept)
