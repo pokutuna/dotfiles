@@ -20,7 +20,7 @@
 
 (delete-selection-mode 1) ;リージョンをC-hで削除
 
-(setq kill-whole-line t) ;kill-lineで行末の改行文字も削除
+;(setq kill-whole-line t) ;kill-lineで行末の改行文字も削除
 
 (setq kill-ring-max 1000) ;kill-ring1000件覚える
 
