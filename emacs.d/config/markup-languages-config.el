@@ -1,7 +1,9 @@
 ;;haml
 ;(install-elisp "https://github.com/nex3/haml-mode/raw/master/haml-mode.el")
 (when (require 'haml-mode nil t)
-  (add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode)))
+  (add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
+  (add-to-list 'auto-mode-alist '("\\.scaml$" . haml-mode))
+  )
 
 
 ;;sass
