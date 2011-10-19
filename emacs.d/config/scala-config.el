@@ -46,3 +46,10 @@
           (lambda ()
             (define-key scala-mode-map (kbd "RET") 'scala-newline-and-indent)))
 
+
+;; parenthesis
+(add-hook 'scala-mode-hook
+          (lambda ()
+            (parenthesis-register-keys "{('\"[" scala-mode-map)
+            (parenthesis-init)
+            ))
