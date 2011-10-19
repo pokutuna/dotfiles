@@ -90,6 +90,13 @@
   (setq kill-ring (delete (ad-get-arg 0) kill-ring)))
 
 
+;; osのクリップボード監視してkill-ringに入れる
+;; http://d.hatena.ne.jp/hitode909/20110924/1316853933
+(require 'clipboard-to-kill-ring)
+(clipboard-to-kill-ring t)
+(setq clipboard-to-kill-ring:interval 2.0)
+
+
 ;; emacs終了時に確認メッセージを出す。
 ;; 誤って終了してしまわないようにするため
 ;; ref: http://blog.livedoor.jp/techblog/archives/64599359.html
@@ -98,3 +105,13 @@
   "safe-save-buffers-kill-emacs"
   (unless (y-or-n-p "Really exit emacs? ")
     (keyboard-quit)))
+
+
+
+
+
+
+
+
+
+
