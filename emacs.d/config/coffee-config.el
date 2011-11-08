@@ -52,3 +52,9 @@
   (flymake-mode t))
 
 (add-hook 'coffee-mode-hook 'flymake-coffeescript-load)
+
+(add-hook 'coffee-mode-hook
+          '(lambda ()
+             (define-key coffee-mode-hook (kbd ">")
+               (smartchr '(">" " => " ">>" " > " " >= " " => '`!!''" " => \"`!!'\"")))
+             ))

@@ -51,5 +51,4 @@
 (add-hook 'scala-mode-hook
           (lambda ()
             (parenthesis-register-keys "{('\"[" scala-mode-map)
-            (parenthesis-init)
             ))

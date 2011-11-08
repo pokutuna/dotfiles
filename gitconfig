@@ -5,6 +5,7 @@
   excludesfile = /Users/pokutuna/.gitignore
 [github]
   user = pokutuna
+	token = dd3283e59f2c64ba3d04f815ef86c144
 [color]
   ui = auto
 [alias]
@@ -12,7 +13,7 @@
   st = status
   diffw = diff --word-diff
   stat = log -- stat -- summary
-  hist = log --pretty=format:\"%h %ad | %s%Cgreen%d%Creset [%an]\" --decorate --graph --date=short
+  hist = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
   #hist = log --date=short --graph --pretty=oneline --decorate --abbrev-commit --branches
   type = cat-file -t
   dump = cat-file -p
@@ -23,4 +24,4 @@
 [diff "nkf"]
   textconv = nkf -w
 [http]
- # proxy = http://proxy.ksc.kwansei.ac.jp:8080
+  #proxy = http://proxy.ksc.kwansei.ac.jp:8080
