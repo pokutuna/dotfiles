@@ -1,3 +1,5 @@
+(add-to-load-path "co/auto-complete")
+
 ;;auto-complete
 ;; http://dev.ariel-networks.com/Members/matsuyama/auto-complete
 (require 'auto-complete-config nil t)
