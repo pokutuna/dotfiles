@@ -6,17 +6,12 @@
 (add-hook 'scala-mode-hook
             '(lambda ()
                (yas/minor-mode-on)
-               (scala-mode-feature-electric-mode t)
+               ;;(scala-mode-feature-electric-mode t)
                (define-key scala-mode-map "\C-c\C-a" 'scala-run-scala)
                (define-key scala-mode-map "\C-c\C-b" 'scala-eval-buffer)
                (define-key scala-mode-map "\C-c\C-r" 'scala-eval-region)
                ))
 
-
-;; ensime
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/etc/ensime/elisp/"))
-(require 'ensime)
-(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
 (defun my-ac-scala-mode ()
   (add-to-list 'ac-sources 'ac-source-dictionary)
@@ -25,9 +20,6 @@
   (add-to-list 'ac-sources 'ac-source-words-in-same-mode-buffers)
   (setq ac-sources (reverse ac-sources))
   )
-
-(add-hook 'scala-mode-hook 'my-ac-scala-mode)
-(add-hook 'ensime-mode-hook 'my-ac-scala-mode)
 
 
 ;; 改行とかのインデントマシにする
@@ -50,5 +42,13 @@
 ;; parenthesis
 (add-hook 'scala-mode-hook
           (lambda ()
-            (parenthesis-register-keys "{('\"[" scala-mode-map)
+            (parenthesis-register-keys "{(\"[" scala-mode-map)
             ))
+
+
+;; ensime
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/etc/ensime/elisp/"))
+(require 'ensime)
+(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+(add-hook 'scala-mode-hook 'my-ac-scala-mode)
+(add-hook 'ensime-mode-hook 'my-ac-scala-mode)

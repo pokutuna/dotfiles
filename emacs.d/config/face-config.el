@@ -42,9 +42,9 @@
 (setq col-highlight-face 'my-hl-line-face)
 
 
-;; EOF以降を強調表示する
-(setq-default indicate-empty-lines t)
-(setq-default indicate-buffer-boundaries 'right)
+;; ;; EOF以降を強調表示する
+;; (setq-default indicate-empty-lines t)
+;; (setq-default indicate-buffer-boundaries 'right)
 
 
 ;; 全角SPC、tab、行末スペースを強調表示

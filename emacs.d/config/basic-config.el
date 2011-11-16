@@ -107,11 +107,18 @@
     (keyboard-quit)))
 
 
+;; ファイル保存時に行末のwhitespaceを削除
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
+;; ファイル保存時にファイル末尾の改行を削除
+(defun my-delete-trailing-blank-lines ()
+  "Deletes all blank lines at the end of the file."
+  (interactive)
+  (save-excursion
+    (save-restriction
+      (widen)
+      (goto-char (point-max))
+      (delete-blank-lines))))
 
-
-
-
-
-
+(add-hook 'before-save-hook 'my-delete-trailing-blank-lines)

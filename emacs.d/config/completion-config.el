@@ -18,4 +18,3 @@
 (require 'parenthesis)
 (parenthesis-register-keys "{('\"[" global-map)
 (parenthesis-init)
-
