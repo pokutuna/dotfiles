@@ -6,6 +6,10 @@
                                      interpreter-mode-alist))
 
 
+;; ruby-mode for Rakefile
+(add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
+
+
 (autoload 'run-ruby "inf-ruby"
   "Run an inferior Ruby process")
 (autoload 'inf-ruby-keys "inf-ruby"
