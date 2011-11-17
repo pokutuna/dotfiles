@@ -19,3 +19,6 @@
 [submodule "emacs.d/co/auto-complete"]
 	path = emacs.d/co/auto-complete
 	url = https://github.com/m2ym/auto-complete.git
+[submodule "emacs.d/co/jaunte.el"]
+	path = emacs.d/co/jaunte.el
+	url = https://github.com/kawaguchi/jaunte.el.git

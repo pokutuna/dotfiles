@@ -18,3 +18,10 @@
 (require 'parenthesis)
 (parenthesis-register-keys "{('\"[" global-map)
 (parenthesis-init)
+
+
+;;jaunte.el
+(add-to-load-path "co/jaunte.el")
+(require 'jaunte)
+(global-set-key (kbd "C-c C-j") 'jaunte)
+(global-set-key (kbd "M-z") 'jaunte)
