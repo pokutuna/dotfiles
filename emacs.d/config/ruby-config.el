@@ -133,5 +133,3 @@ and source-file directory for your debugger." t)
           (lambda ()
              (define-key ruby-mode-map (kbd "|") (smartchr '("|`!!'|" "|" "||")))
           ))
-
-

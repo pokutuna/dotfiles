@@ -108,10 +108,20 @@
 
 
 ;; ファイル保存時に行末のwhitespaceを削除
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(setq delete-trailing-whitespace-exclude-patterns (list "\\.md$" "\\.markdown$"))
+
+(require 'cl)
+(defun delete-trailing-whitespace-with-exclude-pattern ()
+  (interactive)
+  (cond ((equal nil (loop for pattern in delete-trailing-whitespace-exclude-patterns
+                          thereis (string-match pattern buffer-file-name)))
+         (delete-trailing-whitespace))))
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace-with-exclude-pattern)
 
 
 ;; ファイル保存時にファイル末尾の改行を削除
+;; http://www.emacswiki.org/emacs/DeletingWhitespace
 (defun my-delete-trailing-blank-lines ()
   "Deletes all blank lines at the end of the file."
   (interactive)
