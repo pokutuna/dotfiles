@@ -28,4 +28,4 @@
 (load-file "~/.emacs.d/config/tex-config.el")
 (load-file "~/.emacs.d/config/org-remember-config.el")
 (load-file "~/.emacs.d/config/octave-config.el")
-
+(load-file "~/.emacs.d/config/english-config.el")

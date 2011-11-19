@@ -16,3 +16,6 @@
 ;; backtrace
 (push '("*Backtrace*" :height 0.3) popwin:special-display-config)
 
+
+;; text-translator
+(push '("*translated*" :height 0.3 :stick t) popwin:special-display-config)
