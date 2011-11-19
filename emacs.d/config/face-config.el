@@ -91,6 +91,7 @@
 ;; hitode氏カーソル
 (set-cursor-color "orange")
 ;(setq blink-cursor-interval 0.05)
-(setq blink-cursor-interval 0.5)
-(setq blink-cursor-delay 1.0)
+;(setq blink-cursor-interval 0.5)
+(setq blink-cursor-interval 0.2)
+(setq blink-cursor-delay 0.2)
 (blink-cursor-mode 1)
