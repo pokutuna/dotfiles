@@ -1,6 +1,7 @@
 (add-to-load-path "co/popwin-el")
 (require 'popwin)
-(setq display-buffer-function 'popwin:display-buffer)
+;; (setq display-buffer-function 'popwin:display-buffer)
+(setq display-buffer-function 'popwin:special-display-popup-window)
 (setq popwin:popup-window-height 0.5)
 
 
