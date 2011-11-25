@@ -17,7 +17,7 @@
   (add-to-list 'ac-sources 'ac-source-dictionary)
   (add-to-list 'ac-sources 'ac-source-yasnippet)
   (add-to-list 'ac-sources 'ac-source-words-in-buffer)
-  (add-to-list 'ac-sources 'ac-source-words-in-same-mode-buffers)
+  ;; (add-to-list 'ac-sources 'ac-source-words-in-same-mode-buffers)
   (setq ac-sources (reverse ac-sources))
   )
 
