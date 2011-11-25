@@ -75,9 +75,12 @@
 ;;(install-elisp "http://github.com/imakado/anything-project/raw/master/anything-project.el")
 (require 'anything-project nil t)
 (setq ap:project-files-filters
-      '((lambda (files)
-          (remove-if 'file-directory-p files)
-          (remove-if '(lambda (file) (string-match-p "~$" file)) files))))
+      (list
+       (lambda (files) (remove-if 'file-directory-p files))
+       (lambda (files) (remove-if '(lambda (file) (string-match-p "~$" file)) files))
+       (lambda (files) (remove-if '(lambda (file) (string-match-p "\\.class$" file)) files))
+       (lambda (files) (remove-if '(lambda (file) (string-match-p "target/" file)) files)) ;; for sbt
+       ))
 
 
 ;;moccurをanythingで
@@ -93,4 +96,3 @@
 (add-hook 'dired-mode-hook ;dired
           '(lambda ()
              (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur)))
-
