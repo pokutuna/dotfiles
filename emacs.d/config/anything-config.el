@@ -16,6 +16,7 @@
 (define-key global-map (kbd "C-c C-c") 'anything-filelist+)
 ;;(define-key global-map (kbd "C-c C-c") 'anything-for-files)
 (global-set-key (kbd "C-S-p") 'anything-project)
+(global-set-key (kbd "C-M-p") 'anything-project)
 (define-key anything-map (kbd "C-p") 'anything-previous-line)
 (define-key anything-map (kbd "C-n") 'anything-next-line)
 (define-key anything-map (kbd "C-v") 'anything-next-page)
