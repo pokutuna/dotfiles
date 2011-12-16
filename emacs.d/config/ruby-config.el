@@ -25,7 +25,7 @@
           (lambda()
             (require 'ruby-electric)
             (ruby-electric-mode t)
-            (parenthesis-register-keys "{(\"[" ruby-mode-map) ; override ruby-delectric completion
+            (parenthesis-register-keys "{(\"['" ruby-mode-map) ; override ruby-delectric completion
             ))
 
 
