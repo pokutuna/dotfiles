@@ -132,8 +132,8 @@ and source-file directory for your debugger." t)
    (if (not (null buffer-file-name)) (flymake-mode))))
 
 
-;; smartchr for ruby
-(add-hook 'ruby-mode-hook'
+;; parenthesis
+(add-hook 'ruby-mode-hook
           (lambda ()
-             (define-key ruby-mode-map (kbd "|") (smartchr '("|`!!'|" "|" "||")))
-          ))
+            (parenthesis-register-keys "{(\"[" ruby-mode-map)
+            ))
