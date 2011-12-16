@@ -25,6 +25,7 @@
           (lambda()
             (require 'ruby-electric)
             (ruby-electric-mode t)
+            (parenthesis-register-keys "{(\"[" ruby-mode-map) ; override ruby-delectric completion
             ))
 
 
@@ -130,10 +131,3 @@ and source-file directory for your debugger." t)
  '(lambda ()
     ;; Don't want flymake mode for ruby regions in rhtml files
    (if (not (null buffer-file-name)) (flymake-mode))))
-
-
-;; parenthesis
-(add-hook 'ruby-mode-hook
-          (lambda ()
-            (parenthesis-register-keys "{(\"[" ruby-mode-map)
-            ))

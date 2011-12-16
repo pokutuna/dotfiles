@@ -20,6 +20,12 @@
 (parenthesis-init)
 
 
+;; ;;skeleton-pair-dwim
+;; ;;(auto-install-from-url "https://github.com/uk-ar/skeleton-pair-dwim/raw/master/skeleton-pair-dwim.el")
+;; (require 'skeleton-pair-dwim)
+;; (skeleton-pair-dwim-load-default)
+
+
 ;;jaunte.el
 (add-to-load-path "co/jaunte.el")
 (require 'jaunte)
