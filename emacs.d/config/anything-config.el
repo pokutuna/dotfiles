@@ -92,7 +92,7 @@
  lanything-c-moccur-highlight-info-line-flag t
  anything-c-moccur-enable-auto-look-flag t
  anything-c-moccur-enable-initial-pattern t)
-(global-set-key (kbd "C-o") 'anything-c-moccur-occur-by-moccur)
+;; (global-set-key (kbd "C-o") 'anything-c-moccur-occur-by-moccur) -> find-config.el
 (global-set-key (kbd "C-M-o") 'anything-c-moccur-dmoccur) ;ディレクトリ
 (add-hook 'dired-mode-hook ;dired
           '(lambda ()
