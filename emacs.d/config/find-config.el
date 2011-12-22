@@ -1,8 +1,3 @@
-;; isearch と anything-c-moccurを交換
-(global-set-key (kbd "C-o") 'isearch-forward)
-(global-set-key (kbd "C-s") 'anything-c-moccur-occur-by-moccur)
-
-
 ;;ack
 (defun ack ()
   (interactive)
