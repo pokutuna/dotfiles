@@ -36,6 +36,15 @@
              ))
 
 
+; perlbrew-mini
+; http://dams.github.com/2011/05/27/perlbrew-emacs-flymake.html
+; requires Project::Libs for flymake
+(add-to-load-path "co/perlbrew-mini")
+(require 'perlbrew-mini)
+;; (perlbrew-mini-use-latest)
+(perlbrew-mini-use "perl-5.15.3")
+
+
 ; perl tidy
 ; sudo cpan install Perl::Tidy
 (defun perltidy-region ()

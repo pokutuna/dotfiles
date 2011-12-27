@@ -22,3 +22,6 @@
 [submodule "emacs.d/co/jaunte.el"]
 	path = emacs.d/co/jaunte.el
 	url = https://github.com/kawaguchi/jaunte.el.git
+[submodule "emacs.d/co/perlbrew-mini"]
+	path = emacs.d/co/perlbrew-mini
+	url = https://github.com/dams/perlbrew-mini.el.git
