@@ -17,7 +17,7 @@
       cperl-tab-always-indent nil
       cperl-font-lock t
       cperl-auto-newline t
-      cperl-auto-newline-after-colon t
+      ;;cperl-auto-newline-after-colon t
       cperl-electric-paren t
       )
 
