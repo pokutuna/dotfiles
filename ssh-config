@@ -15,5 +15,5 @@ Host with-iProxy
   ProxyCommand corkscrew 192.168.1.101 8888 %h %p
 
 Host lab_desktop
-  HostName 172.29.95.194
+  HostName 172.29.93.220
   User pokutuna
