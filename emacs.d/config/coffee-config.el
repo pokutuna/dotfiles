@@ -5,11 +5,11 @@
 
 
 (defun coffee-custom ()
+  "coffee-mode-hook"
   (set (make-local-variable 'tab-width) 2))
 
 (add-hook 'coffee-mode-hook
   '(lambda() (coffee-custom)))
-
 
 (add-hook 'after-save-hook
           '(lambda ()
@@ -53,8 +53,20 @@
 
 (add-hook 'coffee-mode-hook 'flymake-coffeescript-load)
 
+
+;; smartchr
 (add-hook 'coffee-mode-hook
           '(lambda ()
-             (define-key coffee-mode-hook (kbd ">")
-               (smartchr '(">" " => " ">>" " > " " >= " " => '`!!''" " => \"`!!'\"")))
+             (define-key coffee-mode-map (kbd ">")
+               (smartchr '(">" "=> " ">> " ">" ">= " "=> '`!!''" "=> \"`!!'\"")))
+             (define-key coffee-mode-map (kbd ".")
+               (smartchr '("." "-> ")))
+             ))
+
+
+;; swap default C-j and C-m
+(add-hook 'coffee-mode-hook
+          '(lambda ()
+             (define-key coffee-mode-map (kbd "C-j") 'coffee-newline-and-indent)
+             (define-key coffee-mode-map (kbd "C-m") 'newline-and-indent)
              ))
