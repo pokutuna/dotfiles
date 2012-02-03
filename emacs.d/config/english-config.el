@@ -47,7 +47,7 @@
             ;(define-key flyspell-mode-map (kbd "M-p") 'flymake-goto-prev-error)
             ))
 
-(add-to-list 'auto-mode-alist '("\\.txt" . flyspell-mode))
+;(add-to-list 'auto-mode-alist '("\\.txt" . flyspell-mode))
 (add-to-list 'auto-mode-alist '("\\.tex" . flyspell-mode))
 (add-to-list 'auto-mode-alist '("\\.dtd" . flyspell-mode))
 
