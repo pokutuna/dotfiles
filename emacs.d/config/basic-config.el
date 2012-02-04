@@ -131,4 +131,7 @@
       (goto-char (point-max))
       (delete-blank-lines))))
 
-(add-hook 'before-save-hook 'my-delete-trailing-blank-lines)
+(add-hook 'before-save-hook
+          '(lambda ()
+             (my-delete-trailing-blank-lines)
+             ))
