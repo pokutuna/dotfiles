@@ -9,8 +9,13 @@
   ui = auto
 [alias]
   co = checkout
-  st = status
+  st = status -sb
+  pr = pull --rebase
+  fo = fetch origin
+  ro = rebase origin
+  rc = rebase --continue
   diffw = diff --word-diff
+  wd = diff --word-diff
   stat = log -- stat -- summary
   hist = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
   #hist = log --date=short --graph --pretty=oneline --decorate --abbrev-commit --branches
@@ -24,3 +29,5 @@
   textconv = nkf -w
 [http]
   #proxy = http://proxy.ksc.kwansei.ac.jp:8080
+[push]
+  default = tracking
