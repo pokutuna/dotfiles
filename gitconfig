@@ -15,7 +15,7 @@
   ro = rebase origin
   rc = rebase --continue
   diffw = diff --word-diff
-  wd = diff --word-diff
+  wd = diff --word-diff=color
   stat = log -- stat -- summary
   hist = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
   #hist = log --date=short --graph --pretty=oneline --decorate --abbrev-commit --branches
