@@ -3,7 +3,7 @@ export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:/usr/bin:/bin:$PATH
 
 
 ## basic config ##
-export LANG=ja_JP.UTF-8 
+export LANG=ja_JP.UTF-8
 export SHELL=/bin/zsh
 export PAGER=less
 export EDITOR=nano
@@ -28,6 +28,10 @@ export PERL5LIB=$HOME/perl5/lib
 # java
 [ -f /usr/libexec/java_home ] && export JAVA_HOME=$(/usr/libexec/java_home)
 export JAVA_BIN=$JAVA_HOME/bin
+
+#python
+[ -f $HOME/.pythonbrew/etc/bashrc ] && source $HOME/.pythonbrew/etc/bashrc
+
 
 
 ## applications ##
