@@ -22,6 +22,7 @@
   type = cat-file -t
   dump = cat-file -p
   oneline = log --oneline --decorate
+  nffmerge = merge --no-ff
   has-merged   = "!sh -c 'git rev-list HEAD | grep `git rev-parse $0`'"
   clone-branch = "!sh -c 'git checkout -t origin/$0'"
   current-branch = "!sh -c \"git branch | grep '*' | awk '{ print \\$2 }' \""%  
