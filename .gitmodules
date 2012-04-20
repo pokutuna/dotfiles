@@ -25,3 +25,6 @@
 [submodule "emacs.d/co/perlbrew-mini"]
 	path = emacs.d/co/perlbrew-mini
 	url = https://github.com/dams/perlbrew-mini.el.git
+[submodule "emacs.d/co/js2-mode"]
+	path = emacs.d/co/js2-mode
+	url = https://github.com/mooz/js2-mode.git
