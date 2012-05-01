@@ -1,3 +1,5 @@
 --type-set=haml=.haml,.scaml
 --type-set=txt=.txt
 --type-set=coffee=.coffee
+--type-set=java=.java
+
