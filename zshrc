@@ -19,6 +19,8 @@ alias du="du -h"
 alias du1="du -d 1 ./"
 alias df="df -h"
 
+alias java="java -Dfile.encoding=UTF-8"
+
 # git alias
 alias gs='git status '
 alias ga='git add '
@@ -45,7 +47,7 @@ bindkey "\\en" history-beginning-search-forward-end
 bindkey "^[[1~" beginning-of-line # home gets to line head
 bindkey "^[[4~" end-of-line # end gets to line end
 bindkey "^[[3~" delete-char # del
-bindkey "\e[Z" reverse-menu-complete # reverse menu complete 
+bindkey "\e[Z" reverse-menu-complete # reverse menu complete
 
 # 単語区切り設定
 autoload -Uz select-word-style
@@ -87,7 +89,7 @@ _update_prompt () {
     case ${UID} in
         0)
             ;;
-        *)    
+        *)
             if [ "`git ls-files 2>/dev/null`" ]; then
                 PROMPT="[%{${fg[green]}%}%B%~%b%{${reset_color}%}:%{${fg[red]}%}%B$GIT_CURRENT_BRANCH%b%{${reset_color}%}]$%{${reset_color}%} "
                 [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
@@ -99,12 +101,12 @@ _update_prompt () {
             fi
             ;;
     esac
-} 
+}
 
 _update_rprompt()
 {}
 
-precmd() 
+precmd()
 {
     _update_title
     _set_env_git_current_branch
@@ -164,7 +166,7 @@ case ${UID} in
         PROMPT="%{${fg[cyan]}%}%/%%%{${reset_color}%} "
         PROMPT2="%{${fg[cyan]}%}%_%%%{${reset_color}%} "
         SPROMPT="%{${fg[cyan]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
-        [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
+        [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
         PROMPT="%{${fg[red]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') ${PROMPT}"
         ;;
     *)
@@ -175,7 +177,7 @@ case ${UID} in
         RPROMPT="%B%{${fg[cyan]}%}(%D %*)%{${reset_color}%}%b"
         SPROMPT="%B%{${fg[yellow]}%}%r is correct? [n,y,a,e]:%{${reset_color}%}%b "
         [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
-        PROMPT="[%{${fg[magenta]}%}%B${HOST}%b%{${reset_color}%}:%{${fg[green]}%}%B%~%b%{${reset_color}%}]$%{${reset_color}%} "        
+        PROMPT="[%{${fg[magenta]}%}%B${HOST}%b%{${reset_color}%}:%{${fg[green]}%}%B%~%b%{${reset_color}%}]$%{${reset_color}%} "
         ;;
 esac
 
