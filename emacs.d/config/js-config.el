@@ -1,8 +1,8 @@
 (add-to-load-path "co/js2-mode")
 
-;; indent 4 spaces
-(setq-default c-basic-offset 4)
-
+;; indent 2 spaces
+;; (setq-default c-basic-offset 4)
+(setq-default c-basic-offset 2)
 
 ;; patched js2
 ;; http://d.hatena.ne.jp/sabottenda/20110526/1306411032

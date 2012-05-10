@@ -47,7 +47,7 @@
   '((candidates . my-ac-look)
     (requires . 2)))  ;; 2文字以上ある場合にのみ対応させる
 
-(global-set-key (kbd "M-h") 'ac-complete-look)
+(global-set-key (kbd "M-S-h") 'ac-complete-look)
 ;;---
 ;; ;; ふつうのac-sourceに追加する版
 ;; (setq ac-source-look
