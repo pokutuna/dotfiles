@@ -45,7 +45,7 @@ export PKG_CONFIG_PATH=`which pkg-config`
 export ACLOCAL_ARGS="-I /usr/local/share/aclocal"
 
 # android
-export ANDROID_SDK_HOME="/usr/local/Cellar/android-sdk/r12"
+export ANDROID_SDK_ROOT=/usr/local/Cellar/android-sdk/r18
 export ANDROID_BIN=$ANDROID_SDK_HOME/tools
 export ANDROID_SDK_ROOT=$ANDROID_SDK_HOME
 
