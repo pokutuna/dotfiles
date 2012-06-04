@@ -1,3 +1,5 @@
+ServerAliveInterval 60
+
 Host pokutuna.com
   HostName pokutuna.com
   User pokutuna
@@ -15,5 +17,5 @@ Host with-iProxy
   ProxyCommand corkscrew 192.168.1.101 8888 %h %p
 
 Host lab_desktop
-  HostName 172.29.93.220
+  HostName 172.29.91.62
   User pokutuna
