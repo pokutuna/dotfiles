@@ -12,6 +12,7 @@ setopt complete_aliases
 setopt long_list_jobs
 
 ## alias ##
+alias ls="ls --color"
 alias la="ls -a"
 alias lf="ls -F"
 alias ll="ls -l"
@@ -136,15 +137,15 @@ case "${TERM}" in
     ;;
 esac
 
-# ls
-case "${OSTYPE}" in
-    freebsd*|darwin*)
-    alias ls="ls -G -w"
-    ;;
-    linux*)
-    alias ls="ls --color"
-    ;;
-esac
+# # ls
+# case "${OSTYPE}" in
+#     freebsd*|darwin*)
+#     alias ls="ls -G -w"
+#     ;;
+#     linux*)
+#     alias ls="ls --color"
+#     ;;
+# esac
 
 
 ## other ##
