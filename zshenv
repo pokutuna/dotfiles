@@ -53,6 +53,8 @@ export ANDROID_SDK_ROOT=$ANDROID_SDK_HOME
 export GISTY_DIR=$HOME/gists
 #export GIT_PROXY_COMMAND='~/bin/git-proxy.sh'
 
+# coreutils
+PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 
 ## secret ##
 [ -f ~/.zsh.d/env_secret ] && source ~/.zsh.d/env_secret
