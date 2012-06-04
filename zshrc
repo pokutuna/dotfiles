@@ -77,8 +77,14 @@ zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*:cd:*' tag-order local-directories path-directories
 autoload -U predict-on
 
+
+## commands
 # cd functions from hitode909
 [ -f ~/.zsh.d/hitode_cd.sh ] && source ~/.zsh.d/hitode_cd.sh
+
+
+# glitch
+[ -f ~/.zsh.d/glitch.sh ] && source ~/.zsh.d/glitch.sh
 
 
 ## for git ##
