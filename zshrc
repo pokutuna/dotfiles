@@ -35,6 +35,7 @@ alias gx='gitx --all'
 alias got='git '
 alias get='git '
 alias gp='git grep '
+eval "$(hub alias -s)" # for alias git=hub
 
 # keybind
 bindkey -e
@@ -85,6 +86,10 @@ autoload -U predict-on
 
 # glitch
 [ -f ~/.zsh.d/glitch.sh ] && source ~/.zsh.d/glitch.sh
+
+
+# hub completion
+[ -f ~/.zsh.d/hub.zsh_completion ] && source ~/.zsh.d/hub.zsh_completion
 
 
 ## for git ##
