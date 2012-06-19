@@ -3,4 +3,5 @@
 --type-set=coffee=.coffee
 --type-set=java=.java
 --type-set=js=.js
+--type-set=json=.json
 
