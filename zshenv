@@ -11,9 +11,9 @@ export EDITOR=nano
 
 ## for languages ##
 # ruby
-export PATH=$HOME/.rvm/bin:$PATH
-export RSENSE_HOME=$HOME/.emacs.d/elisp/rsense-0.3
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi #rbenv
+export RSENSE_HOME=$HOME/Dropbox/etc_emacs/rsense-0.3
+
 
 # scala
 export SCALA_HOME=/usr/local/share/scala

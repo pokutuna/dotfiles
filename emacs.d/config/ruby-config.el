@@ -54,12 +54,18 @@ and source-file directory for your debugger." t)
 
 
 ;;rvm
-(add-to-load-path "co/rvm")
-(require 'rvm)
-(rvm-use-default)
+;; (add-to-load-path "co/rvm")
+;; (require 'rvm)
+;; (rvm-use-default)
+
+;; rbenv
+;; http://marc-bowes.com/2012/03/10/rbenv-with-emacs.html
+(setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:" (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
+(setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims") (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
 
 
 ;;RSense
+;(setq rsense-home (expand-file-name "~/.emacs.d/etc/rsense-0.3"))
 (setq rsense-home (expand-file-name "~/.emacs.d/etc/rsense-0.3"))
 (add-to-list 'load-path (concat rsense-home "/etc"))
 (require 'rsense)
