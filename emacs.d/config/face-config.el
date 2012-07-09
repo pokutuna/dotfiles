@@ -15,6 +15,9 @@
       ;;(color-theme-dark-laptop)
       ;;(color-theme-hober)
 
+      ;; (require 'zenburn)
+      ;; (zenburn)
+
       (defface my-hl-line-face ;themeの背景に応じたカーソル行強調
         '((((class color) (background dark))
            (:background "MidnightBlue" t))
@@ -86,6 +89,7 @@
                         '("VL Gothic" . "iso10646-1"))
       )
   )
+
 
 
 ;; hitode氏カーソル

@@ -22,6 +22,8 @@ alias df="df -h"
 
 alias java="java -Dfile.encoding=UTF-8"
 
+alias emacsclient="emacsclient -n"
+
 # git alias
 alias gs='git status '
 alias ga='git add '

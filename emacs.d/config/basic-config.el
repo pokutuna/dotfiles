@@ -27,6 +27,11 @@
 (define-key global-map [ns-drag-file] 'ns-find-file) ;drag&dropで開く
 
 
+; server start for emacs-client
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+
 ;; charset
 (set-language-environment "Japanese") ;日本語
 (prefer-coding-system 'utf-8)
