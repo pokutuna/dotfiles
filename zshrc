@@ -21,6 +21,7 @@ alias du1="du -d 1 ./"
 alias df="df -h"
 
 alias java="java -Dfile.encoding=UTF-8"
+alias javac="javac -J-Dfile.encoding=UTF-8"
 
 alias emacsclient="emacsclient -n"
 
