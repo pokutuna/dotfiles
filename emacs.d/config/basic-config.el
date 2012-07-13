@@ -140,3 +140,19 @@
           '(lambda ()
              (my-delete-trailing-blank-lines)
              ))
+
+
+;; ファイル保存時に空のファイルなら消すかどうか聞く
+(defun delete-file-if-no-contents ()
+  (when (and
+         (buffer-file-name (current-buffer))
+         (= (point-min) (point-max)))
+    (when (y-or-n-p "Delete file and kill buffer?")
+      (delete-file
+       (buffer-file-name (current-buffer)))
+      (kill-buffer (current-buffer)))))
+
+(add-hook 'after-save-hook
+          '(lambda ()
+             (delete-file-if-no-contents)
+             ))
