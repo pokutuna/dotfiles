@@ -90,3 +90,16 @@
 ;(install-elisp "http://github.com/byplayer/egg/raw/master/egg.el")
 (when (executable-find "git")
   (require 'egg nil t))
+
+
+;; 保存後に実行するシェルコマンド
+(defun temp-shell-command-after-save ()
+  (interactive)
+  (let* command-to-exec
+    (setq command-to-exec (read-input "shell-command: "))
+    (add-hook 'after-save-hook
+              '(lambda ()
+                 (shell-command command-to-exec)
+                 ) nil t)
+    (princ (format "Shell-command `%s` will run when after saving this buffer." command-to-exec))
+    ))
