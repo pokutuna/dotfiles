@@ -58,10 +58,12 @@
 
 
 ;;backup
-(setq backup-directory-alist '(("" . "~/.emacs.d/backup"))) ;backup先
+(setq make-backup-files t)
+(setq backup-directory-alist '((".*" . "~/.emacs.d/backup"))) ;backup先
 (setq version-control t)
 (setq kept-new-version 5)
 (setq kept-old-version 5)
+(setq delete-old-versions t)
 (setq vc-make-backup-files t)
 
 
