@@ -36,7 +36,7 @@ export JAVA_BIN=$JAVA_HOME/bin
 
 ## applications ##
 # emacs
-export PATH=/Applications/Emacs.app/Contents/MacOS/bin:$PATH
+export PATH=/Applications/Emacs.app/Contents/MacOS:/Applications/Emacs.app/Contents/MacOS/bin:$PATH
 
 # tex
 export PATH=/usr/texbin:$PATH
