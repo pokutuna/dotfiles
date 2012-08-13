@@ -51,6 +51,8 @@
 (add-to-list 'auto-mode-alist '("\\.tex" . flyspell-mode))
 (add-to-list 'auto-mode-alist '("\\.dtd" . flyspell-mode))
 
+(setq flyspell-auto-correct-binding (kbd "<C-M-;>")) ; C-; にバインドされてうざいので
+
 
 ;; text-translator
 (require 'text-translator)
