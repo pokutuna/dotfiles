@@ -28,3 +28,6 @@
 [submodule "emacs.d/co/js2-mode"]
 	path = emacs.d/co/js2-mode
 	url = https://github.com/mooz/js2-mode.git
+[submodule "emacs.d/co/pyong-pyong.el"]
+	path = emacs.d/co/pyong-pyong.el
+	url = git@github.com:pokutuna/pyong-pyong.el.git
