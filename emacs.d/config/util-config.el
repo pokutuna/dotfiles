@@ -103,3 +103,9 @@
                  ) nil t)
     (princ (format "Shell-command `%s` will run when after saving this buffer." command-to-exec))
     ))
+
+
+;; pyong-pyong.el
+(add-to-load-path "co/pyong-pyong.el")
+(require 'pyong-pyong)
+(pyong:default-binding)

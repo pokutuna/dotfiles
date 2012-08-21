@@ -28,6 +28,8 @@
 
 (setq anything-sources
       (list
+       anything-c-source-pyong-last-jumped
+       anything-c-source-pyong
        anything-c-source-buffers ; C-b使う
        anything-c-source-recentf
        anything-c-source-files-in-current-dir
