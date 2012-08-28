@@ -31,3 +31,6 @@
 [submodule "emacs.d/co/pyong-pyong.el"]
 	path = emacs.d/co/pyong-pyong.el
 	url = git@github.com:pokutuna/pyong-pyong.el.git
+[submodule "emacs.d/co/yasnippet"]
+	path = emacs.d/co/yasnippet
+	url = https://github.com/capitaomorte/yasnippet.git
