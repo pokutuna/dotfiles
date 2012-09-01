@@ -12,7 +12,7 @@ setopt complete_aliases
 setopt long_list_jobs
 
 ## alias ##
-alias ls="ls --color"
+alias ls="ls -G"
 alias la="ls -a"
 alias lf="ls -F"
 alias ll="ls -l"
