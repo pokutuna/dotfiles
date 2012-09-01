@@ -39,7 +39,7 @@ export JAVA_BIN=$JAVA_HOME/bin
 export PATH=/Applications/Emacs.app/Contents/MacOS:/Applications/Emacs.app/Contents/MacOS/bin:$PATH
 
 # tex
-export PATH=/usr/texbin:$PATH
+export PATH=/Applications/UpTeX.app/teTeX/bin:$PATH
 
 # pkg-config
 export PKG_CONFIG_PATH=`which pkg-config`
