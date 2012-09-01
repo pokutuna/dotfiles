@@ -20,6 +20,9 @@
 (define-key ac-complete-mode-map (kbd "M-p") 'ac-previous)
 (ac-set-trigger-key "TAB")
 
+;; default source
+(setq-default ac-sources (add-to-list 'ac-sources 'ac-source-yasnippet))
+
 (add-to-list 'ac-dictionary-directories (expand-file-name "~/.emacs.d/ac-dict"))
 
 (when (boundp 'ac-modes)
