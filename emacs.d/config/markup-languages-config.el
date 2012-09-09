@@ -20,29 +20,13 @@
 
 ;;rainbow-mode
 ;(install-elisp http://git.naquadah.org/?p=rainbow.git;a=blob_plain;f=rainbow-mode.el;hb=refs/heads/master)
-(add-hook 'html-mode-hook
-          '(lambda ()
-             (require 'rainbow-mode)
-             (rainbow-mode 1)
-             ))
-
-(add-hook 'css-mode-hook
-          '(lambda ()
-             (require 'rainbow-mode)
-             (rainbow-mode 1)
-             ))
-
-(add-hook 'sass-mode-hook
-          '(lambda ()
-             (require 'rainbow-mode)
-             (rainbow-mode 1)
-             ))
-
-(add-hook 'scss-mode-hook
-          '(lambda ()
-             (require 'rainbow-mode)
-             (rainbow-mode 1)
-             ))
+(require 'rainbow-mode)
+(let ((mode-hook))
+  (dolist (mode-hook '(html-mode-hook
+                       css-mode-hook
+                       sass-mode-hook
+                       scss-mode-hook))
+    (add-hook mode-hook '(lambda () (rainbow-mode t)))))
 
 
 ;;zencoding
