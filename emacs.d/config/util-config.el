@@ -105,7 +105,17 @@
     ))
 
 
+;; open-junk-file.el
+(require 'open-junk-file)
+(setq open-junk-file-format "~/.emacs.d/etc/junk/%Y/%m/%d-%H%M%S.")
+(global-set-key (kbd "C-x C-z") 'open-junk-file)
+
+
 ;; pyong-pyong.el
 (add-to-load-path "co/pyong-pyong.el")
 (require 'pyong-pyong)
 (pyong:default-binding)
+
+
+;; replace-region-by-ruby
+(require 'replace-region-by-ruby)

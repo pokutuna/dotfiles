@@ -22,6 +22,7 @@
 (load-file "~/.emacs.d/config/coffee-config.el")
 (load-file "~/.emacs.d/config/c-lang-config.el")
 (load-file "~/.emacs.d/config/haskell-config.el")
+(load-file "~/.emacs.d/config/lisp-config.el")
 (load-file "~/.emacs.d/config/markup-languages-config.el")
 
 ;; other
