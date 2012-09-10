@@ -11,6 +11,10 @@
 (setq cua-enable-cua-keys nil)
 
 
+;; bookmark保存先
+(setq bookmark-default-file "~/.emacs.d/etc/bookmark")
+
+
 ;;カーソル位置を含むカッコとか文字列とかで選択
 (require 'thing-opt)
 (define-thing-commands)
