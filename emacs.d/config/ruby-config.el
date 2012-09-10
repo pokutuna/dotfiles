@@ -137,3 +137,11 @@ and source-file directory for your debugger." t)
  '(lambda ()
     ;; Don't want flymake mode for ruby regions in rhtml files
    (if (not (null buffer-file-name)) (flymake-mode))))
+
+
+;; anything-rdefs
+(require 'anything-rdefs)
+(setq ar:command "rdefs")
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-@") 'anything-rdefs)))
