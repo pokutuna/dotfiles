@@ -12,9 +12,6 @@
 
 
 (require 'paredit)
-(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-(add-hook  'enable-paredit-mode)
-
 (let ((mode-hook))
   (dolist (mode-hook '(emacs-lisp-mode-hook
                        lisp-interaction-mode-hook
@@ -23,8 +20,13 @@
     (add-hook mode-hook 'enable-paredit-mode)))
 
 
-;; auto byte compile
-(require 'auto-async-byte-compile)
-(setq auto-async-byte-compile-exclude-files-regexp "/config/\\|/junk/")
-(add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
+;; ;; auto byte compile
+;; (require 'auto-async-byte-compile)
+;; (setq auto-async-byte-compile-exclude-files-regexp "/config/\\|/junk/")
+;; (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
 
+
+;; ;; eldoc
+;; (let ((mode-hook))
+;;   (dolist (mode-hook) '())
+;;   )
