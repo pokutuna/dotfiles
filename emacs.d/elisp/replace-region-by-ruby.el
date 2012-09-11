@@ -10,8 +10,13 @@
                                   'rrruby:history)))
   (unless (executable-find "ruby")
     (error "ruby command not found"))
-  (let ((region (buffer-substring start end)))
-    (call-process-region start end "ruby" t t nil "-e"
-                         (format "%s=%%q[%s]; %s" rrruby:region-variable region expr))))
+  (let ((tempfile (make-temp-name (expand-file-name "rrruby" temporary-file-directory)))
+        (region (buffer-substring start end))
+        (sha1 (sha1 expr)))
+    (write-region (format "%s=<<%s\n%s\%s\n%s" rrruby:region-variable sha1 region sha1 expr)
+                  nil tempfile)
+    (call-process-region start end "ruby" t t nil tempfile)
+    (delete-file tempfile)
+    (message "done!")))
 
 (provide 'replace-region-by-ruby)
