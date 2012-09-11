@@ -5,7 +5,7 @@
 ;;              'js2-mode-hook)
 
 (setq yas-snippet-dirs
-      '("~/.emacs.d/etc/mysnippets"
+      '("~/.emacs.d/mysnippets"
         "~/.emacs.d/co/yasnippet/snippets"))
 (yas-reload-all)
 (yas-global-mode 1)

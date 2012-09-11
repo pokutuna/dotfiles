@@ -1,0 +1,23 @@
+package ${1:packagename};
+
+use strict;
+use warnings;
+use Carp qw(croak);
+use base qw(Class::Accessor::Fast);
+
+__PACKAGE__->mk_accessors(qw/${3:vars}/);
+
+sub new {
+    my $class = shift;
+    my $self = {};
+    bless $self, $class;
+    $self->_init(@_);
+    return $self;
+}
+
+sub _init {
+    my ($self, @args) = @_;
+    ${2:initialize}
+}
+
+!!1;

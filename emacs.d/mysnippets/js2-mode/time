@@ -1,0 +1,5 @@
+#name: console.time(...)
+# --
+console.time('${1:title}');
+$0
+console.timeEnd('${2:title}');

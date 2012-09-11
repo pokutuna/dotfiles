@@ -1,0 +1,5 @@
+#name: console.profile(...)
+# --
+console.profile('${1:title}');
+$0
+console.profileEnd('${2:title}');

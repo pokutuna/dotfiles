@@ -1,0 +1,5 @@
+#name : do |...| end
+# --
+do |${1:arg}|
+  $0
+end

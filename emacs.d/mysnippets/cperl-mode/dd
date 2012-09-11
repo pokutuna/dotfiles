@@ -1,0 +1,4 @@
+#name : use DataDumper; ...
+# --
+use Data::Dumper;
+$1Dumper($0);
