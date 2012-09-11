@@ -17,15 +17,17 @@
 (add-hook 'ruby-mode-hook
           (lambda ()
             (inf-ruby-keys)))
-; *.rbを開けばruby-modeになる。M-x run-rubyでirbが起動する。
+;; *.rbを開けばruby-modeになる。M-x run-rubyでirbが起動する。
 
 
-;; ruby-electric
+;; ruby-electric & smartchr
 (add-hook 'ruby-mode-hook
           (lambda()
             (require 'ruby-electric)
             (ruby-electric-mode t)
-            (parenthesis-register-keys "{(\"['" ruby-mode-map) ; override ruby-delectric completion
+            ;; override ruby-delectric completion
+            (parenthesis-register-keys "(\"['" ruby-mode-map)
+            (define-key ruby-mode-map (kbd "{") (smartchr '("{`!!'}" "{ |`!!'|}" "do |`!!'|\nend")))
             ))
 
 
@@ -65,12 +67,12 @@ and source-file directory for your debugger." t)
 
 
 ;;RSense
-;(setq rsense-home (expand-file-name "~/.emacs.d/etc/rsense-0.3"))
+;;(setq rsense-home (expand-file-name "~/.emacs.d/etc/rsense-0.3"))
 (setq rsense-home (expand-file-name "~/.emacs.d/etc/rsense-0.3"))
 (add-to-list 'load-path (concat rsense-home "/etc"))
 (require 'rsense)
 
-;.や::で補完
+;;.や::で補完
 (add-hook 'ruby-mode-hook
           (lambda ()
             (add-to-list 'ac-sources 'ac-source-rsense-method)
@@ -83,18 +85,18 @@ and source-file directory for your debugger." t)
             (local-set-key (kbd "M-i") 'ac-complete-rsense)))
 
 
-;;rails
-;rinari
+;;;rails
+;;rinari
 (add-to-load-path "co/rinari")
 (require 'rinari)
-;rhtml
+;;rhtml
 (add-to-load-path "co/rhtml")
 (require 'rhtml-mode)
 (add-hook 'rhtml-mode-hook
-  (lambda () (rinari-launch)))
+          (lambda () (rinari-launch)))
 
 
-;auto-magic-comment
+;; auto-magic-comment
 (defun ruby-insert-magic-comment-if-needed ()
   "バッファのcoding-systemをもとにmagic commentをつける。"
   (when (and (eq major-mode 'ruby-mode)
@@ -136,7 +138,7 @@ and source-file directory for your debugger." t)
  'ruby-mode-hook
  '(lambda ()
     ;; Don't want flymake mode for ruby regions in rhtml files
-   (if (not (null buffer-file-name)) (flymake-mode))))
+    (if (not (null buffer-file-name)) (flymake-mode))))
 
 
 ;; anything-rdefs
