@@ -21,4 +21,3 @@
 (when (require 'point-undo nil t)
   (define-key global-map [f6] 'point-undo)
   (define-key global-map [f8] 'point-redo))
-

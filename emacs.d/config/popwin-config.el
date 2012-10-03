@@ -1,7 +1,7 @@
 (add-to-load-path "co/popwin-el")
 (require 'popwin)
-;; (setq display-buffer-function 'popwin:display-buffer)
-(setq display-buffer-function 'popwin:special-display-popup-window)
+(setq display-buffer-function 'popwin:display-buffer)
+;; (setq display-buffer-function 'popwin:special-display-popup-window)
 (setq popwin:popup-window-height 0.5)
 
 
@@ -20,3 +20,7 @@
 
 ;; text-translator
 (push '("*translated*" :height 0.3 :stick t) popwin:special-display-config)
+
+
+;; undo-tree
+(push '(" *undo-tree*" :width 0.3 :position right) popwin:special-display-config)
