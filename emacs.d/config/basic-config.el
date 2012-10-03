@@ -1,6 +1,7 @@
 ;; window
 (setq inhibit-startup-message t) ;スタートアップメッセージ消す
-(menu-bar-mode t) ;メニューバー無し
+(menu-bar-mode 0) ;メニューバー無し
+(tool-bar-mode 0) ;ツールバー無し
 (setq frame-title-format (format "%%f - emacs@%s" (system-name))) ;タイトルバーにパス表示
 (display-time) ;バーに時刻表示
 (column-number-mode t) ;バーにカーソル位置表示
