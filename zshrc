@@ -47,6 +47,8 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^p" history-beginning-search-backward-end
 bindkey "^n" history-beginning-search-forward-end
+bindkey '^r' history-incremental-pattern-search-backward
+bindkey '^f' history-incremental-pattern-search-forward
 bindkey "\\ep" history-beginning-search-backward-end
 bindkey "\\en" history-beginning-search-forward-end
 bindkey "^[[1~" beginning-of-line # home gets to line head
