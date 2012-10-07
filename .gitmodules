@@ -34,3 +34,6 @@
 [submodule "emacs.d/co/yasnippet"]
 	path = emacs.d/co/yasnippet
 	url = https://github.com/capitaomorte/yasnippet.git
+[submodule "emacs.d/co/replace-region-by-ruby.el"]
+	path = emacs.d/co/replace-region-by-ruby.el
+	url = git@github.com:pokutuna/replace-region-by-ruby.el.git

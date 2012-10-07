@@ -122,4 +122,5 @@
 
 
 ;; replace-region-by-ruby
+(add-to-load-path "co/replace-region-by-ruby.el")
 (require 'replace-region-by-ruby)
