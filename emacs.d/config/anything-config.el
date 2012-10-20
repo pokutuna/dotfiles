@@ -5,7 +5,7 @@
  anything-input-idle-delay 0.1
  anything-candidate-number-limit 100
  anything-quick-update t
- ;anything-enable-shortcuts 'alphabet
+ anything-enable-shortcuts 'alphabet
  )
 
 ;; keybinds
