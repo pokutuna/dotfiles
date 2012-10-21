@@ -102,7 +102,7 @@
 ;; http://d.hatena.ne.jp/hitode909/20110924/1316853933
 (require 'clipboard-to-kill-ring)
 (clipboard-to-kill-ring t)
-(setq clipboard-to-kill-ring:interval 2.0)
+(setq clipboard-to-kill-ring:interval 1.0)
 
 
 ;; emacs終了時に確認メッセージを出す。

@@ -87,7 +87,6 @@ and source-file directory for your debugger." t)
 
 ;;;rails
 ;;rinari
-(add-to-load-path "co/rinari")
 (require 'rinari)
 ;;rhtml
 (add-to-load-path "co/rhtml")

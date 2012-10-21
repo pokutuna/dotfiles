@@ -15,8 +15,7 @@
       ;;(color-theme-dark-laptop)
       ;;(color-theme-hober)
 
-      ;; (require 'zenburn)
-      ;; (zenburn)
+      ;; (require 'zenburn-theme)
 
       (defface my-hl-line-face ;themeの背景に応じたカーソル行強調
         '((((class color) (background dark))

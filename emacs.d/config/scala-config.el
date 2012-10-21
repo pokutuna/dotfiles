@@ -1,4 +1,3 @@
-
 (require 'scala-mode-auto)
 (require 'scala-mode-constants)
 (require 'scala-mode-feature)

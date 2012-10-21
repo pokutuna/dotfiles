@@ -10,9 +10,8 @@
 
 
 ;;undo-tree
-;;(install-elisp "http://dr-qubit.org/undo-tree/undo-tree.el")
-(when (require 'undo-tree nil t)
-  (global-undo-tree-mode))
+(require 'undo-tree)
+(global-undo-tree-mode)
 ;;C-x u でundoの履歴を視覚化したバッファがでる、移動してqで抜ければその状態まで戻る
 
 

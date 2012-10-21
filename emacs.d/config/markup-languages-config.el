@@ -3,13 +3,16 @@
 (when (require 'haml-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
   (add-to-list 'auto-mode-alist '("\\.scaml$" . haml-mode))
-  )
+  (require 'flymake-haml)
+  (add-hook 'haml-mode-hook 'flymake-haml-load))
 
 
 ;;sass
 ;(install-elisp "https://github.com/nex3/sass-mode/raw/master/sass-mode.el")
 (when (require 'sass-mode nil t)
-  (add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode)))
+  (add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
+  (require 'flymake-sass)
+  (add-hook 'sass-mode-hook 'flymake-sass-load))
 
 
 ;;scss

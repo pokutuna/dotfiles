@@ -16,7 +16,7 @@
 
 
 ;;カーソル位置を含むカッコとか文字列とかで選択
-(require 'thing-opt)
+(require 'thingopt)
 (define-thing-commands)
 (global-set-key (kbd "C-$") 'mark-word*)
 (global-set-key (kbd "C-\"") 'mark-string)
@@ -34,10 +34,6 @@
   (setq url-proxy-services
         '(("no_proxy" . ""))))
 (deactivate-proxy)
-
-
-;;zizo
-(require 'zizo)
 
 
 ;;htmlize
