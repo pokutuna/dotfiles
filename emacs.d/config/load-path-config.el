@@ -20,3 +20,8 @@
 ;; LANG
 (setenv "LANG" "ja_JP.UTF-8")
 
+
+;; package.el
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
