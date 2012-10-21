@@ -13,12 +13,16 @@
 (setq ac-auto-show-menu 0.4)
 (setq ac-menu-height 20)
 
+
 ;;keybind
 (global-set-key (kbd "M-i") 'auto-complete)
 (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
 (define-key ac-complete-mode-map (kbd "M-n") 'ac-next)
 (define-key ac-complete-mode-map (kbd "M-p") 'ac-previous)
 (ac-set-trigger-key "TAB")
+(define-key ac-complete-mode-map (kbd "C-s") 'ac-isearch) ; commit 667ae89 in auto-complete.el
+;; (setq ac-use-menu-map t)
+
 
 ;; default source
 (setq-default ac-sources (add-to-list 'ac-sources 'ac-source-yasnippet))
