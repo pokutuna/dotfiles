@@ -13,6 +13,14 @@
 (push '(dired-mode :height 0.5) popwin:special-display-config)
 
 
+;; direx
+;; direx:direx-modeのバッファをウィンドウ左辺に幅25でポップアップ
+;; :dedicatedにtを指定することで、direxウィンドウ内でのバッファの切り替えが
+;; ポップアップ前のウィンドウに移譲される
+(push '(direx:direx-mode :position left :width 25 :dedicated t)
+      popwin:special-display-config)
+
+
 ;; backtrace
 (push '("*Backtrace*" :height 0.3) popwin:special-display-config)
 

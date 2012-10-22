@@ -2,7 +2,7 @@
 ;; (install-elisp "http://www.emacswiki.org/emacs/download/auto-install.el")
 (when (require 'auto-install nil t)
   (setq auto-install-directory "~/.emacs.d/elisp/")
-  (auto-install-update-emacswiki-package-name t)
+  (auto-install-update-emacswiki-package-name nil)
   (auto-install-compatibility-setup))
 
 
@@ -68,12 +68,6 @@
 ;; Shebangがあるとき自動的にchmod +xする
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
-
-
-;;wdired
-(require 'wdired)
-(define-key dired-mode-map "r" ; dired中にrでリネーム
-  'wdired-change-to-wdired-mode)
 
 
 ;;shell ;使わなさそう

@@ -6,6 +6,7 @@
 (load-file "~/.emacs.d/config/face-config.el")
 (load-file "~/.emacs.d/config/find-config.el")
 (load-file "~/.emacs.d/config/undo-redo-config.el")
+(load-file "~/.emacs.d/config/dired-config.el")
 
 (load-file "~/.emacs.d/config/auto-complete-config.el")
 (load-file "~/.emacs.d/config/anything-config.el")

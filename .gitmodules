@@ -25,3 +25,6 @@
 [submodule "emacs.d/co/replace-region-by-ruby.el"]
 	path = emacs.d/co/replace-region-by-ruby.el
 	url = git@github.com:pokutuna/replace-region-by-ruby.el.git
+[submodule "emacs.d/co/direx-el"]
+	path = emacs.d/co/direx-el
+	url = https://github.com/m2ym/direx-el.git
