@@ -22,7 +22,7 @@
 
 ;; auto byte compile
 (require 'auto-async-byte-compile)
-(setq auto-async-byte-compile-exclude-files-regexp "/config/\\|/junk/")
+(setq auto-async-byte-compile-exclude-files-regexp "/config/\\|/junk/\\|init.el")
 (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
 
 
