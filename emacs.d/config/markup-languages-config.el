@@ -37,9 +37,15 @@
 (require 'zencoding-mode)
 (add-hook 'sgml-mode-hook 'zencoding-mode)
 
-
 ;; http://d.hatena.ne.jp/hitode909/20111001/1317459632
 (define-key zencoding-mode-keymap (kbd "C-j") 'indent-new-comment-line)
 (define-key zencoding-mode-keymap (kbd "<C-return>") 'zencoding-expand-yas)
 (define-key zencoding-mode-keymap (kbd "C-c C-m") 'zencoding-expand-yas)
 (define-key zencoding-mode-keymap (kbd "C-c C-p") 'zencoding-expand-line)
+
+
+;; mark-multiple.el
+(add-hook 'sgml-mode-hook
+          (lambda ()
+            (require 'rename-sgml-tag)
+            (define-key sgml-mode-map (kbd "C-c C-r") 'rename-sgml-tag)))

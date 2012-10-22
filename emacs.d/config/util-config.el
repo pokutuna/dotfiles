@@ -11,6 +11,15 @@
 (setq cua-enable-cua-keys nil)
 
 
+;; mark-multiple.el
+(require 'mark-more-like-this)
+(global-set-key (kbd "C-<") 'mark-previous-like-this)
+(global-set-key (kbd "C->") 'mark-next-like-this)
+(global-set-key (kbd "C-M-m") 'mark-more-like-this)
+(global-set-key (kbd "C-*") 'mark-all-like-this)
+
+
+
 ;; bookmark保存先
 (setq bookmark-default-file "~/.emacs.d/etc/bookmark")
 
