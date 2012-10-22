@@ -2,31 +2,37 @@
 
 
 ;; color-theme & 行ハイライト
-(if window-system ;window-systemの時だけ
-    (progn
-      (require 'color-theme nil t)
-      (color-theme-initialize)
-      ;;(color-theme-clarity)
-      ;;(color-theme-euphoria)
-      (color-theme-gnome2)
-      ;;(color-theme-gray30)
-      ;;(color-theme-robin-hood)
-      ;;(color-theme-subtle-hacker)
-      ;;(color-theme-dark-laptop)
-      ;;(color-theme-hober)
+(cond (window-system                  ;; window-systemの時だけ
+       (require 'color-theme nil t)
+       (color-theme-initialize)
+       ;;(color-theme-clarity)
+       ;;(color-theme-euphoria)
+       ;;(color-theme-gray30)
+       ;;(color-theme-robin-hood)
+       ;;(color-theme-subtle-hacker)
+       ;;(color-theme-dark-laptop)
+       ;;(color-theme-hober)
+       ;; (require 'zenburn-theme)
 
-      ;; (require 'zenburn-theme)
+       (when t
+         (color-theme-gnome2)
+         (set-face-foreground 'highlight nil)
+         (set-face-background 'highlight "DarkCyan")
+         )
 
-      (defface my-hl-line-face ;themeの背景に応じたカーソル行強調
-        '((((class color) (background dark))
-           (:background "MidnightBlue" t))
-          (((class color) (background light))
-           (:background "LightGoldenrodYellow" t))
-          (t (:bold t)))
-        "hl-line's my face")
-      (setq hl-line-face 'my-hl-line-face)
-      (global-hl-line-mode t))
-  )
+       (defface my-hl-line-face ;themeの背景に応じたカーソル行強調
+         '((((class color) (background dark))
+            (:background "MidnightBlue" t))
+           (((class color) (background light))
+            (:background "LightGoldenrodYellow" t))
+           (t (:bold t)))
+         "hl-line's my face")
+       (setq hl-line-face 'my-hl-line-face)
+       (global-hl-line-mode t)
+       )
+      (t
+       (require 'zenburn-theme))
+      )
 
 
 ;; paren

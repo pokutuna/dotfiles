@@ -95,7 +95,12 @@
   (require 'magit nil t)
   (global-set-key (kbd "C-M-g") 'magit-status)
   (set-face-foreground 'magit-diff-add "green")
-  (set-face-foreground 'magit-diff-del "red"))
+  (set-face-foreground 'magit-diff-del "red")
+  (set-face-background 'magit-item-highlight
+                       (apply 'color-rgb-to-hex
+                              (mapcar (lambda (val) (- val 0.1))
+                                      (color-name-to-rgb (face-background 'default)))))
+  )
 
 
 ;; 保存後に実行するシェルコマンド
