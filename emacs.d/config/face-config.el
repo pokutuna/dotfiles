@@ -71,6 +71,11 @@
                                 (font-lock-mode t))) t)
 
 
+;; hiwin-mode アクティブなwindowを強調
+;; (require 'hiwin)
+;; (hiwin-mode)
+
+
 ;; 表示Font
 (if window-system
     (progn
