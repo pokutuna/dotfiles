@@ -81,9 +81,9 @@
 
 
 ;;Egg emacs got git
-;(install-elisp "http://github.com/byplayer/egg/raw/master/egg.el")
 (when (executable-find "git")
-  (require 'egg nil t))
+  (require 'egg nil t)
+  (require 'magit nil t))
 
 
 ;; 保存後に実行するシェルコマンド
