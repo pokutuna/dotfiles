@@ -1,0 +1,23 @@
+;; -*- emacs-lisp -*- <12/10/22 11:03:31 /Users/pokutuna/.emacs.d/tramp>
+;; Tramp connection history.  Don't change this file.
+;; You can delete it, forcing Tramp to reapply the checks.
+
+((["ssh" nil "pokutuna.com" nil nil]
+  ("uname" "Linux 2.6.32-41-server")
+  ("test" "test")
+  ("remote-path"
+   ("/bin" "/usr/bin" "/usr/sbin" "/usr/local/bin"))
+  ("remote-shell" "/bin/sh")
+  ("busybox" nil)
+  ("~" "/home/pokutuna")
+  ("file-exists" "test -e")
+  ("perl-file-spec" t)
+  ("perl-cwd-realpath" t)
+  ("perl" "\\perl")
+  ("ls" "/bin/ls --color=never")
+  ("ls-dired" t)
+  ("stat" "\\stat")
+  ("id" "/usr/bin/id")
+  ("gid-integer" 1000)
+  ("readlink" "\\readlink")
+  ("uid-integer" 1000)))

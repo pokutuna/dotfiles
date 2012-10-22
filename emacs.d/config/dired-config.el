@@ -11,3 +11,9 @@
 (require 'direx-project)
 ;; (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
 (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory-other-window)
+
+
+;; tramp
+(require 'tramp)
+(setq tramp-default-method "ssh")
+(setq tramp-shell-prompt-pattern "^.*[#$%>] *")
