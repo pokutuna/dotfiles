@@ -1,4 +1,4 @@
-;; -*- emacs-lisp -*- <12/10/22 11:03:31 /Users/pokutuna/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <12/10/22 16:26:38 /Users/pokutuna/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; You can delete it, forcing Tramp to reapply the checks.
 
@@ -20,4 +20,6 @@
   ("id" "/usr/bin/id")
   ("gid-integer" 1000)
   ("readlink" "\\readlink")
-  ("uid-integer" 1000)))
+  ("uid-integer" 1000))
+ (["ssh" nil "ssh" nil nil]
+  nil))
