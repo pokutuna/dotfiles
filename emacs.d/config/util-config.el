@@ -92,7 +92,10 @@
 ;;Egg emacs got git
 (when (executable-find "git")
   (require 'egg nil t)
-  (require 'magit nil t))
+  (require 'magit nil t)
+  (global-set-key (kbd "C-M-g") 'magit-status)
+  (set-face-foreground 'magit-diff-add "green")
+  (set-face-foreground 'magit-diff-del "red"))
 
 
 ;; 保存後に実行するシェルコマンド
