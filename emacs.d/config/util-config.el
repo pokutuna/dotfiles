@@ -79,19 +79,10 @@
           'executable-make-buffer-file-executable-if-script-p)
 
 
-;;shell ;使わなさそう
-;(install-elisp-from-emacswiki "multi-term.el")
-(when (require 'multi-term nil t)
-  (setq multi-term-program "/usr/local/bin/zsh"))
-(add-hook 'shell-mode-hook ;shell-modeで上下でヒストリ補完
-   (function (lambda ()
-      (define-key shell-mode-map [up] 'comint-previous-input)
-      (define-key shell-mode-map [down] 'comint-next-input))))
-
-
 ;;Egg emacs got git
 (when (executable-find "git")
   (require 'egg nil t)
+
   (require 'magit nil t)
   (global-set-key (kbd "C-M-g") 'magit-status)
   (set-face-foreground 'magit-diff-add "green")
