@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (package-filter package-filter-function package-archive-exclude-alist
-;;;;;;  package-archive-enable-alist) "melpa" "melpa.el" (20612 18447))
+;;;;;;  package-archive-enable-alist) "melpa" "melpa.el" (20614 52585))
 ;;; Generated autoloads from melpa.el
 
 (defvar package-archive-enable-alist nil "\
@@ -60,7 +60,7 @@ Filter packages in the associated list for `archive' in
 
 ;;;***
 
-;;;### (autoloads nil nil ("melpa-pkg.el") (20612 18447 482915))
+;;;### (autoloads nil nil ("melpa-pkg.el") (20614 52586 2519))
 
 ;;;***
 
