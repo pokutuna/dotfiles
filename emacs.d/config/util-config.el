@@ -1,10 +1,17 @@
 ;; auto-install
 ;; (install-elisp "http://www.emacswiki.org/emacs/download/auto-install.el")
-(when (require 'auto-install nil t)
-  (setq auto-install-directory "~/.emacs.d/elisp/")
-  (auto-install-update-emacswiki-package-name nil)
-  (auto-install-compatibility-setup))
+(lazyload (auto-install-from-url
+           auto-install-from-emacswiki
+           auto-install-from-dired
+           auto-install-from-directory
+           auto-install-from-buffer
+           auto-install-from-gist
+           auto-install-batch) "auto-install"
 
+           (setq auto-install-directory "~/.emacs.d/elisp/")
+           (auto-install-update-emacswiki-package-name t)
+           (auto-install-compatibility-setup)
+           )
 
 ;;cua 矩形選択
 (cua-mode t)
@@ -113,10 +120,10 @@
 (global-set-key (kbd "C-x C-z") 'open-junk-file)
 
 
-;; pyong-pyong.el
-(add-to-load-path "co/pyong-pyong.el")
-(require 'pyong-pyong)
-(pyong:default-binding)
+;; ;; pyong-pyong.el
+;; (add-to-load-path "co/pyong-pyong.el")
+;; (require 'pyong-pyong)
+;; (pyong:default-binding)
 
 
 ;; replace-region-by-ruby

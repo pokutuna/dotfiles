@@ -1,9 +1,6 @@
 (add-to-load-path "co/yasnippet")
 (require 'yasnippet)
 
-;; (add-to-list 'yas/extra-mode-hooks
-;;              'js2-mode-hook)
-
 (setq yas-snippet-dirs
       '("~/.emacs.d/mysnippets"
         "~/.emacs.d/co/yasnippet/snippets"))
