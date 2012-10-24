@@ -35,3 +35,6 @@
 
 ;; auto-async-byte-compile
 (push '(" *auto-async-byte-compile*" :height 0.3 :stick t) popwin:special-display-config)
+
+
+(push '("*Remember*" :height 0.4 :stick t) popwin:special-display-config)
