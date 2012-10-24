@@ -1,5 +1,5 @@
-;; load-path & PATH
-(load-file "~/.emacs.d/config/load-path-config.el")
+(load-file "~/.emacs.d/config/init-helper-macro.el")
+(load-file "~/.emacs.d/config/load-path-config.el") ;; load-path & PATH
 (load-file "~/.emacs.d/config/basic-config.el")
 (load-file "~/.emacs.d/config/darwin-config.el")
 (load-file "~/.emacs.d/config/face-config.el")
