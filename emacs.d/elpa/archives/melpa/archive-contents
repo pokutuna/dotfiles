@@ -1,6 +1,6 @@
 (1
  (zotelo .
-	 [(20120921 1655)
+	 [(20121024 1114)
 	  nil "Manage Zotero collections from emacs [source: github]" single])
  (zoom-frm .
 	   [(20120824 336)
@@ -311,7 +311,7 @@
 	      [(20090723 435)
 	       nil "Same frame speedbar [source: wiki]" single])
  (solarized-theme .
-		  [(20121023 1254)
+		  [(20121023 2059)
 		   nil "The Solarized color theme, ported to Emacs. [source: github]" tar])
  (smooth-scrolling .
 		   [(20121012 1154)
@@ -442,7 +442,7 @@
 	     [(20111101 1152)
 	      nil "highlight matching block [source: wiki]" single])
  (rspec-mode .
-	     [(20120928 1829)
+	     [(20121023 1216)
 	      nil "No description available. [source: github]" tar])
  (rsense .
 	 [(20100511 1305)
@@ -500,6 +500,9 @@
  (rainbow-delimiters .
 		     [(20120428 45)
 		      nil "Highlight nested parens, brackets, braces a different color at each depth. [source: github]" single])
+ (railgun .
+	  [(20121017 157)
+	   nil "No description available. [source: github]" single])
  (quickrun .
 	   [(20121012 2325)
 	    nil "Run commands quickly [source: github]" single])
@@ -834,7 +837,7 @@
 		[(20110927 1253)
 		 nil "A major mode for editing Mustache files. [source: github]" single])
  (multiple-cursors .
-		   [(20121021 24)
+		   [(20121024 810)
 		    nil "Multiple cursors for Emacs. [source: github]" tar])
  (multifiles .
 	     [(20120926 1435)
@@ -1296,7 +1299,7 @@
 	  [(20120629 1249)
 	   nil "No description available. [source: hg]" tar])
  (gnuplot-mode .
-	       [(20121022 1403)
+	       [(20121023 1509)
 		nil "Major mode for editing gnuplot scripts [source: github]" single])
  (gnuplot .
 	  [(20120420 950)
@@ -1418,7 +1421,7 @@
 		 [(20120319 1559)
 		  nil "Flymake support for coffee script [source: github]" single])
  (flycheck .
-	   [(20121022 908)
+	   [(20121024 908)
 	    nil "Flymake reloaded with useful checkers [source: github]" single])
  (flex-isearch .
 	       [(20120606 1317)
@@ -1457,7 +1460,7 @@
 	    [(20120817 2006)
 	     nil "fake namespaces with defpackage [source: github]" single])
  (expand-region .
-		[(20121022 1945)
+		[(20121023 2226)
 		 nil "Increase selected region by semantic units. [source: github]" tar])
  (exec-path-from-shell .
 		       [(20121007 1428)
@@ -1646,7 +1649,7 @@
    [(20120306 1807)
     nil "Simple asynchronous functions for emacs lisp [source: github]" single])
  (dash .
-       [(20121023 858)
+       [(20121024 711)
 	nil "A modern list library for Emacs [source: github]" single])
  (darcsum .
 	  [(20120115 1513)
@@ -1745,7 +1748,7 @@
 	       [(20120914 1423)
 		nil "Major mode for Clojure code [source: github]" single])
  (cljsbuild-mode .
-		 [(20121023 1219)
+		 [(20121024 1041)
 		  nil "A minor mode for the ClojureScript 'lein cljsbuild' command [source: github]" single])
  (citrus-mode .
 	      [(20121008 1918)
