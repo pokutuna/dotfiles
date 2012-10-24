@@ -159,3 +159,20 @@
           '(lambda ()
              (delete-file-if-no-contents)
              ))
+
+
+;; GCを減らして軽くする
+(setq gc-cons-threshold (* 10 gc-cons-threshold))
+
+
+;; ダイアログを使わない
+(setq use-dialog-box nil)
+(defalias 'message-box 'message)
+
+
+;; キーストロークのミニバッファへの表示を早く
+(setq echo-keystrokes 0.1)
+
+
+;; クリップボードにコピー
+(setq x-select-enable-clipboard t)
