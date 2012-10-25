@@ -5,7 +5,7 @@
 (add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
 
 (lazyload (js2-mode) "js2-mode"
-          (setq js-indent-level 2))
+          (setq-default js2-basic-offset 2))
 
 (add-hook-fn 'js2-mode-hook
              (define-key js2-mode-map "\M-n" 'next-error))
