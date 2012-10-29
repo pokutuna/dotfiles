@@ -48,9 +48,11 @@ export PKG_CONFIG_PATH=`which pkg-config`
 export ACLOCAL_ARGS="-I /usr/local/share/aclocal"
 
 # android
-export ANDROID_SDK_ROOT=/usr/local/Cellar/android-sdk/r18
-export ANDROID_BIN=$ANDROID_SDK_HOME/tools
-export ANDROID_SDK_ROOT=$ANDROID_SDK_HOME
+export ANDROID_HOME=/usr/local/Cellar/android-sdk/r20.0.3
+export ANDROID_SDK_ROOT=/usr/local/Cellar/android-sdk/r20.0.3
+export ANDROID_BIN=${ANDROID_HOME}/bin
+export ANDROID_TOOLS=${ANDROID_HOME}/tools
+export PATH=$ANDROID_BIN:$ANDROID_TOOLS:$PATH
 
 # git
 export GISTY_DIR=$HOME/gists
