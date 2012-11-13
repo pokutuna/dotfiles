@@ -9,9 +9,6 @@
  (setq ruby-indent-tabs-mode nil)
  (setq ruby-deep-indent-paren-style nil) ;C-M-\ でindentととのえる
 
- (parenthesis-register-keys "(\"['" ruby-mode-map)
- (define-key ruby-mode-map (kbd "{") (smartchr '("{`!!'}" "{ |`!!'|}" "do |`!!'|\nend")))
-
 
  ;; auto-magic-comment
  (defun ruby-insert-magic-comment-if-needed ()
@@ -81,6 +78,10 @@
 (add-hook-fn 'ruby-mode-hook
              (ruby-electric-mode t)
              (ruby-block-mode t)
+
+             (parenthesis-register-keys "(\"['" ruby-mode-map)
+             (define-key ruby-mode-map (kbd "{")
+               (smartchr '("{`!!'}" "{ |`!!'|}" "do |`!!'|\nend")))
 
              ;; flymake
              (if (not (null buffer-file-name)) (flymake-mode))
