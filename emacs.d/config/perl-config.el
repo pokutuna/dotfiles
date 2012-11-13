@@ -26,7 +26,7 @@
  (add-to-load-path "co/perlbrew-mini")
  (require 'perlbrew-mini)
  ;; (perlbrew-mini-use-latest)
- (perlbrew-mini-use "perl-5.15.3")
+ (perlbrew-mini-use "perl-5.16.2")
 
 
  ;; perl tidy
