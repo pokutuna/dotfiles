@@ -41,16 +41,12 @@
    (setq ac-sources (reverse ac-sources))
    )
 
-
  ;; ensime
  (add-to-list 'load-path (expand-file-name "~/.emacs.d/etc/ensime/elisp/"))
  (require 'ensime)
- (defun my-ensime-startup ()
-   (interactive)
-   (run-hooks 'ensime-mode-hook)
-   (ensime))
  )
 
 
 (add-hook 'scala-mode-hook 'my-ac-scala-source)
+(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 (add-hook 'ensime-mode-hook 'my-ac-scala-source)
