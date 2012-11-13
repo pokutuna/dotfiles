@@ -52,7 +52,7 @@ export ANDROID_HOME=/usr/local/Cellar/android-sdk/r20.0.3
 export ANDROID_SDK_ROOT=/usr/local/Cellar/android-sdk/r20.0.3
 export ANDROID_BIN=${ANDROID_HOME}/bin
 export ANDROID_TOOLS=${ANDROID_HOME}/tools
-export PATH=$ANDROID_BIN:$ANDROID_TOOLS:$PATH
+export PATH=$PATH:$ANDROID_BIN:$ANDROID_TOOLS
 
 # git
 export GISTY_DIR=$HOME/gists
