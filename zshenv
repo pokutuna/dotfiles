@@ -1,5 +1,6 @@
 # path
 export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:/usr/bin:/bin:$PATH
+export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
 
 ## basic config ##

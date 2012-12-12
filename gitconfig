@@ -1,5 +1,5 @@
 [user]
-  name = pokutuna
+	name = pokutuna
   email = popopopopokutuna@gmail.com
 [core]
   excludesfile = /Users/pokutuna/.gitignore
@@ -33,4 +33,4 @@
 [push]
   default = tracking
 [branch]
-	autosetuprebase = always
+#	autosetuprebase = always

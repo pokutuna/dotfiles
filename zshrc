@@ -12,7 +12,7 @@ setopt complete_aliases
 setopt long_list_jobs
 
 ## alias ##
-alias ls="ls -G"
+alias ls="ls --color"
 alias la="ls -a"
 alias lf="ls -F"
 alias ll="ls -l"
@@ -89,6 +89,8 @@ autoload -U predict-on
 # cd functions from hitode909
 [ -f ~/.zsh.d/hitode_cd.sh ] && source ~/.zsh.d/hitode_cd.sh
 
+# temp from kimoto
+[ -f ~/.zsh.d/kimoto_temp.sh ] && source ~/.zsh.d/kimoto_temp.sh
 
 # glitch
 [ -f ~/.zsh.d/glitch.sh ] && source ~/.zsh.d/glitch.sh
