@@ -29,6 +29,7 @@ export PERL5LIB=$HOME/perl5/lib
 # java
 [ -f /usr/libexec/java_home ] && export JAVA_HOME=$(/usr/libexec/java_home)
 export JAVA_BIN=$JAVA_HOME/bin
+# export _JAVA_OPTIONS='-Dfile.encoding=UTF-8'
 
 #python
 [ -f $HOME/.pythonbrew/etc/bashrc ] && source $HOME/.pythonbrew/etc/bashrc
@@ -40,7 +41,7 @@ export JAVA_BIN=$JAVA_HOME/bin
 export PATH=/Applications/Emacs.app/Contents/MacOS:/Applications/Emacs.app/Contents/MacOS/bin:$PATH
 
 # tex
-export PATH=/Applications/UpTeX.app/teTeX/bin:$PATH
+export PATH=/usr/texbin:$PATH
 
 # pkg-config
 export PKG_CONFIG_PATH=`which pkg-config`
@@ -49,8 +50,8 @@ export PKG_CONFIG_PATH=`which pkg-config`
 export ACLOCAL_ARGS="-I /usr/local/share/aclocal"
 
 # android
-export ANDROID_HOME=/usr/local/Cellar/android-sdk/r20.0.3
-export ANDROID_SDK_ROOT=/usr/local/Cellar/android-sdk/r20.0.3
+export ANDROID_HOME=/usr/local/Cellar/android-sdk/r21
+export ANDROID_SDK_ROOT=/usr/local/Cellar/android-sdk/r21
 export ANDROID_BIN=${ANDROID_HOME}/bin
 export ANDROID_TOOLS=${ANDROID_HOME}/tools
 export PATH=$PATH:$ANDROID_BIN:$ANDROID_TOOLS
