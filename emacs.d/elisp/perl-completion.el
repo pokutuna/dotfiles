@@ -224,6 +224,17 @@
 
 
 
+;; Version 1.12
+;; remove current directory in @INC.
+;; fixed functions are,
+;; `plcmp--installed-modules-asynchronously'
+;; `plcmp--installed-modules-synchronously'
+;; Note, Version 1.11 is not work correctly.
+
+;; Version 1.11
+;; fix `plcmp-get-installed-modules'
+
+
 ;;;code:
 (require 'cl)
 (require 'anything) ; perl-completion.el uses `anything-aif' macro.
@@ -288,7 +299,7 @@ e.x,
   :group 'perl-completion)
 
 (defcustom plcmp-method-inspecter nil
-  "Detect how to get methods. 
+  "Detect how to get methods.
 variable is one of the following values:
 'class-inspector
 'scrape
@@ -350,7 +361,7 @@ directory is added to PERL5LIB when invoke completion commands."
 
 
 ;;; variables
-(defvar plcmp-version 1.10)
+(defvar plcmp-version 1.11)
 
 (defvar plcmp-default-lighter  " PLCompletion")
 
@@ -451,7 +462,7 @@ directory is added to PERL5LIB when invoke completion commands."
       (define-key map (kbd "C-c C-c s") 'plcmp-cmd-show-environment)
       (define-key map (kbd "C-c C-c u") 'plcmp-cmd-update-check)
       (define-key map (kbd "C-c C-c d") 'plcmp-cmd-set-additional-lib-directory))
-    
+
     map))
 
 (defvar plcmp-anything-map
@@ -524,6 +535,7 @@ then execute BODY"
                                          (when (plcmp--get-lib-path)
                                            (list (plcmp--get-lib-path)))))
             (old-perl5lib (or (getenv "PERL5LIB") "")))
+       (message (format "%s" additional-lib-list))
        (when additional-lib-list
          (let* ((additional-lib-str (mapconcat 'identity additional-lib-list path-separator))
                 (current-perl5lib (concat additional-lib-str path-separator old-perl5lib))
@@ -702,7 +714,7 @@ then execute BODY"
   (message "fetching installed modules...")
   (let* ((modules-str (shell-command-to-string
                        (concat
-                        "find `perl -e 'pop @INC; print join(q{ }, @INC);'`"
+                        "find `perl -e 'print join(q{ }, grep(!/^\.$/, @INC));'`"
                         " -name '*.pm' -type f "
                         "| xargs egrep -h -o 'package [a-zA-Z0-9:]+;' "
                         "| perl -nle 's/package\s+(.+);/$1/; print' "
@@ -741,7 +753,7 @@ then execute BODY"
       (with-current-buffer (get-buffer-create plcmp-installed-modules-buffer-name)
         (erase-buffer))
       (let* ((command "find")
-             (args (concat "`perl -e 'pop @INC; print join(q{ }, @INC);'`"
+             (args (concat "`perl -e 'print join(q{ }, grep(!/^\.$/, @INC));'`"
                            " -name '*.pm' -type f "
                            "| xargs grep -E -h -o 'package [a-zA-Z0-9:]+;' "
                            "| perl -nle 's/package\s+(.+);/$1/; print' "
@@ -1681,8 +1693,8 @@ return buffer or nil unless process return 0"
   '(
     plcmp-anything-source-completion-buffer-dabbrevs
     plcmp-anything-source-completion-builtin-variables
-    plcmp-anything-source-completion-builtin-functions    
-    plcmp-anything-source-completion-using-modules    
+    plcmp-anything-source-completion-builtin-functions
+    plcmp-anything-source-completion-using-modules
     plcmp-anything-source-completion-installed-modules
     ))
 
