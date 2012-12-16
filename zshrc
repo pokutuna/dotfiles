@@ -20,6 +20,9 @@ alias du="du -h"
 alias du1="du -d 1 ./"
 alias df="df -h"
 
+alias ffind="find . -type f -iname"
+alias dfind="find . -type d -iname"
+
 alias java="java -Dfile.encoding=UTF-8"
 alias javac="javac -J-Dfile.encoding=UTF-8"
 
