@@ -38,3 +38,6 @@
 
 
 (push '("*Remember*" :height 0.4 :stick t) popwin:special-display-config)
+
+
+(push '("*grep*" :height 0.4 :stick t) popwin:special-display-config)
