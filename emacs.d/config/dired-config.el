@@ -11,12 +11,15 @@
 (require 'direx-project)
 ;; (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
 ;; (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory-other-window)
-(global-set-key (kbd "C-x C-j") 'direx-project:jump-to-project-root-other-window)
+(global-set-key (kbd "C-x C-j") 'my:direx-jump-to-project-or-directory-other-window)
 
-(if (direx-project:find-project-root-noselect
-     (or buffer-file-name default-directory))
-    (direx-project:jump-to-project-root-other-window)
-  (direx:jump-to-directory-other-window))
+(defun my:direx-jump-to-project-or-directory-other-window ()
+  (interactive)
+  (if (direx-project:find-project-root-noselect
+       (or buffer-file-name default-directory))
+      (direx-project:jump-to-project-root-other-window)
+    (direx:jump-to-directory-other-window)))
+
 
 
 ;; tramp
