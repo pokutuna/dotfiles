@@ -41,13 +41,11 @@
                  flymake-allowed-coffeescript-file-name-masks))
    (setq flymake-err-line-patterns flymake-coffeescript-err-line-patterns)
    (flymake-mode t))
-
- (message "coffee!")
  )
 
 (add-hook 'coffee-mode-hook 'flymake-coffeescript-load)
 (add-hook-fn
- 'coffe-mode-hook
+ 'coffee-mode-hook
 
  ;; smartchr
  (define-key coffee-mode-map (kbd ">")
