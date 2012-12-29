@@ -21,6 +21,10 @@ export SCALA_HOME=/usr/local/share/scala
 export PATH=$SCALA_HOME/bin:$PATH
 export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:PermSize=256m -XX:MaxPermSize=256m"
 
+
+# node
+export PATH=/usr/local/share/npm/bin:$PATH
+
 # perl
 export PERLBREW_ROOT=$HOME/perl5/perlbrew
 export PERL5LIB=$HOME/perl5/lib
