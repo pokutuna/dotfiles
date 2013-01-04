@@ -7,6 +7,11 @@
 (add-hook 'haml-mode-hook 'flymake-haml-load)
 
 
+;; slim
+(add-to-list 'auto-mode-alist '("\\.slim$" . slim-mode))
+(lazyload (slim-mode) "slim-mode")
+
+
 ;;sass
 ;(install-elisp "https://github.com/nex3/sass-mode/raw/master/sass-mode.el")
 (add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
