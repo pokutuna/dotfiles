@@ -9,7 +9,6 @@
  (setq ruby-indent-tabs-mode nil)
  (setq ruby-deep-indent-paren-style nil) ;C-M-\ でindentととのえる
 
-
  ;; auto-magic-comment
  (defun ruby-insert-magic-comment-if-needed ()
    "バッファのcoding-systemをもとにmagic commentをつける。"
@@ -79,9 +78,7 @@
              (ruby-electric-mode t)
              (ruby-block-mode t)
 
-             (parenthesis-register-keys "(\"['" ruby-mode-map)
-             (define-key ruby-mode-map (kbd "{")
-               (smartchr '("{`!!'}" "{ |`!!'|}" "do |`!!'|\nend")))
+             (ruby-mode-primary-binds)
 
              ;; flymake
              (if (not (null buffer-file-name)) (flymake-mode))
@@ -94,6 +91,17 @@
              ;; rdefs
              (local-set-key (kbd "C-@") 'anything-rdefs)
              )
+
+
+;; package.el で ruby-electric 入れると ruby-mode に eval-after-load が追加されて上書きされちゃう
+(defun ruby-mode-primary-binds ()
+  (parenthesis-register-keys "(\"['" ruby-mode-map)
+  (define-key ruby-mode-map (kbd "{")
+    (smartchr '("{`!!'}" "{ |`!!'|}" "do |`!!'|\nend")))
+  )
+
+(eval-after-load 'ruby-electric
+  '(add-hook 'ruby-electric-mode-hook 'ruby-mode-primary-binds))
 
 
 (add-hook-fn 'rhtml-mode-hook (rinari-launch))
