@@ -1,0 +1,3 @@
+#!/usr/bin/sh
+
+java -Dfile.encoding=UTF-8 -cp /Applications/AozoraEpub3-1.0.7u1/AozoraEpub3.jar AozoraEpub3
