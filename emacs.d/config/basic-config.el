@@ -176,3 +176,8 @@
 
 ;; クリップボードにコピー
 (setq x-select-enable-clipboard t)
+
+
+;; 黄金比
+(require 'golden-ratio)
+(golden-ratio-enable)
