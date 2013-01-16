@@ -179,5 +179,5 @@
 
 
 ;; 黄金比
-(require 'golden-ratio)
-(golden-ratio-enable)
+;; (require 'golden-ratio)
+;; (golden-ratio-enable)
