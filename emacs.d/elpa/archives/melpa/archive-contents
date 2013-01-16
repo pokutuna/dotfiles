@@ -37,6 +37,11 @@
  (yaml-mode .
 	    [(20120901 1329)
 	     nil "Major mode for editing YAML files [source: github]" single])
+ (yagist .
+	 [(20130114 2346)
+	  ((json
+	    (1 2 0)))
+	  "Yet Another Emacs integration for gist.github.com [source: github]" single])
  (xml-rpc .
 	  [(20100311 151)
 	   nil "An elisp implementation of clientside XML-RPC [source: bzr]" single])
@@ -94,7 +99,7 @@
 	    [(20121013 1846)
 	     nil "Emacs WebSocket client and server [source: github]" single])
  (web-mode .
-	   [(20130111 2155)
+	   [(20130116 29)
 	    nil "major mode for editing HTML templates [source: github]" single])
  (wc-mode .
 	  [(20120531 1344)
@@ -191,7 +196,7 @@
 	 [(20121026 2118)
 	  nil "The Typing Of Emacs [source: wiki]" single])
  (twittering-mode .
-		  [(20121105 32)
+		  [(20130114 2345)
 		   nil "Major mode for Twitter [source: github]" single])
  (twilight-theme .
 		 [(20120412 803)
@@ -202,6 +207,9 @@
  (twilight-anti-bright-theme .
 			     [(20120713 1116)
 			      nil "A soothing Emacs 24 light-on-dark theme [source: github]" single])
+ (tup-mode .
+	   [(20130115 1025)
+	    nil "Major mode for editing files for Tup [source: github]" single])
  (tumblesocks .
 	      [(20121217 1728)
 	       ((htmlize
@@ -399,7 +407,7 @@
 	   [(20120905 2101)
 	    nil "Support sequential operation which omitted prefix keys. [source: github]" single])
  (smartparens .
-	      [(20130113 1507)
+	      [(20130115 1731)
 	       ((dash
 		 (1 0 2)))
 	       "Autoinsert pairs of defined brackets and wrap regions [source: github]" single])
@@ -427,13 +435,13 @@
 	[(20130112 1232)
 	 nil "Superior Lisp Interaction Mode for Emacs [source: github]" tar])
  (slim-mode .
-	    [(20120917 1834)
+	    [(20130115 1522)
 	     nil "Major mode for editing Slim files [source: github]" single])
  (slamhound .
 	    [(20121227 1032)
 	     nil "Rip Clojure namespaces apart and rebuild them. [source: github]" single])
  (skewer-mode .
-	      [(20130114 107)
+	      [(20130115 1129)
 	       ((simple-httpd
 		 (1 4 0))
 		(js2-mode
@@ -449,7 +457,7 @@
 	       [(20121224 1121)
 		nil "pure elisp HTTP server [source: github]" tar])
  (simp .
-       [(20130114 10)
+       [(20130114 1015)
 	nil "Simple project defenition, chiefly for file finding, and grepping [source: github]" tar])
  (sicp .
        [(20121012 1733)
@@ -647,7 +655,7 @@
 		[(20091217 1955)
 		 nil "major mode for editing protocol buffers. [source: svn]" single])
  (projectile .
-	     [(20130114 18)
+	     [(20130115 1907)
 	      ((s
 		(1 0 0))
 	       (dash
@@ -814,7 +822,7 @@
 	    [(20120914 1627)
 	     nil "Minor mode for working with Django Projects [source: github]" tar])
  (pomodoro .
-	   [(20121129 1048)
+	   [(20130114 1543)
 	    nil "A timer for the Pomodoro Technique [source: github]" single])
  (pointback .
 	    [(20100210 1652)
@@ -826,7 +834,7 @@
 		  [(20120403 1455)
 		   nil "Interact with Pivotal Tracker through its API [source: github]" single])
  (php-mode .
-	   [(20130109 557)
+	   [(20130113 2020)
 	    nil "Major mode for editing PHP code [source: github]" single])
  (php+-mode .
 	    [(20121129 1452)
@@ -835,7 +843,7 @@
 	      [(20121130 1746)
 	       nil "switch between named \"perspectives\" of the editor [source: github]" single])
  (persp-mode .
-	     [(20130114 839)
+	     [(20130115 1343)
 	      ((workgroups
 		(0 2 0)))
 	      "\"perspectives\" shared between frames [source: github]" single])
@@ -876,7 +884,7 @@
 	  [(20110508 1256)
 	   nil "minor mode for editing parentheses [source: darcs]" single])
  (pandoc-mode .
-	      [(20121214 200)
+	      [(20130115 2218)
 	       nil "Minor mode for interacting with Pandoc [source: github]" tar])
  (page-break-lines .
 		   [(20121114 931)
@@ -909,7 +917,7 @@
 		(0 6 2)))
 	      "Web browsing helpers for OS X [source: github]" single])
  (org2blog .
-	   [(20121027 2131)
+	   [(20130115 2217)
 	    ((org
 	      (7 8))
 	     (xml-rpc
@@ -994,12 +1002,12 @@
 		     [(20121011 2145)
 		      nil "Tiny functionality enhancements for evaluating sexps. [source: github]" single])
  (nrepl .
-	[(20130111 742)
+	[(20130115 1928)
 	 ((clojure-mode
 	   (1 11)))
 	 "Client for Clojure nREPL [source: github]" single])
  (notmuch .
-	  [(20130106 2247)
+	  [(20130114 1946)
 	   nil "No description available. [source: git]" tar])
  (nginx-mode .
 	     [(20111201 1111)
@@ -1111,7 +1119,7 @@
 		    (20111229)))
 		  "extra functions for markdown-mode [source: github]" tar])
  (markdown-mode .
-		[(20130113 1032)
+		[(20130115 1821)
 		 nil "Emacs Major mode for Markdown-formatted text files [source: github]" single])
  (mark-multiple .
 		[(20121118 1654)
@@ -1221,7 +1229,7 @@
      [(20121231 1444)
       nil "key/value data structure functions [source: github]" single])
  (kite .
-       [(20121005 1430)
+       [(20130115 203)
 	((json
 	  (1 2))
 	 (websocket
@@ -1234,7 +1242,7 @@
 		   [(20110605 1744)
 		    nil "incremental search for the kill ring [source: github]" tar])
  (keymap-utils .
-	       [(20130113 2310)
+	       [(20130114 2326)
 		((cl-lib
 		  (0 2)))
 		"keymap utilities [source: github]" single])
@@ -1250,6 +1258,9 @@
  (key-chord .
 	    [(20080915 2156)
 	     nil "map pairs of simultaneously pressed keys to commands [source: wiki]" single])
+ (jump-to-line .
+	       [(20130116 23)
+		nil "Jump to line number at point. [source: github]" single])
  (jump-char .
 	    [(20120826 2232)
 	     nil "navigation by char [source: github]" single])
@@ -1261,8 +1272,8 @@
 	  (1 1)))
 	"build functions which contextually jump between files [source: github]" single])
  (js3-mode .
-	   [(20121004 1709)
-	    nil "JavaScript scanner [source: github]" single])
+	   [(20130114 1516)
+	    nil "JavaScript scanner [source: github]" tar])
  (js2-refactor .
 	       [(20121207 2257)
 		((js2-mode
@@ -1451,10 +1462,10 @@
 		 (20120811)))
 	       "Migemo plug-in for helm [source: github]" single])
  (helm-ls-git .
-	      [(20130113 1755)
+	      [(20130114 1739)
 	       nil "list git files. [source: github]" single])
  (helm-gtags .
-	     [(20130107 1439)
+	     [(20130115 1518)
 	      ((helm
 		(1 0)))
 	      "GNU GLOBAL helm interface [source: github]" single])
@@ -1485,7 +1496,7 @@
 	    (20120509)))
 	  "helm-sources and some utilities for GNU R. [source: github]" single])
  (helm .
-       [(20130114 1231)
+       [(20130114 2254)
 	nil "Helm is an Emacs incremental and narrowing framework [source: github]" tar])
  (header2 .
 	  [(20121228 2051)
@@ -1502,7 +1513,7 @@
 	   (1 2)))
 	 "Emacs client for hastebin (http://hastebin.com/about.md) [source: github]" single])
  (haskell-mode .
-	       [(20130112 2208)
+	       [(20130115 1401)
 		nil "A Haskell editing mode [source: github]" tar])
  (hardhat .
 	  [(20121126 1228)
@@ -1741,7 +1752,7 @@
 		    (0 1)))
 		  "A flymake handler for coffee script [source: github]" single])
  (flycheck .
-	   [(20130114 1129)
+	   [(20130114 2332)
 	    ((s
 	      (1 3 0))
 	     (dash
@@ -1866,7 +1877,7 @@
 		  [(20100717 958)
 		   nil "Add score support to tracked channel buffers [source: git]" single])
  (erc-hl-nicks .
-	       [(20130103 2035)
+	       [(20130114 1648)
 		nil "ERC nick highlighter that ignores uniquifying chars when colorizing [source: github]" single])
  (eproject .
 	   [(20121003 221)
@@ -1890,6 +1901,9 @@
  (emacs-setup .
 	      [(20120727 926)
 	       nil "Package for maintaining your emacs configuration. Clean up your .emacs! [source: github]" tar])
+ (emacs-eclim .
+	      [(20121219 2042)
+	       nil "An interface to the Eclipse IDE. [source: github]" tar])
  (elscreen .
 	   [(20120413 1107)
 	    nil "Emacs window session manager [source: github]" single])
@@ -2208,7 +2222,7 @@
 	     [(20120111 1900)
 	      nil "edit Google calendar for calfw.el. [source: github]" tar])
  (calfw .
-	[(20111208 1714)
+	[(20130116 1043)
 	 nil "Calendar view framework on Emacs [source: github]" tar])
  (cache .
 	[(20111019 1600)
@@ -2309,7 +2323,7 @@
 		   (0 5)))
 		 "Auto Completion for GNU Emacs [source: github]" tar])
  (auto-compile .
-	       [(20130112 102)
+	       [(20130115 2318)
 		((cl-lib
 		  (0 2))
 		 (packed
