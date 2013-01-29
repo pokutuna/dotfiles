@@ -29,8 +29,8 @@
 [diff "nkf"]
   textconv = nkf -w
 [http]
-  #proxy = http://proxy.ksc.kwansei.ac.jp:8080
+  # proxy = http://proxy.ksc.kwansei.ac.jp:8080
 [push]
-  default = tracking
+  default = simple
 [branch]
-#	autosetuprebase = always
+  # autosetuprebase = always
