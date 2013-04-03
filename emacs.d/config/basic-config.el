@@ -17,6 +17,8 @@
 
 (setq completion-ignore-case t) ;ファイル名補完で大文字小文字を区別しない
 
+(global-auto-revert-mode 1) ;他がファイルしたらバッファを自動で再読み込み
+
 (fset 'yes-or-no-p 'y-or-n-p) ; yes-noをy-nに置き換え
 
 (delete-selection-mode 1) ;リージョンをC-hで削除

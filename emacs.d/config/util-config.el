@@ -35,8 +35,11 @@
 (require 'thingopt)
 (define-thing-commands)
 (global-set-key (kbd "C-$") 'mark-word*)
+(global-set-key (kbd "C-M-2") 'mark-word*)
 (global-set-key (kbd "C-\"") 'mark-string)
+(global-set-key (kbd "C-M-'") 'mark-string)
 (global-set-key (kbd "C-(") 'mark-up-list)
+
 
 
 ;; proxy
