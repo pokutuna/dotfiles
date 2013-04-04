@@ -77,12 +77,16 @@ setopt share_history        # share command history data
 
 ## completion ##
 fpath=(~/.zsh.d/functions $fpath)
-autoload -U compinit
-compinit -u
+autoload -Uz compinit
+compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*:cd:*' tag-order local-directories path-directories
 autoload -U predict-on
+
+
+## autojump https://github.com/joelthelion/autojump
+[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
 
 
 ## commands

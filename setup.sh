@@ -9,7 +9,7 @@ fi
 mkdir ${HOME_PATH}/.old_dotfiles
 
 ## with dot prefix ##
-for file in zsh.d zshrc zshenv tmux.conf screenrc gitconfig gitignore emacs.d ackrc gemrc repl
+for file in zsh.d zshrc zshenv tmux.conf screenrc gitconfig gitignore emacs.d ackrc gemrc repl proverc
 do
     echo "${file}"
     mv ${HOME_PATH}/.${file} ${HOME_PATH}/.old_dotfiles/.${file}

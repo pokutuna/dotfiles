@@ -36,7 +36,7 @@ export JAVA_BIN=$JAVA_HOME/bin
 # export _JAVA_OPTIONS='-Dfile.encoding=UTF-8'
 
 #python
-[ -f $HOME/.pythonbrew/etc/bashrc ] && source $HOME/.pythonbrew/etc/bashrc
+[[ -s "$HOME/.pythonbrew/etc/bashrc" ]] && source "$HOME/.pythonbrew/etc/bashrc"
 
 
 
