@@ -1,4 +1,4 @@
-(add-to-load-path "co/auto-complete")
+(add-to-load-path "co/auto-complete.el")
 
 ;;auto-complete
 ;; http://dev.ariel-networks.com/Members/matsuyama/auto-complete

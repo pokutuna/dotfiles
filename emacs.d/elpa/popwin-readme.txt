@@ -4,7 +4,7 @@ Popwin makes you free from the hell of annoying buffers such like
 To use popwin, just add the following code into your .emacs:
 
     (require 'popwin)
-    (setq display-buffer-function 'popwin:display-buffer)
+    (popwin-mode 1)
 
 Then try to show some buffer, for example *Help* or
 *Completeions*. Unlike standard behavior, their buffers may be

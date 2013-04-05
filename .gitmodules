@@ -25,3 +25,6 @@
 [submodule "emacs.d/co/direx-el"]
 	path = emacs.d/co/direx-el
 	url = https://github.com/m2ym/direx-el.git
+[submodule "emacs.d/co/auto-complete.el"]
+	path = emacs.d/co/auto-complete.el
+	url = git@github.com:auto-complete/auto-complete.git

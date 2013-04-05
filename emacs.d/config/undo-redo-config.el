@@ -1,6 +1,7 @@
 ;:redo C-'でリドゥ
-(when (require 'redo+ nil t)
-  (global-set-key (kbd "C-'") 'redo))
+;; (when (require 'redo+ nil t))
+
+(global-set-key (kbd "C-'") 'redo)
 
 
 ;;undo-hist バッファを保存して消してもアンドゥで戻れる
