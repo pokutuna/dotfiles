@@ -7,9 +7,6 @@
 [submodule "emacs.d/co/zencoding"]
 	path = emacs.d/co/zencoding
 	url = https://github.com/rooney/zencoding.git
-[submodule "emacs.d/co/auto-complete"]
-	path = emacs.d/co/auto-complete
-	url = https://github.com/m2ym/auto-complete.git
 [submodule "emacs.d/co/perlbrew-mini"]
 	path = emacs.d/co/perlbrew-mini
 	url = https://github.com/dams/perlbrew-mini.el.git
