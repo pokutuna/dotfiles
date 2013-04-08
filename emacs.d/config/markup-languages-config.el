@@ -36,6 +36,12 @@
     (add-hook mode-hook '(lambda () (rainbow-mode t)))))
 
 
+;; template-toolkit
+(add-to-list 'auto-mode-alist '("\\.tt$" . tt-mode))
+(lazyload (tt-mode) "tt-mode")
+
+
+
 ;;zencoding
 (add-to-load-path "co/zencoding")
 
