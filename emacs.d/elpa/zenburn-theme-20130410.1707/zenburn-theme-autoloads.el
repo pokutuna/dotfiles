@@ -3,7 +3,7 @@
 ;;; Code:
 
 
-;;;### (autoloads nil "zenburn-theme" "zenburn-theme.el" (20837 10113
+;;;### (autoloads nil "zenburn-theme" "zenburn-theme.el" (20838 22683
 ;;;;;;  0 0))
 ;;; Generated autoloads from zenburn-theme.el
 
@@ -11,7 +11,7 @@
 
 ;;;***
 
-;;;### (autoloads nil nil ("zenburn-theme-pkg.el") (20837 10113 936398
+;;;### (autoloads nil nil ("zenburn-theme-pkg.el") (20838 22683 102506
 ;;;;;;  0))
 
 ;;;***

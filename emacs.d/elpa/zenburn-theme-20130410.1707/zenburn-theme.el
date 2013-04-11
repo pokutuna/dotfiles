@@ -4,7 +4,7 @@
 
 ;; Author: Bozhidar Batsov <bozhidar@batsov.com>
 ;; URL: http://github.com/bbatsov/zenburn-emacs
-;; Version: 20130409.2143
+;; Version: 20130410.1707
 ;; X-Original-Version: 1.8
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -450,6 +450,19 @@
    `(magit-section-title ((t (:foreground ,zenburn-yellow :weight bold))))
    `(magit-branch ((t (:foreground ,zenburn-orange :weight bold))))
    `(magit-item-highlight ((t (:background ,zenburn-bg+1))))
+   
+   ;; egg
+   `(egg-text-base ((t (:foreground ,zenburn-fg))))
+   `(egg-help-header-1 ((t (:foreground ,zenburn-yellow))))
+   `(egg-help-header-2 ((t (:foreground ,zenburn-green+3))))
+   `(egg-branch ((t (:foreground ,zenburn-yellow))))
+   `(egg-branch-mono ((t (:foreground ,zenburn-yellow))))
+   `(egg-term ((t (:foreground ,zenburn-yellow))))
+   `(egg-diff-add ((t (:foreground ,zenburn-green+4))))
+   `(egg-diff-del ((t (:foreground ,zenburn-red+1))))
+   `(egg-diff-file-header ((t (:foreground ,zenburn-yellow-2))))
+   `(egg-section-title ((t (:foreground ,zenburn-yellow))))
+   `(egg-stash-mono ((t (:foreground ,zenburn-green+4))))
 
    ;; message-mode
    `(message-cited-text ((t (:inherit font-lock-comment))))
