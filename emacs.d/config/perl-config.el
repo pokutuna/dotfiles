@@ -151,9 +151,9 @@
 (add-hook-fn
  'cperl-mode-hook
 
- (require 'perl-completion)
- (add-to-list 'ac-sources 'ac-source-perl-completion)
- (perl-completion-mode t)
+ ;; (require 'perl-completion)
+ ;; (add-to-list 'ac-sources 'ac-source-perl-completion)
+ ;; (perl-completion-mode t)
 
  ;; parenthesis
  (parenthesis-register-keys "{('\"[<" cperl-mode-map)

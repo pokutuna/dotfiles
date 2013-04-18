@@ -1,4 +1,5 @@
 (require 'popwin)
+(popwin-mode 1)
 (setq display-buffer-function 'popwin:display-buffer)
 ;; (setq display-buffer-function 'popwin:special-display-popup-window)
 (setq popwin:popup-window-height 0.5)
