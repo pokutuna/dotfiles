@@ -37,6 +37,6 @@
 [branch]
   # autosetuprebase = always
 [grep]
-	lineNumber = true
+  lineNumber = true
 [tig]
   commit-order = topo
