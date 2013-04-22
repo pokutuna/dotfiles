@@ -25,7 +25,10 @@ alias javac="javac -J-Dfile.encoding=UTF-8"
 
 alias emacsclient="emacsclient -n"
 
+alias t='tsocks'
+
 # git alias
+alias g='git'
 alias gs='git status '
 alias ga='git add '
 alias gb='git branch '

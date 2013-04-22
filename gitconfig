@@ -1,5 +1,5 @@
 [user]
-	name = pokutuna
+  name = pokutuna
   email = popopopopokutuna@gmail.com
 [core]
   excludesfile = /Users/pokutuna/.gitignore
@@ -31,6 +31,6 @@
 [http]
   # proxy = http://proxy.ksc.kwansei.ac.jp:8080
 [push]
-  default = simple
+  default = upstream
 [branch]
   # autosetuprebase = always

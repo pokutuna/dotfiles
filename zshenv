@@ -12,7 +12,9 @@ export EDITOR=nano
 
 ## for languages ##
 # ruby
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi #rbenv
+# export RBENV_ROOT=/usr/local/var/rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
 export RSENSE_HOME=$HOME/Dropbox/etc_emacs/rsense-0.3
 
 
@@ -69,3 +71,7 @@ PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 
 ## secret ##
 [ -f ~/.zsh.d/env_secret ] && source ~/.zsh.d/env_secret
+
+
+# shared-mime-info
+export XDG_DATA_HOME=/usr/local/share
