@@ -3,8 +3,9 @@
 ;;; Code:
 
 
-;;;### (autoloads nil nil ("deferred-pkg.el" "deferred.el") (20830
-;;;;;;  17564 452776 0))
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/deferred-20130312.1514/deferred-pkg.el"
+;;;;;;  "../../../../../.emacs.d/elpa/deferred-20130312.1514/deferred.el")
+;;;;;;  (20853 59232 764803))
 
 ;;;***
 
