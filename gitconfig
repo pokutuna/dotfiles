@@ -13,7 +13,7 @@
   pr = pull --rebase
   fo = fetch origin
   br = branch
-  brnm = branch --no-merged
+  nm = branch --no-merged
   ro = rebase origin
   rc = rebase --continue
   diffw = diff --word-diff
