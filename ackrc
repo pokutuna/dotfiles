@@ -6,3 +6,5 @@
 --type-set=json=.json
 --type-set=markdown=.md,.markdown
 
+--type-set=minified=.min.js
+--nominified
