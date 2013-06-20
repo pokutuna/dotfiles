@@ -19,6 +19,7 @@
        cperl-font-lock t
        cperl-auto-newline t
        ;;cperl-auto-newline-after-colon t
+       cperl-indent-subs-specially nil
        cperl-electric-paren t)
 
  ;; perlbrew-mini
