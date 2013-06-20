@@ -51,6 +51,7 @@ export PATH=/usr/texbin:$PATH
 
 # pkg-config
 export PKG_CONFIG_PATH=`which pkg-config`
+export PKG_CONFIG_PATH="/opt/X11/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 # aclocal
 export ACLOCAL_ARGS="-I /usr/local/share/aclocal"
