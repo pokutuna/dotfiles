@@ -1,4 +1,5 @@
-ServerAliveInterval 60
+ServerAliveInterval 30
+ServerAliveCountMax 5
 
 Host pokutuna.com
   HostName pokutuna.com

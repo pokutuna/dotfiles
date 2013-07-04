@@ -1,3 +1,4 @@
 env_secret
 gitconfig
 emacs.d/tramp
+bin/autossh.sh
