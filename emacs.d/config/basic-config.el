@@ -183,3 +183,15 @@
 ;; 黄金比
 ;; (require 'golden-ratio)
 ;; (golden-ratio-enable)
+
+
+;; M-k でカーソルの後ろの空白を全て消す
+;; http://d.hatena.ne.jp/syohex/20111017/1318857029
+(defun kill-following-spaces ()
+  (interactive)
+  (let ((orig-point (point)))
+    (save-excursion
+      (skip-chars-forward " \t\n")
+      (delete-region orig-point (point)))))
+
+(define-key global-map (kbd "M-k") 'kill-following-spaces)
