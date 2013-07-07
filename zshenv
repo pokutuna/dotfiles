@@ -68,7 +68,7 @@ export GISTY_DIR=$HOME/gists
 #export GIT_PROXY_COMMAND='~/bin/git-proxy.sh'
 
 # coreutils
-PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+which brew > /dev/null && PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 
 ## secret ##
 [ -f ~/.zsh.d/env_secret ] && source ~/.zsh.d/env_secret
