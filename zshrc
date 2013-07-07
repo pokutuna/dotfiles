@@ -41,7 +41,7 @@ alias gx='gitx --all'
 alias got='git '
 alias get='git '
 alias gp='git grep '
-eval "$(hub alias -s)" # for alias git=hub
+which hub > /dev/null && eval "$(hub alias -s)" # for alias git=hub
 
 # keybind
 stty -ixon -ixoff # C-s C-q
@@ -89,7 +89,7 @@ autoload -U predict-on
 
 
 ## autojump https://github.com/joelthelion/autojump
-[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+which brew > /dev/null && [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
 
 
 ## commands
