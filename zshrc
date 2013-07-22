@@ -1,3 +1,5 @@
+DOTFILES_ROOT=$(dirname $(readlink -f ~/.zshrc))
+
 ## setopt ##
 setopt auto_cd
 setopt auto_pushd
@@ -60,6 +62,12 @@ bindkey "^[[4~" end-of-line # end gets to line end
 bindkey "^[[3~" delete-char # del
 bindkey "\e[Z" reverse-menu-complete # reverse menu complete
 
+
+# zaw
+source ${DOTFILES_ROOT}/modules/zaw/zaw.zsh
+bindkey '^r' zaw-history
+
+
 # 単語区切り設定
 autoload -Uz select-word-style
 select-word-style default
@@ -74,6 +82,8 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 setopt hist_ignore_dups     # ignore duplication command history list
+setopt hist_ignore_space # スペースから始まるコマンドはヒストリから削除
+setopt hist_reduce_blanks
 setopt share_history        # share command history data
 
 
