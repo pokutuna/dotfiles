@@ -85,21 +85,20 @@
 ;; 表示Font
 (if window-system
     (progn
-      (set-face-attribute 'default nil
-                          ;:family "Inconsolata"
-                          ;:family "Consolas"
-                          :family "VL Gothic"
-                          ;:family "Ricty"
-                          :height 130)
-      (set-fontset-font "fontset-default"
-                        'japanese-jisx0208
-                        '("VL Gothic" . "iso10646-1"))
-      (set-fontset-font "fontset-default"
-                        'katakana-jisx0201
-                        '("VL Gothic" . "iso10646-1"))
-      )
+      (let ((fontname ;; "Ricty Discord"
+                      "VL Gothic"
+                      ))
+        (set-face-attribute 'default nil
+                            :family fontname
+                            :height 130)
+        (set-fontset-font "fontset-default"
+                          'japanese-jisx0208
+                          (cons fontname "iso10646-1"))
+        (set-fontset-font "fontset-default"
+                          'katakana-jisx0201
+                          (cons fontname "iso10646-1"))
+        ))
   )
-
 
 
 ;; hitode氏カーソル
