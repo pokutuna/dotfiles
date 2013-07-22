@@ -25,6 +25,10 @@ export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:PermSize=256m -XX:MaxPermSize
 
 
 # node
+export NODE_PATH=$NODE_PATH:$(npm prefix -g 2>/dev/null)/lib/node_modules
+# newer
+export PATH=$PATH:$(npm bin -g 2>/dev/null)
+# old
 export PATH=/usr/local/share/npm/bin:$PATH
 
 # perl
