@@ -170,5 +170,5 @@
  (define-key cperl-mode-map (kbd ".") (smartchr '("->" "." "..")))
  (define-key cperl-mode-map (kbd "|") (smartchr '("||" "|")))
  (define-key cperl-mode-map (kbd "&") (smartchr '("&&" "&")))
- (define-key cperl-mode-map (kbd "{") (smartchr '("{`!!'}" "sub {`!!'}")))
+ ;; (define-key cperl-mode-map (kbd "{") (smartchr '("{`!!'}" "sub {`!!'}")))
  )
