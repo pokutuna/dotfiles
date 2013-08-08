@@ -25,6 +25,10 @@
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
 (lazyload (scss-mode) "scss-mode")
 
+
+;;less
+(setq less-css-compile-at-save t)
+
 ;;rainbow-mode
 ;(install-elisp http://git.naquadah.org/?p=rainbow.git;a=blob_plain;f=rainbow-mode.el;hb=refs/heads/master)
 (require 'rainbow-mode)
