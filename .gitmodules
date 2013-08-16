@@ -34,3 +34,6 @@
 [submodule "modules/zaw"]
 	path = modules/zaw
 	url = git@github.com:zsh-users/zaw.git
+[submodule "vim/co/vundle"]
+	path = vim/co/vundle
+	url = git://github.com/gmarik/vundle.git

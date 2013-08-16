@@ -1,0 +1,9 @@
+cookies/
+netrwhist
+.netrwhist
+swp/*
+.neocon/*
+.ref/*
+.unite/*
+undo/*
+bundle/*
