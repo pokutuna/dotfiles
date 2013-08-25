@@ -15,8 +15,6 @@
 (define-key global-map [f7] 'anything-filelist+)
 (define-key global-map (kbd "C-c C-c") 'anything-filelist+)
 ;;(define-key global-map (kbd "C-c C-c") 'anything-for-files)
-(global-set-key (kbd "C-S-p") 'anything-project)
-(global-set-key (kbd "C-M-p") 'anything-project)
 (define-key anything-map (kbd "C-p") 'anything-previous-line)
 (define-key anything-map (kbd "C-n") 'anything-next-line)
 (define-key anything-map (kbd "C-v") 'anything-next-page)
@@ -53,7 +51,6 @@
 
 ;; よくわからん たぶんC-bとかM-xとかの補完
 (require 'anything-complete)
-;;(anything-read-string-mode 1)
 (anything-lisp-complete-symbol-set-timer 150)
 (require 'anything-show-completion nil t)
 
@@ -74,16 +71,11 @@
 (setq anything-kill-ring-threshold 0)
 
 
-;;anything-projectでgit等のバージョン管理対象からanything
-;;(install-elisp "http://github.com/imakado/anything-project/raw/master/anything-project.el")
-(require 'anything-project nil t)
-(setq ap:project-files-filters
-      (list
-       (lambda (files) (remove-if 'file-directory-p files))
-       (lambda (files) (remove-if '(lambda (file) (string-match-p "~$" file)) files))
-       (lambda (files) (remove-if '(lambda (file) (string-match-p "\\.class$" file)) files))
-       (lambda (files) (remove-if '(lambda (file) (string-match-p "target/" file)) files)) ;; for sbt
-       ))
+;; anything-project + git
+(require 'anything-git-files)
+(global-set-key (kbd "C-M-;") 'anything-git-files)
+(require 'anything-git-grep)
+(global-set-key (kbd "C-M-o") 'anything-git-grep)
 
 
 ;;moccurをanythingで
@@ -95,7 +87,6 @@
  anything-c-moccur-enable-auto-look-flag t
  anything-c-moccur-enable-initial-pattern t)
 (global-set-key (kbd "C-o") 'anything-c-moccur-occur-by-moccur)
-(global-set-key (kbd "C-M-o") 'anything-c-moccur-dmoccur) ;ディレクトリ
 (add-hook 'dired-mode-hook ;dired
           '(lambda ()
              (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur)))
