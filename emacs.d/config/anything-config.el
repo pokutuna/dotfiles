@@ -51,6 +51,7 @@
 
 ;; よくわからん たぶんC-bとかM-xとかの補完
 (require 'anything-complete)
+(anything-read-string-mode 1)
 (anything-lisp-complete-symbol-set-timer 150)
 (require 'anything-show-completion nil t)
 
@@ -78,8 +79,8 @@
 (global-set-key (kbd "C-M-o") 'anything-git-grep)
 
 
-;;moccurをanythingで
-;;(install-elisp "http://svn.coderepos.org/share/lang/elisp/anything-c-moccur/trunk/anything-c-moccur.el")
+;; moccurをanythingで
+;; (install-elisp "http://svn.coderepos.org/share/lang/elisp/anything-c-moccur/trunk/anything-c-moccur.el")
 (require 'anything-c-moccur)
 (setq
  anything-c-moccur-anything-idle-delay 0.1

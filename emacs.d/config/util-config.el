@@ -93,14 +93,16 @@
 (when (executable-find "git")
   (require 'egg nil t)
 
-  (require 'magit nil t)
-  (global-set-key (kbd "C-M-g") 'magit-status)
-  (set-face-foreground 'magit-diff-add "green")
-  (set-face-foreground 'magit-diff-del "red")
-  (set-face-background 'magit-item-highlight
-                       (apply 'color-rgb-to-hex
-                              (mapcar (lambda (val) (- val 0.1))
-                                      (color-name-to-rgb (face-background 'default)))))
+  (eval-after-load "magit"
+    '(progn
+       (global-set-key (kbd "C-M-g") 'magit-status)
+       (set-face-foreground 'magit-diff-add "green")
+       (set-face-foreground 'magit-diff-del "red")
+       (set-face-background 'magit-item-highlight
+                            (apply 'color-rgb-to-hex
+                                   (mapcar (lambda (val) (- val 0.1))
+                                           (color-name-to-rgb (face-background 'default)))))
+       ))
   )
 
 
