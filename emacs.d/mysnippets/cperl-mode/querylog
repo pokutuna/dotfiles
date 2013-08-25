@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# key: querylog
+# name: DBIx::QueryLog wrap
+# --
+use DBIx::QueryLog ();
+DBIx::QueryLog->begin;
+`yas/selected-text`$0
+DBIx::QueryLog->end;
