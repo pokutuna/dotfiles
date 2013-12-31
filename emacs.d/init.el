@@ -28,20 +28,18 @@
 (package-initialize)
 
 
+(load-file "~/.emacs.d/config/init-helper-macro.el") ;; そのうちなくしたい
+
 ;; init-loader
 (require 'init-loader)
 (init-loader-load "~/.emacs.d/inits")
 
+;; 0* : core global configs
+;; 1* : util configs
+;; 3* : basic extention configs
+;; 5* : programming language configs
+;; 9* : misc & other
 
-
-(load-file "~/.emacs.d/config/init-helper-macro.el")
-(load-file "~/.emacs.d/config/basic-config.el")
-(load-file "~/.emacs.d/config/darwin-config.el")
-(load-file "~/.emacs.d/config/face-config.el")
-(load-file "~/.emacs.d/config/util-config.el")
-(load-file "~/.emacs.d/config/find-config.el")
-(load-file "~/.emacs.d/config/undo-redo-config.el")
-(load-file "~/.emacs.d/config/dired-config.el") ;; tramp
 
 (load-file "~/.emacs.d/config/auto-complete-config.el")
 (load-file "~/.emacs.d/config/anything-config.el")
