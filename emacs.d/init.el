@@ -41,13 +41,6 @@
 ;; 9* : misc & other
 
 
-(load-file "~/.emacs.d/config/auto-complete-config.el")
-(load-file "~/.emacs.d/config/anything-config.el")
-(load-file "~/.emacs.d/config/completion-config.el") ;; smartchr.el parenthesis.el
-(load-file "~/.emacs.d/config/yasnippet-config.el")
-(load-file "~/.emacs.d/config/popwin-config.el")
-(load-file "~/.emacs.d/config/flymake-config.el")
-
 ;; languages
 (load-file "~/.emacs.d/config/ruby-config.el")
 (load-file "~/.emacs.d/config/scala-config.el")
