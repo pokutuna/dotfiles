@@ -36,9 +36,16 @@
   (server-start))
 
 ;; charset
-(set-language-environment "Japanese") ;日本語
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
+(setq buffer-file-coding-system 'utf-8-unix)
+(set-buffer-file-coding-system 'utf-8-unix)
+(set-terminal-coding-system 'utf-8-unix)
+(set-keyboard-coding-system 'utf-8-unix)
+(set-clipboard-coding-system 'utf-8-unix)
+(prefer-coding-system 'utf-8-unix)
+(set-language-environment 'utf-8)
+(set-default-coding-systems 'utf-8-unix)
+(set-language-environment "Japanese")
+(setq locale-coding-system 'utf-8)
 
 
 ;; basic keybind
@@ -64,8 +71,6 @@
 (setq make-backup-files t)
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backup"))) ;backup先
 (setq version-control t)
-(setq kept-new-version 5)
-(setq kept-old-version 5)
 (setq delete-old-versions t)
 (setq vc-make-backup-files t)
 
@@ -121,6 +126,7 @@
 (setq delete-trailing-whitespace-exclude-patterns (list "\\.md$" "\\.markdown$"))
 
 (require 'cl)
+(eval-when-compile (require 'cl))
 (defun delete-trailing-whitespace-with-exclude-pattern ()
   (interactive)
   (cond ((equal nil (loop for pattern in delete-trailing-whitespace-exclude-patterns
