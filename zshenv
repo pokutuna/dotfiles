@@ -69,6 +69,7 @@ export PATH=$PATH:$ANDROID_BIN:$ANDROID_TOOLS
 
 # git
 export GISTY_DIR=$HOME/gists
+export PATH=/usr/local/share/git-core/contrib/diff-highlight:$PATH
 #export GIT_PROXY_COMMAND='~/bin/git-proxy.sh'
 
 # coreutils

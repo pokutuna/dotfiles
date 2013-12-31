@@ -1,5 +1,6 @@
 ServerAliveInterval 30
 ServerAliveCountMax 5
+StrictHostKeyChecking no
 
 Host pokutuna.com
   HostName pokutuna.com

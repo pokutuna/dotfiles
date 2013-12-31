@@ -26,6 +26,7 @@ alias java="java -Dfile.encoding=UTF-8"
 alias javac="javac -J-Dfile.encoding=UTF-8"
 
 alias emacsclient="emacsclient -n"
+alias ec="emacsclient -n"
 
 alias t='tsocks'
 

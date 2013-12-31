@@ -27,7 +27,7 @@
 
 
 ;;less
-(setq less-css-compile-at-save t)
+(setq less-css-compile-at-save nil)
 
 ;;rainbow-mode
 ;(install-elisp http://git.naquadah.org/?p=rainbow.git;a=blob_plain;f=rainbow-mode.el;hb=refs/heads/master)

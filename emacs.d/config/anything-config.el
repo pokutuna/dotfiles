@@ -51,7 +51,8 @@
 
 ;; よくわからん たぶんC-bとかM-xとかの補完
 (require 'anything-complete)
-(anything-read-string-mode 1)
+;; (anything-read-string-mode 1)
+(anything-read-string-mode '(string variable command))
 (anything-lisp-complete-symbol-set-timer 150)
 (require 'anything-show-completion nil t)
 

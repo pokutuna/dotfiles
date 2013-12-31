@@ -138,3 +138,8 @@
 
 ;; sound-editor
 (require 'sound-editor)
+
+
+;; jikanwari.el
+;; GHE/gist/388
+(require 'jikanwari)
