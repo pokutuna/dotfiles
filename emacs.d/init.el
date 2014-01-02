@@ -30,7 +30,8 @@
 (package-initialize)
 
 
-(load-file "~/.emacs.d/config/init-helper-macro.el") ;;
+;; そのうちなくす or いい方法探す
+(load-file "~/.emacs.d/elisp/init-helper-macro.el")
 
 ;; init-loader
 (require 'init-loader)
@@ -41,22 +42,3 @@
 ;; 3* : basic extention configs
 ;; 5* : programming language configs
 ;; 9* : misc & other
-
-
-;; languages
-(load-file "~/.emacs.d/config/ruby-config.el")
-(load-file "~/.emacs.d/config/scala-config.el")
-(load-file "~/.emacs.d/config/perl-config.el")
-(load-file "~/.emacs.d/config/js-config.el")
-(load-file "~/.emacs.d/config/coffee-config.el")
-(load-file "~/.emacs.d/config/c-lang-config.el")
-(load-file "~/.emacs.d/config/haskell-config.el")
-(load-file "~/.emacs.d/config/lisp-config.el")
-;; (load-file "~/.emacs.d/config/r-lang-config.el")
-(load-file "~/.emacs.d/config/markup-languages-config.el")
-
-;; other
-(load-file "~/.emacs.d/config/tex-config.el")
-(load-file "~/.emacs.d/config/org-remember-config.el")
-(load-file "~/.emacs.d/config/octave-config.el")
-(load-file "~/.emacs.d/config/english-config.el")
