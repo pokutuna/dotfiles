@@ -1,4 +1,4 @@
-;; ~/.emacs.dから相対的にload-path追加関数
+;; ~/.emacs.d から相対的に load-path を追加する
 (defun add-to-load-path (&rest paths)
   (let (path)
     (dolist (path paths paths)
@@ -11,7 +11,7 @@
 
 
 ;; PATH
-(setq shell-file-name "/usr/local/bin/zsh") ;;zshenv見に行く
+(setq shell-file-name "/usr/local/bin/zsh")
 (add-to-list 'exec-path "/usr/local/bin")
 (setenv "PATH" (mapconcat 'identity exec-path ":"))
 
@@ -21,14 +21,16 @@
 
 
 ;; package.el
+;; cl-lib に依存したものが package.el で load する package に
+;; 含まれている(helm)ので、先に load しておく必要がある
+(load "~/.emacs.d/elpa/cl-lib-0.3/cl-lib")
 (require 'package)
-
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (package-initialize)
 
 
-(load-file "~/.emacs.d/config/init-helper-macro.el") ;; そのうちなくしたい
+(load-file "~/.emacs.d/config/init-helper-macro.el") ;;
 
 ;; init-loader
 (require 'init-loader)

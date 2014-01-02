@@ -11,6 +11,10 @@
 (push '("anything" :regexp t :height 0.5) popwin:special-display-config)
 
 
+;; helm
+(push '("helm" :regexp t :height 0.5) popwin:special-display-config)
+
+
 ;; dired
 (push '(dired-mode :height 0.5) popwin:special-display-config)
 
