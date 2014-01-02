@@ -6,7 +6,9 @@
  helm-idle-delay 0.2
  helm-input-idle-delay 0.1
  helm-candidate-number-limit 200
- helm-quick-update t)
+ helm-quick-update t
+ helm-buffer-max-length nil
+ )
 
 (helm-mode 1)
 
@@ -54,6 +56,11 @@
 (global-set-key (kbd "C-M-o") 'helm-git-grep)
 (require 'helm-ls-git)
 (global-set-key (kbd "C-M-;") 'helm-ls-git-ls)
+
+
+;; helm-ack
+(require 'helm-ack)
+(global-set-key (kbd "C-S-o") 'helm-ack)
 
 
 ;; helmコマンドで migemo を有効にする
