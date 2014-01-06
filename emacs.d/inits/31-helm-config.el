@@ -36,8 +36,18 @@
 (define-key helm-map (kbd "M-p") 'helm-previous-source)
 
 ;; override default actions
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "M-y")     'helm-show-kill-ring)
+(global-set-key (kbd "M-x")     'helm-M-x)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-x C-r") 'helm-recentf)
+(global-set-key (kbd "C-c i")   'helm-imenu)
+(global-set-key (kbd "C-x b")   'helm-buffers-list)
+
+
+;; helm で TAB でファイル名の補完する(action を使わない)
+(define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
+(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+(define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
 
 
 ;; features
