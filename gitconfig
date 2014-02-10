@@ -38,7 +38,7 @@
 [http]
   # proxy = http://proxy.ksc.kwansei.ac.jp:8080
 [push]
-  default = upstream
+  default = current
 [branch]
   # autosetuprebase = always
 [grep]
