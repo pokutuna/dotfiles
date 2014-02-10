@@ -117,6 +117,9 @@ which brew > /dev/null && [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --
 # hub completion
 [ -f ~/.zsh.d/hub.zsh_completion ] && source ~/.zsh.d/hub.zsh_completion
 
+# simple finds
+[ -f ~/.zsh.d/better_find.sh ] && source ~/.zsh.d/better_find.sh
+
 
 ## for git ##
 _set_env_git_current_branch() {
