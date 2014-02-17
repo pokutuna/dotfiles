@@ -120,6 +120,9 @@ which brew > /dev/null && [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --
 # simple finds
 [ -f ~/.zsh.d/better_find.sh ] && source ~/.zsh.d/better_find.sh
 
+# 便利cd
+[ -f ~/.zsh.d/fd.sh ] && source ~/.zsh.d/fd.sh
+
 
 ## for git ##
 _set_env_git_current_branch() {
