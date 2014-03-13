@@ -28,7 +28,7 @@
                                "shift_jis")
                               ((string-match "utf-8" coding-system)
                                "utf-8"))))
-         (insert (format "# -*- coding: %s -*-" encoding))))))
+         (insert (format "# coding: %s" encoding))))))
 
  (add-hook 'before-save-hook 'ruby-insert-magic-comment-if-needed)
 

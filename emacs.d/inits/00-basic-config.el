@@ -58,6 +58,7 @@
 (setq tab-stop-list '(2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40)) ;タブ幅の倍数を設定
 (setq-default indent-tabs-mode nil) ;タブではなくスペースを使う
 (setq indent-line-function 'indent-relative-maybe)
+(setq-default fill-column 80) ; M-q などで折り返す幅
 
 
 ;;backup
@@ -67,6 +68,10 @@
 (setq delete-old-versions t)
 (setq vc-make-backup-files t)
 
+
+;;recentf
+(setq recentf-max-menu-items 50)
+(setq recentf-max-saved-items 100)
 
 ;; カーソルを前回編集していた位置に戻す
 (load "saveplace")
