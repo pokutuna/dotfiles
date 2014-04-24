@@ -199,3 +199,8 @@
       (delete-region orig-point (point)))))
 
 (define-key global-map (kbd "M-k") 'kill-following-spaces)
+
+
+;; 24.3.1 にしたら aling-rules-list が void-valiable と言われるので定義しておく
+(if (not (boundp 'align-rules-list))
+    (setq align-rules-list ()))

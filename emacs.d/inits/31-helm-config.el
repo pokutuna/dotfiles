@@ -1,3 +1,6 @@
+;; helm が C-x C-j 上書きするのを抑制する
+(setq dired-bind-jump nil)
+
 (require 'helm)
 (require 'helm-config)
 (require 'helm-command)
@@ -21,7 +24,6 @@
         ;; helm-source-file-cache
         ;; helm-source-locate
         ))
-
 
 ;; keybinds
 (global-set-key (kbd "C-;") 'helm-for-files)

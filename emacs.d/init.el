@@ -21,9 +21,6 @@
 
 
 ;; package.el
-;; cl-lib に依存したものが package.el で load する package に
-;; 含まれている(helm)ので、先に load しておく必要がある
-(load "~/.emacs.d/elpa/cl-lib-0.3/cl-lib")
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)

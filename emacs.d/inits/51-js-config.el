@@ -15,7 +15,14 @@
              ;; requires jsonlint, `$ npm install jsonlint -g`
              ;; TODO こういうの一発でいれたい
              (flymake-json-maybe-load)
+
+             (add-to-list 'align-rules-list
+                          '(colon-key-value
+                            (regexp . ":\\(\\s-*\\)")
+                            (modes  . '(js2-mode))
+                            ))
              )
+
 
 ;; (defun js-mode-hooks ()
 ;;   (setq flymake-jsl-mode-map 'js-mode-map)
