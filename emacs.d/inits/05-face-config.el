@@ -30,8 +30,6 @@
        (setq hl-line-face 'my-hl-line-face)
        (global-hl-line-mode t)
        )
-      (t
-       (require 'zenburn-theme))
       )
 
 

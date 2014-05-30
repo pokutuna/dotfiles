@@ -1,4 +1,4 @@
-(add-to-load-path "co/popwin-el")
+;; (add-to-load-path "co/popwin-el")
 (require 'popwin)
 ;; (popwin-mode 1)
 (setq display-buffer-function 'popwin:display-buffer)
