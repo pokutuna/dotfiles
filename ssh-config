@@ -4,6 +4,7 @@ ServerAliveCountMax 5
 
 Host pokutuna.com
   HostName pokutuna.com
+  Port 8080
   User pokutuna
 
 Host sakura_vps
