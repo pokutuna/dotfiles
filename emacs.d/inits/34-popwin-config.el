@@ -5,6 +5,8 @@
 ;; (setq display-buffer-function 'popwin:special-display-popup-window)
 (setq popwin:popup-window-height 0.5)
 
+;; https://github.com/emacs-jp/issues/issues/2
+(setq popwin:close-popup-window-timer-interval 0.1)
 
 ;; anything
 (setq anything-samewindow nil)
