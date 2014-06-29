@@ -69,6 +69,11 @@ bindkey "\e[Z" reverse-menu-complete # reverse menu complete
 source ${DOTFILES_ROOT}/modules/zaw/zaw.zsh
 bindkey '^r' zaw-history
 
+# peco
+if command -v peco; then
+  for f (~/.zsh.d/peco-sources/*) source "${f}" # load peco sources
+  bindkey '^r' peco-select-history
+fi
 
 # 単語区切り設定
 autoload -Uz select-word-style
