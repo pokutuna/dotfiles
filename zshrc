@@ -66,7 +66,7 @@ bindkey "\e[Z" reverse-menu-complete # reverse menu complete
 
 
 # peco
-if command -v peco; then
+if command -v peco > /dev/null; then
   for f (~/.zsh.d/peco-sources/*) source "${f}" # load peco sources
   bindkey '^r' peco-select-history
 fi
