@@ -1,5 +1,3 @@
-DOTFILES_ROOT=$(dirname $(readlink -f ~/.zshrc))
-
 ## setopt ##
 setopt auto_cd
 setopt auto_pushd
@@ -69,6 +67,11 @@ bindkey "\e[Z" reverse-menu-complete # reverse menu complete
 if command -v peco > /dev/null; then
   for f (~/.zsh.d/peco-sources/*) source "${f}" # load peco sources
   bindkey '^r' peco-select-history
+  bindkey '^@' peco-cdr
+
+  p(){ git ls-files | peco | xargs $@ }
+  e(){ git ls-files | peco | xargs emacsclient -n }
+
 fi
 
 # 単語区切り設定
@@ -90,15 +93,22 @@ setopt hist_reduce_blanks
 setopt share_history        # share command history data
 
 
-
 ## completion ##
 fpath=(~/.zsh.d/functions $fpath)
-autoload -Uz compinit
-compinit
+
+autoload -U predict-on
+autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*:cd:*' tag-order local-directories path-directories
-autoload -U predict-on
+
+if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
+  autoload -U chpwd_recent_dirs cdr
+  chpwd_functions+=chpwd_recent_dirs
+  zstyle ":chpwd:*" recent-dirs-max 500
+  zstyle ":chpwd:*" recent-dirs-default true
+  zstyle ":completion:*" recent-dirs-insert always
+fi
 
 
 ## autojump https://github.com/joelthelion/autojump
