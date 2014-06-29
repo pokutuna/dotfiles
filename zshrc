@@ -65,10 +65,6 @@ bindkey "^[[3~" delete-char # del
 bindkey "\e[Z" reverse-menu-complete # reverse menu complete
 
 
-# zaw
-source ${DOTFILES_ROOT}/modules/zaw/zaw.zsh
-bindkey '^r' zaw-history
-
 # peco
 if command -v peco; then
   for f (~/.zsh.d/peco-sources/*) source "${f}" # load peco sources
