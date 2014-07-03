@@ -65,7 +65,12 @@ if command -v peco > /dev/null; then
 
   p(){ git ls-files | peco | xargs $@ }
   e(){ git ls-files | peco | xargs emacsclient -n }
+  repo() { cd $(ghq list -p | peco) }
 
+  # for review
+  _review() { git diff origin/dev...HEAD --name-only | peco }
+  rdiff() { git diff origin/dev -- $(_review) }
+  ropen() { emacsclient -n $(_review) }
 fi
 
 # 単語区切り設定

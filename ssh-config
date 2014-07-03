@@ -1,6 +1,7 @@
 ServerAliveInterval 30
 ServerAliveCountMax 5
-StrictHostKeyChecking yes
+StrictHostKeyChecking no
+# yes, no, ask(default)
 
 Host pokutuna.com
   HostName pokutuna.com

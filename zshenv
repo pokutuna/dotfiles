@@ -44,6 +44,9 @@ export JAVA_BIN=$JAVA_HOME/bin
 #python
 [[ -s "$HOME/.pythonbrew/etc/bashrc" ]] && source "$HOME/.pythonbrew/etc/bashrc"
 
+# go
+export GOPATH=~/.gopath
+export PATH=$GOPATH/bin:$PATH
 
 
 ## applications ##

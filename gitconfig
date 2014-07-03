@@ -46,3 +46,8 @@
   lineNumber = true
 [tig]
   commit-order = topo
+
+[ghq]
+  root=~/.ghq
+[ghq "ssh://gitolite@pokutuna.com"]
+  vcs = git

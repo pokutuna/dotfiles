@@ -1,13 +1,18 @@
+(autoload 'ruby-mode "ruby-mode" t)
+
 (add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rb$|\\.cgi$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
 
-(lazyload
- (ruby-mode) "ruby-mode"
+(require 'ruby-end)
 
+(add-hook-fn 'ruby-mode-hook
  (setq ruby-indent-level 2)
  (setq ruby-indent-tabs-mode nil)
  (setq ruby-deep-indent-paren-style nil) ;C-M-\ でindentととのえる
+
+ (message "ruby-mode-hook runs")
 
  ;; auto-magic-comment
  (defun ruby-insert-magic-comment-if-needed ()
@@ -29,9 +34,7 @@
                               ((string-match "utf-8" coding-system)
                                "utf-8"))))
          (insert (format "# coding: %s" encoding))))))
-
  (add-hook 'before-save-hook 'ruby-insert-magic-comment-if-needed)
-
 
  ;; flymake for ruby
  ;; http://d.hatena.ne.jp/khiker/20070630/emacs_ruby_flymake
@@ -67,37 +70,36 @@
  ;; rhtml
  (add-to-load-path "co/rhtml")
  (require 'rhtml-mode)
+
+ ;; (ruby-electric-mode t)
+ ;; (setq ruby-electric-expand-delimiters-list nil)
+
+ (require 'ruby-block)
+ (ruby-block-mode t)
+ (setq ruby-block-highlight-toggle t)
+
+ (ruby-mode-primary-binds)
+
+ ;; flymake
+ (if (not (null buffer-file-name)) (flymake-mode))
+
+ ;; rsense
+ (add-to-list 'ac-sources 'ac-source-rsense-method)
+ (add-to-list 'ac-sources 'ac-source-rsense-constant)
+ (local-set-key (kbd "M-i") 'ac-complete-rsense)
+
+ ;; rdefs
+ (local-set-key (kbd "C-@") 'anything-rdefs)
 )
 
-(lazyload (ruby-electric-mode) "ruby-electric")
-(lazyload (ruby-block-mode) "ruby-block"
-          (setq ruby-block-highlight-toggle t))
-(lazyload (rubydb) "rubydb3x")
-
-(add-hook-fn 'ruby-mode-hook
-             (ruby-electric-mode t)
-             (ruby-block-mode t)
-
-             (ruby-mode-primary-binds)
-
-             ;; flymake
-             (if (not (null buffer-file-name)) (flymake-mode))
-
-             ;; rsense
-             (add-to-list 'ac-sources 'ac-source-rsense-method)
-             (add-to-list 'ac-sources 'ac-source-rsense-constant)
-             (local-set-key (kbd "M-i") 'ac-complete-rsense)
-
-             ;; rdefs
-             (local-set-key (kbd "C-@") 'anything-rdefs)
-             )
 
 
 ;; package.el で ruby-electric 入れると ruby-mode に eval-after-load が追加されて上書きされちゃう
 (defun ruby-mode-primary-binds ()
   (parenthesis-register-keys "(\"['" ruby-mode-map)
   (define-key ruby-mode-map (kbd "{")
-    (smartchr '("{`!!'}" "{ |`!!'|}" "do |`!!'|\nend")))
+    (smartchr '("{`!!'}" "{|`!!'| }" "do |`!!'|\nend")))
+  (message "ruby-mode-primary-binds runs")
   )
 
 (eval-after-load 'ruby-electric
