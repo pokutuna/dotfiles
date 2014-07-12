@@ -10,12 +10,6 @@
 (add-to-load-path "elisp")
 
 
-;; PATH
-(setq shell-file-name "/usr/local/bin/zsh")
-(add-to-list 'exec-path "/usr/local/bin")
-(setenv "PATH" (mapconcat 'identity exec-path ":"))
-
-
 ;; LANG
 (setenv "LANG" "ja_JP.UTF-8")
 
@@ -25,6 +19,11 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (package-initialize)
+
+;; PATH
+(setq shell-file-name "/usr/local/bin/zsh")
+(add-to-list 'exec-path "/usr/local/bin")
+(setenv "PATH" (mapconcat 'identity exec-path ":"))
 
 
 ;; そのうちなくす or いい方法探す
