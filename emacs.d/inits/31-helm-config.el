@@ -5,15 +5,15 @@
 (require 'helm-config)
 (require 'helm-command)
 
+(helm-mode 1)
+
 (setq
  helm-idle-delay 0.1
  helm-input-idle-delay 0.1
  helm-candidate-number-limit 200
  helm-quick-update t
- helm-buffer-max-length nil
+ helm-buffer-max-length 50
  )
-
-(helm-mode 1)
 
 ;; soruces
 (setq helm-for-files-preferred-list
