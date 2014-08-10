@@ -93,7 +93,7 @@ setopt share_history        # share command history data
 
 
 ## completion ##
-fpath=(~/.zsh.d/functions $fpath)
+fpath=(~/.zsh.d/functions /usr/local/share/zsh/site-functions $fpath)
 
 autoload -U predict-on
 autoload -Uz compinit && compinit
