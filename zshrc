@@ -23,8 +23,8 @@ alias df="df -h"
 alias java="java -Dfile.encoding=UTF-8"
 alias javac="javac -J-Dfile.encoding=UTF-8"
 
-alias emacsclient="emacsclient -n"
-alias ec="emacsclient -n"
+alias -g emacsclient="emacsclient -n"
+alias -g ec="emacsclient -n"
 
 alias t='tsocks'
 
@@ -64,8 +64,11 @@ if command -v peco > /dev/null; then
   bindkey '^@' peco-cdr
 
   p(){ git ls-files | peco | xargs $@ }
-  e(){ git ls-files | peco | xargs emacsclient -n }
   repo() { cd $(ghq list -p | peco) }
+
+  if command -v src-hilite-lesspipe.sh > /dev/null ; then
+    alias -g cless="LESS='-R' LESSOPEN='| src-hilite-lesspipe.sh %s' less"
+  fi
 
   # for review
   _review() { git diff origin/dev...HEAD --name-only | peco }
