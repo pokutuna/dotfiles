@@ -51,6 +51,10 @@ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 
 ## applications ##
+
+# less
+export LESS='-R'
+
 # emacs
 export PATH=/Applications/Emacs.app/Contents/MacOS:/Applications/Emacs.app/Contents/MacOS/bin:$PATH
 
@@ -81,7 +85,6 @@ which brew > /dev/null && PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 
 ## secret ##
 [ -f ~/.zsh.d/env_secret ] && source ~/.zsh.d/env_secret
-
 
 # shared-mime-info
 export XDG_DATA_HOME=/usr/local/share
