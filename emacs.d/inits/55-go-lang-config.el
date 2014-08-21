@@ -6,6 +6,6 @@
      (add-hook 'before-save-hook 'gofmt-before-save)
 
      (when (require 'smartchr nil t)
-       (define-key go-mode-map (kbd "=") (smartchr '("=" ":=")))
+       (define-key go-mode-map (kbd ":") (smartchr '(":" ":=")))
        )
      ))
