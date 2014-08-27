@@ -34,3 +34,6 @@
 [submodule "vim/co/vundle"]
 	path = vim/co/vundle
 	url = git://github.com/gmarik/vundle.git
+[submodule "modules/sourcehighlight-solarized"]
+	path = modules/sourcehighlight-solarized
+	url = https://github.com/jrunning/source-highlight-solarized
