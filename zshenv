@@ -45,7 +45,9 @@ export JAVA_BIN=$JAVA_HOME/bin
 [[ -s "$HOME/.pythonbrew/etc/bashrc" ]] && source "$HOME/.pythonbrew/etc/bashrc"
 
 # go
-export GOROOT=`brew --prefix go`/libexec
+if command -v brew > /dev/null; then
+  export GOROOT=`brew --prefix go`/libexec
+fi
 export GOPATH=~/.gopath
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 

@@ -73,7 +73,7 @@ if command -v peco > /dev/null; then
 
   # for review
   _review() { git diff origin/dev...HEAD --name-only | peco }
-  rdiff() { git diff origin/dev -- $(_review) }
+  rdiff() { git diff origin/dev...HEAD -- $(_review) }
   ropen() { emacsclient -n $(_review) }
 fi
 
