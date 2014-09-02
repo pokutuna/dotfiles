@@ -1,0 +1,149 @@
+--- date -R ---
+Tue, 02 Sep 2014 12:51:27 +0900
+
+--- brew list --versions ---
+ack 2.12
+android-sdk 23.0.2
+apple-gcc42 4.2.1-5666.3
+asciidoc 8.6.9
+autoconf 2.69
+automake 1.14.1
+autossh 1.4c
+bison 3.0.2
+boost 1.55.0_2
+bsdmake 24
+cairo 1.12.16_1
+checkbashisms 2.13.4
+cmake 3.0.1
+cmigemo 20110227
+coreutils 8.23
+cppunit 1.12.1
+cscope 15.8a
+ctags 5.8
+curl 7.37.1_1
+dfc 3.0.4
+dirac 1.0.2
+docbook 5.0
+docbook-xsl 1.78.1
+emacs 24.3
+expat 2.1.0
+faac 1.28
+faad2 2.7
+ffmpeg 2.3.3
+findutils 4.4.2
+fontconfig 2.11.1
+fontforge 20120731_1
+fortune 9708
+freetype 2.5.3_1
+gd 2.1.0_2
+gdbm 1.11
+geoip 1.6.2
+geoipupdate 2.0.2
+gettext 0.19.2
+gist 4.3.0
+git 2.1.0
+glib 2.40.0_1
+global 6.3
+gmp 6.0.0a
+gnome-common 3.12.0
+gnu-getopt 1.1.5
+gnuplot 4.6.5
+gnutls 3.2.15
+go 1.3.1
+graphicsmagick 1.3.19_1
+groovy 2.3.6
+help2man 1.46.1
+heroku-toolbelt 3.9.7
+hub 1.12.2
+imagemagick 6.8.9-5
+innotop 1.9.1
+intltool 0.50.2
+ipcalc 0.41
+jpeg 8d
+jq 1.4
+jruby 1.7.13
+keychain 2.7.1
+lame 3.99.5
+libev 4.15
+libevent 2.0.21
+libffi 3.0.13
+libidn 1.29
+libogg 1.3.2
+liboil 0.3.17
+libpng 1.6.13
+libtasn1 4.1
+libtiff 4.0.3
+libtool 2.4.2
+libxml2 2.9.1
+libyaml 0.1.6
+little-cms 1.19
+lua 5.1.5
+lv 4.51
+lynx 2.8.8rel.2_1
+mackerel-agent agent
+macvim 7.4-73
+markdown 1.0.1
+mecab 0.996
+mecab-ipadic 2.7.0-20070801
+memcached 1.4.20
+mercurial 3.1
+mongodb 2.6.4_1
+mp4v2 2.0.0
+mysql55 5.5.30
+nettle 2.7.1
+nginx 1.4.1
+ngrep 1.45_1
+nkf 2.1.3
+nmap 6.46_1
+node 0.10.31
+nspr 4.10.6
+openssl 1.0.1i
+orc 0.4.21
+p7zip 9.20.1
+pcre 8.35
+peco 0.1.10
+phantomjs 1.9.7
+pixman 0.32.6
+pkg-config 0.28
+popt 1.16
+proctools 0.4pre1
+pstree 2.36
+python 2.7.8_1
+rbenv 0.4.0
+readline 6.3.6
+reattach-to-user-namespace 2.3
+redis 2.8.13
+rlog 1.4
+ruby-build 20140702_1
+scala 2.11.2
+shared-mime-info 1.3
+source-highlight 3.1.7
+spidermonkey 1.8.5
+sqlite 3.8.6
+texi2html 1.82
+the_silver_searcher 0.24.1
+tig 2.0.2
+tmux 1.9a
+tree 1.7.0
+tsocks HEAD
+v8 3.25.30
+vim 7.4.335
+watch 3.2.8
+wget 1.15_2
+x264 r2438
+xmlto 0.0.25
+xvid 1.3.2
+xz 5.0.5
+yasm 1.3.0
+zsh 5.0.5
+
+--- brew list --pinned ---
+imagemagick
+mysql55
+
+--- brew tap ---
+homebrew/dupes
+homebrew/versions
+motemen/mackerel-agent
+peco/peco
+
