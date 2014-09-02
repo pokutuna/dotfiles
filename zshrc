@@ -72,9 +72,13 @@ if command -v peco > /dev/null; then
   fi
 
   # for review
-  _review() { git diff origin/dev...HEAD --name-only | peco }
-  rdiff() { git diff origin/dev...HEAD -- $(_review) }
-  ropen() { emacsclient -n $(_review) }
+  _diff_from(){
+    ref_from=${1:-origin/dev}
+    echo $ref_from
+  }
+  _review_file() { git diff `_diff_from ${1}`...HEAD --name-only | peco }
+  rdiff() { git diff `_diff_from ${1}`...HEAD -- $(_review_file ${1}) }
+  ropen() { emacsclient -n $(_review_file) }
 fi
 
 # 単語区切り設定
