@@ -5,8 +5,9 @@
 
 ;;;### (autoloads (helm-other-buffer helm helm-debug-open-last-log
 ;;;;;;  helm-define-key-with-subkeys helm-multi-key-defun helm-define-multi-key)
-;;;;;;  "helm" "helm.el" (21521 39315 0 0))
-;;; Generated autoloads from helm.el
+;;;;;;  "helm" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm.el"
+;;;;;;  "22897659db895abfb21a4c321244d6a4")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm.el
 
 (autoload 'helm-define-multi-key "helm" "\
 In KEYMAP, define key sequence KEY for function list FUNCTIONS.
@@ -172,9 +173,9 @@ Call `helm' with only ANY-SOURCES and ANY-BUFFER as args.
 
 ;;;***
 
-;;;### (autoloads (helm-reset-adaptive-history) "helm-adaptive" "helm-adaptive.el"
-;;;;;;  (21521 39315 0 0))
-;;; Generated autoloads from helm-adaptive.el
+;;;### (autoloads (helm-reset-adaptive-history) "helm-adaptive" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-adaptive.el"
+;;;;;;  "722a3894969661ba6fe946391ac6d297")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-adaptive.el
 
 (autoload 'helm-reset-adaptive-history "helm-adaptive" "\
 Delete all `helm-adaptive-history' and his file.
@@ -184,9 +185,9 @@ Useful when you have a old or corrupted `helm-adaptive-history-file'.
 
 ;;;***
 
-;;;### (autoloads (helm-apt) "helm-apt" "helm-apt.el" (21521 39314
-;;;;;;  0 0))
-;;; Generated autoloads from helm-apt.el
+;;;### (autoloads (helm-apt) "helm-apt" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-apt.el"
+;;;;;;  "dbf54fd9aef4e06eb55479914385b873")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-apt.el
 
 (autoload 'helm-apt "helm-apt" "\
 Preconfigured `helm' : frontend of APT package manager.
@@ -196,9 +197,9 @@ With a prefix arg reload cache.
 
 ;;;***
 
-;;;### (autoloads (helm-bbdb) "helm-bbdb" "helm-bbdb.el" (21521 39314
-;;;;;;  0 0))
-;;; Generated autoloads from helm-bbdb.el
+;;;### (autoloads (helm-bbdb) "helm-bbdb" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-bbdb.el"
+;;;;;;  "df01bbbe6f511459634c6d9fe145b4c4")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-bbdb.el
 
 (autoload 'helm-bbdb "helm-bbdb" "\
 Preconfigured `helm' for BBDB.
@@ -212,8 +213,9 @@ http://bbdb.sourceforge.net/
 ;;;***
 
 ;;;### (autoloads (helm-filtered-bookmarks helm-pp-bookmarks helm-bookmarks)
-;;;;;;  "helm-bookmark" "helm-bookmark.el" (21521 39315 0 0))
-;;; Generated autoloads from helm-bookmark.el
+;;;;;;  "helm-bookmark" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-bookmark.el"
+;;;;;;  "9172c6fe353804a91d1814e16491ef01")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-bookmark.el
 
 (autoload 'helm-bookmarks "helm-bookmark" "\
 Preconfigured `helm' for bookmarks.
@@ -234,9 +236,9 @@ only if external library addressbook-bookmark.el is available.
 
 ;;;***
 
-;;;### (autoloads (helm-buffers-list) "helm-buffers" "helm-buffers.el"
-;;;;;;  (21521 39315 0 0))
-;;; Generated autoloads from helm-buffers.el
+;;;### (autoloads (helm-buffers-list) "helm-buffers" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-buffers.el"
+;;;;;;  "f6ca90a30864e354ae65a2b4fb8e16e8")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-buffers.el
 
 (autoload 'helm-buffers-list "helm-buffers" "\
 Preconfigured `helm' to list buffers.
@@ -245,9 +247,9 @@ Preconfigured `helm' to list buffers.
 
 ;;;***
 
-;;;### (autoloads (helm-colors) "helm-color" "helm-color.el" (21521
-;;;;;;  39315 0 0))
-;;; Generated autoloads from helm-color.el
+;;;### (autoloads (helm-colors) "helm-color" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-color.el"
+;;;;;;  "d8ec6c36bcb9d4125af4446c6023f86d")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-color.el
 
 (autoload 'helm-colors "helm-color" "\
 Preconfigured `helm' for color.
@@ -256,9 +258,9 @@ Preconfigured `helm' for color.
 
 ;;;***
 
-;;;### (autoloads (helm-M-x) "helm-command" "helm-command.el" (21521
-;;;;;;  39314 0 0))
-;;; Generated autoloads from helm-command.el
+;;;### (autoloads (helm-M-x) "helm-command" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-command.el"
+;;;;;;  "b2322ce2b65fb0df41d918eca278b52c")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-command.el
 
 (autoload 'helm-M-x "helm-command" "\
 Preconfigured `helm' for Emacs commands.
@@ -273,9 +275,9 @@ You can get help on each command by persistent action.
 
 ;;;***
 
-;;;### (autoloads (helm-configuration) "helm-config" "helm-config.el"
-;;;;;;  (21521 39315 0 0))
-;;; Generated autoloads from helm-config.el
+;;;### (autoloads (helm-configuration) "helm-config" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-config.el"
+;;;;;;  "0c5c8753df231481bc51a75cda26a4ca")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-config.el
 
 (autoload 'helm-configuration "helm-config" "\
 Customize `helm'.
@@ -284,9 +286,9 @@ Customize `helm'.
 
 ;;;***
 
-;;;### (autoloads (helm-dabbrev) "helm-dabbrev" "helm-dabbrev.el"
-;;;;;;  (21521 39315 0 0))
-;;; Generated autoloads from helm-dabbrev.el
+;;;### (autoloads (helm-dabbrev) "helm-dabbrev" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-dabbrev.el"
+;;;;;;  "85d614bc1369eb877abc7478f0d225cf")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-dabbrev.el
 
 (autoload 'helm-dabbrev "helm-dabbrev" "\
 
@@ -298,8 +300,9 @@ Customize `helm'.
 ;;;### (autoloads (helm-complex-command-history helm-timers helm-locate-library
 ;;;;;;  helm-manage-advice helm-apropos helm-lisp-completion-or-file-name-at-point
 ;;;;;;  helm-lisp-indent helm-complete-file-name-at-point helm-lisp-completion-at-point)
-;;;;;;  "helm-elisp" "helm-elisp.el" (21521 39315 0 0))
-;;; Generated autoloads from helm-elisp.el
+;;;;;;  "helm-elisp" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-elisp.el"
+;;;;;;  "33c89d0e58a3f8e9b24f14b63878d7bb")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-elisp.el
 
 (autoload 'helm-lisp-completion-at-point "helm-elisp" "\
 Helm lisp symbol completion at point.
@@ -350,8 +353,9 @@ Preconfigured `helm' for timers.
 ;;;***
 
 ;;;### (autoloads (helm-list-elisp-packages) "helm-elisp-package"
-;;;;;;  "helm-elisp-package.el" (21521 39314 0 0))
-;;; Generated autoloads from helm-elisp-package.el
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-elisp-package.el"
+;;;;;;  "92437f634d7a08adf01b6d5837ad74a4")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-elisp-package.el
 
 (autoload 'helm-list-elisp-packages "helm-elisp-package" "\
 
@@ -360,9 +364,9 @@ Preconfigured `helm' for timers.
 
 ;;;***
 
-;;;### (autoloads (helm-elscreen) "helm-elscreen" "helm-elscreen.el"
-;;;;;;  (21521 39315 0 0))
-;;; Generated autoloads from helm-elscreen.el
+;;;### (autoloads (helm-elscreen) "helm-elscreen" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-elscreen.el"
+;;;;;;  "e8f0a8ca2a187d0fd8c271986e98d89d")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-elscreen.el
 
 (autoload 'helm-elscreen "helm-elscreen" "\
 Preconfigured helm to list elscreen.
@@ -371,9 +375,9 @@ Preconfigured helm to list elscreen.
 
 ;;;***
 
-;;;### (autoloads (helm-emms) "helm-emms" "helm-emms.el" (21521 39314
-;;;;;;  0 0))
-;;; Generated autoloads from helm-emms.el
+;;;### (autoloads (helm-emms) "helm-emms" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-emms.el"
+;;;;;;  "4846e877aca0406ec9b96387c28f8293")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-emms.el
 
 (autoload 'helm-emms "helm-emms" "\
 Preconfigured `helm' for emms sources.
@@ -383,8 +387,9 @@ Preconfigured `helm' for emms sources.
 ;;;***
 
 ;;;### (autoloads (helm-eshell-history helm-esh-pcomplete) "helm-eshell"
-;;;;;;  "helm-eshell.el" (21521 39315 0 0))
-;;; Generated autoloads from helm-eshell.el
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-eshell.el"
+;;;;;;  "663f9426c150a7ca4af238e76b53846b")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-eshell.el
 
 (autoload 'helm-esh-pcomplete "helm-eshell" "\
 Preconfigured helm to provide helm completion in eshell.
@@ -399,9 +404,9 @@ Preconfigured helm for eshell history.
 ;;;***
 
 ;;;### (autoloads (helm-calcul-expression helm-eval-expression-with-eldoc
-;;;;;;  helm-eval-expression) "helm-eval" "helm-eval.el" (21521 39315
-;;;;;;  0 0))
-;;; Generated autoloads from helm-eval.el
+;;;;;;  helm-eval-expression) "helm-eval" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-eval.el"
+;;;;;;  "c277097ac56699d176a9327578a9c7bb")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-eval.el
 
 (autoload 'helm-eval-expression "helm-eval" "\
 Preconfigured helm for `helm-source-evaluation-result'.
@@ -409,7 +414,7 @@ Preconfigured helm for `helm-source-evaluation-result'.
 \(fn ARG)" t nil)
 
 (autoload 'helm-eval-expression-with-eldoc "helm-eval" "\
-Preconfigured helm for `helm-source-evaluation-result' with `eldoc' support.
+Preconfigured helm for `helm-source-evaluation-result' with `eldoc' support. 
 
 \(fn)" t nil)
 
@@ -420,9 +425,9 @@ Preconfigured helm for `helm-source-calculation-result'.
 
 ;;;***
 
-;;;### (autoloads (helm-run-external-command) "helm-external" "helm-external.el"
-;;;;;;  (21521 39316 0 0))
-;;; Generated autoloads from helm-external.el
+;;;### (autoloads (helm-run-external-command) "helm-external" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-external.el"
+;;;;;;  "a3980b8667927a81e3361a6d2b5c00c1")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-external.el
 
 (autoload 'helm-run-external-command "helm-external" "\
 Preconfigured `helm' to run External PROGRAM asyncronously from Emacs.
@@ -435,9 +440,9 @@ You can set your own list of commands with
 ;;;***
 
 ;;;### (autoloads (helm-recentf helm-for-files helm-find-files helm-find
-;;;;;;  helm-browse-project) "helm-files" "helm-files.el" (21521
-;;;;;;  39315 0 0))
-;;; Generated autoloads from helm-files.el
+;;;;;;  helm-browse-project) "helm-files" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-files.el"
+;;;;;;  "83ca5c1d1423e16ee030ba453da4000a")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-files.el
 
 (autoload 'helm-browse-project "helm-files" "\
 Browse files and see status of project with its vcs.
@@ -477,9 +482,9 @@ Preconfigured `helm' for `recentf'.
 
 ;;;***
 
-;;;### (autoloads (helm-firefox-bookmarks) "helm-firefox" "helm-firefox.el"
-;;;;;;  (21521 39315 0 0))
-;;; Generated autoloads from helm-firefox.el
+;;;### (autoloads (helm-firefox-bookmarks) "helm-firefox" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-firefox.el"
+;;;;;;  "8d9de7519bb1b803fd9de9eef72a54ef")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-firefox.el
 
 (autoload 'helm-firefox-bookmarks "helm-firefox" "\
 Preconfigured `helm' for firefox bookmark.
@@ -498,9 +503,9 @@ After closing firefox, you will be able to browse you bookmarks.
 
 ;;;***
 
-;;;### (autoloads (helm-ucs helm-select-xfont) "helm-font" "helm-font.el"
-;;;;;;  (21521 39315 0 0))
-;;; Generated autoloads from helm-font.el
+;;;### (autoloads (helm-ucs helm-select-xfont) "helm-font" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-font.el"
+;;;;;;  "b369820c69145692003c4250ce5eb5b6")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-font.el
 
 (autoload 'helm-select-xfont "helm-font" "\
 Preconfigured `helm' to select Xfont.
@@ -514,9 +519,9 @@ Preconfigured helm for `ucs-names' math symbols.
 
 ;;;***
 
-;;;### (autoloads (helm-gentoo) "helm-gentoo" "helm-gentoo.el" (21521
-;;;;;;  39315 0 0))
-;;; Generated autoloads from helm-gentoo.el
+;;;### (autoloads (helm-gentoo) "helm-gentoo" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-gentoo.el"
+;;;;;;  "e09f2299905ede27d1c2df42f5fb2ccc")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-gentoo.el
 
 (autoload 'helm-gentoo "helm-gentoo" "\
 Preconfigured `helm' for gentoo linux.
@@ -529,9 +534,9 @@ Preconfigured `helm' for gentoo linux.
 ;;;;;;  helm-grep-mode-jump-other-window-backward helm-grep-mode-jump-other-window-forward
 ;;;;;;  helm-grep-mode-jump helm-gm-precedent-file helm-gm-next-file
 ;;;;;;  helm-grep-mode helm-grep-run-save-buffer helm-goto-next-file
-;;;;;;  helm-goto-precedent-file) "helm-grep" "helm-grep.el" (21521
-;;;;;;  39315 0 0))
-;;; Generated autoloads from helm-grep.el
+;;;;;;  helm-goto-precedent-file) "helm-grep" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-grep.el"
+;;;;;;  "f3c61a4153fc22a74a6bcd63bcd3384f")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-grep.el
 
 (autoload 'helm-goto-precedent-file "helm-grep" "\
 Go to precedent file in helm grep/etags buffers.
@@ -617,9 +622,9 @@ Preconfigured helm for pdfgrep.
 ;;;;;;  helm-apt-help helm-top-help helm-moccur-help helm-buffers-ido-virtual-help
 ;;;;;;  helm-esh-help helm-bookmark-help helm-ucs-help helm-etags-help
 ;;;;;;  helm-pdfgrep-help helm-grep-help helm-generic-file-help helm-read-file-name-help
-;;;;;;  helm-ff-help helm-buffer-help helm-help) "helm-help" "helm-help.el"
-;;;;;;  (21521 39315 0 0))
-;;; Generated autoloads from helm-help.el
+;;;;;;  helm-ff-help helm-buffer-help helm-help) "helm-help" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-help.el"
+;;;;;;  "1e4f940de4db6a038272dbfe90a2b7d6")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-help.el
 
 (autoload 'helm-help "helm-help" "\
 Help of `helm'.
@@ -777,9 +782,9 @@ HELM-ATTRIBUTE should be a symbol.
 
 ;;;***
 
-;;;### (autoloads (helm-imenu) "helm-imenu" "helm-imenu.el" (21521
-;;;;;;  39314 0 0))
-;;; Generated autoloads from helm-imenu.el
+;;;### (autoloads (helm-imenu) "helm-imenu" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-imenu.el"
+;;;;;;  "f2e386d2a77c2d37bdc8b53edb627139")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-imenu.el
 
 (autoload 'helm-imenu "helm-imenu" "\
 Preconfigured `helm' for `imenu'.
@@ -788,9 +793,9 @@ Preconfigured `helm' for `imenu'.
 
 ;;;***
 
-;;;### (autoloads (helm-info-at-point) "helm-info" "helm-info.el"
-;;;;;;  (21521 39315 0 0))
-;;; Generated autoloads from helm-info.el
+;;;### (autoloads (helm-info-at-point) "helm-info" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-info.el"
+;;;;;;  "5b3d35b00e13f7efc111fedfa16d8970")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-info.el
 
 (autoload 'helm-info-at-point "helm-info" "\
 Preconfigured `helm' for searching info at point.
@@ -801,8 +806,9 @@ With a prefix-arg insert symbol at point.
 ;;;***
 
 ;;;### (autoloads (helm-locate helm-locate-read-file-name) "helm-locate"
-;;;;;;  "helm-locate.el" (21521 39315 0 0))
-;;; Generated autoloads from helm-locate.el
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-locate.el"
+;;;;;;  "5f1a2f5ddd6efc84e82389f6ab100b74")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-locate.el
 
 (autoload 'helm-locate-read-file-name "helm-locate" "\
 
@@ -829,9 +835,9 @@ Where db_path is a filename matched by
 
 ;;;***
 
-;;;### (autoloads (helm-man-woman) "helm-man" "helm-man.el" (21521
-;;;;;;  39315 0 0))
-;;; Generated autoloads from helm-man.el
+;;;### (autoloads (helm-man-woman) "helm-man" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-man.el"
+;;;;;;  "274a4a01a7e63d5cf355cf2e0476e93e")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-man.el
 
 (autoload 'helm-man-woman "helm-man" "\
 Preconfigured `helm' for Man and Woman pages.
@@ -841,9 +847,9 @@ With a prefix arg reinitialize the cache.
 
 ;;;***
 
-;;;### (autoloads (helm-match-plugin-mode) "helm-match-plugin" "helm-match-plugin.el"
-;;;;;;  (21521 39315 0 0))
-;;; Generated autoloads from helm-match-plugin.el
+;;;### (autoloads (helm-match-plugin-mode) "helm-match-plugin" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-match-plugin.el"
+;;;;;;  "36cd6b0e3773c7d5691bdad635eb40be")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-match-plugin.el
 
 (defvar helm-match-plugin-mode nil "\
 Non-nil if Helm-Match-Plugin mode is enabled.
@@ -865,8 +871,9 @@ See `helm-mp-matching-method' for the behavior of each method.
 ;;;### (autoloads (helm-comint-input-ring helm-minibuffer-history
 ;;;;;;  helm-mini helm-stumpwm-commands helm-ratpoison-commands helm-eev-anchors
 ;;;;;;  helm-insert-latex-math helm-world-time helm-browse-menubar)
-;;;;;;  "helm-misc" "helm-misc.el" (21521 39315 0 0))
-;;; Generated autoloads from helm-misc.el
+;;;;;;  "helm-misc" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-misc.el"
+;;;;;;  "9ec4ae0110b241dc7ac76e8b627058bc")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-misc.el
 
 (autoload 'helm-browse-menubar "helm-misc" "\
 Helm interface to the menubar using lacarte.el.
@@ -915,9 +922,9 @@ Predefined `helm' that provide completion of `comint' history.
 
 ;;;***
 
-;;;### (autoloads (helm-mode helm-comp-read) "helm-mode" "helm-mode.el"
-;;;;;;  (21521 39315 0 0))
-;;; Generated autoloads from helm-mode.el
+;;;### (autoloads (helm-mode helm-comp-read) "helm-mode" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-mode.el"
+;;;;;;  "68e720272560e6d1c68d1bd10bb3a420")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-mode.el
 
 (autoload 'helm-comp-read "helm-mode" "\
 Read a string in the minibuffer, with helm completion.
@@ -1036,8 +1043,9 @@ Note: This mode is incompatible with Emacs23.
 ;;;***
 
 ;;;### (autoloads (helm-wikipedia-suggest helm-yahoo-suggest helm-google-suggest
-;;;;;;  helm-surfraw) "helm-net" "helm-net.el" (21521 39314 0 0))
-;;; Generated autoloads from helm-net.el
+;;;;;;  helm-surfraw) "helm-net" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-net.el"
+;;;;;;  "46a9b1a18489207e7d3dcede21974f02")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-net.el
 
 (autoload 'helm-surfraw "helm-net" "\
 Preconfigured `helm' to search PATTERN with search ENGINE.
@@ -1062,8 +1070,9 @@ Preconfigured `helm' for Wikipedia lookup with Wikipedia suggest.
 ;;;***
 
 ;;;### (autoloads (helm-org-headlines helm-org-keywords) "helm-org"
-;;;;;;  "helm-org.el" (21521 39315 0 0))
-;;; Generated autoloads from helm-org.el
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-org.el"
+;;;;;;  "3e7a4874056c50357ee5b29bb8e6b756")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-org.el
 
 (autoload 'helm-org-keywords "helm-org" "\
 Preconfigured `helm' for org keywords.
@@ -1080,8 +1089,9 @@ Preconfigured helm to show org headlines.
 ;;;### (autoloads (helm-multi-occur-from-isearch helm-multi-occur
 ;;;;;;  helm-occur-from-isearch helm-occur helm-regexp helm-moccur-mode
 ;;;;;;  helm-moccur-run-save-buffer helm-occur-match-plugin-mode)
-;;;;;;  "helm-regexp" "helm-regexp.el" (21521 39314 0 0))
-;;; Generated autoloads from helm-regexp.el
+;;;;;;  "helm-regexp" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-regexp.el"
+;;;;;;  "7ced1f983c631c97a63db7719431e5fb")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-regexp.el
 
 (defvar helm-occur-match-plugin-mode t "\
 Non-nil if Helm-Occur-Match-Plugin mode is enabled.
@@ -1150,9 +1160,9 @@ The prefix arg can be set before calling
 ;;;***
 
 ;;;### (autoloads (helm-show-kill-ring helm-register helm-all-mark-rings
-;;;;;;  helm-global-mark-ring helm-mark-ring) "helm-ring" "helm-ring.el"
-;;;;;;  (21521 39314 0 0))
-;;; Generated autoloads from helm-ring.el
+;;;;;;  helm-global-mark-ring helm-mark-ring) "helm-ring" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-ring.el"
+;;;;;;  "a2778ad8289376977b4df47cde3c267e")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-ring.el
 
 (autoload 'helm-mark-ring "helm-ring" "\
 Preconfigured `helm' for `helm-source-mark-ring'.
@@ -1185,8 +1195,9 @@ First call open the kill-ring browser, next calls move to next line.
 ;;;***
 
 ;;;### (autoloads (helm-semantic-or-imenu helm-semantic) "helm-semantic"
-;;;;;;  "helm-semantic.el" (21521 39316 0 0))
-;;; Generated autoloads from helm-semantic.el
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-semantic.el"
+;;;;;;  "7acceb38547d79c56bf10a5dead731e8")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-semantic.el
 
 (autoload 'helm-semantic "helm-semantic" "\
 Preconfigured `helm' for `semantic'.
@@ -1206,9 +1217,9 @@ Fill in the symbol at point by default.
 
 ;;;### (autoloads (helm-xrandr-set helm-list-emacs-process helm-top
 ;;;;;;  helm-top-run-sort-by-user helm-top-run-sort-by-mem helm-top-run-sort-by-cpu
-;;;;;;  helm-top-run-sort-by-com) "helm-sys" "helm-sys.el" (21521
-;;;;;;  39315 0 0))
-;;; Generated autoloads from helm-sys.el
+;;;;;;  helm-top-run-sort-by-com) "helm-sys" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-sys.el"
+;;;;;;  "6a046c76d1a62c0f23b37933734b069d")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-sys.el
 
 (autoload 'helm-top-run-sort-by-com "helm-sys" "\
 
@@ -1247,9 +1258,9 @@ Preconfigured `helm' for emacs process.
 
 ;;;***
 
-;;;### (autoloads (helm-etags-select) "helm-tags" "helm-tags.el"
-;;;;;;  (21521 39315 0 0))
-;;; Generated autoloads from helm-tags.el
+;;;### (autoloads (helm-etags-select) "helm-tags" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-tags.el"
+;;;;;;  "10304559bab27cfed5f4b286e22a0e6e")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-tags.el
 
 (autoload 'helm-etags-select "helm-tags" "\
 Preconfigured helm for etags.
@@ -1268,8 +1279,9 @@ This function aggregates three sources of tag files:
 
 ;;;### (autoloads (helm-yank-text-at-point helm-w32-shell-execute-open-file
 ;;;;;;  helm-quit-and-find-file helm-display-all-sources helm-show-all-in-this-source-only)
-;;;;;;  "helm-utils" "helm-utils.el" (21521 39314 0 0))
-;;; Generated autoloads from helm-utils.el
+;;;;;;  "helm-utils" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-utils.el"
+;;;;;;  "45068913b9b8a41f48855d7aa40caabf")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-utils.el
 
 (autoload 'helm-show-all-in-this-source-only "helm-utils" "\
 Show only current source of this helm session with all its candidates.
@@ -1303,9 +1315,9 @@ grabs the entire symbol.
 
 ;;;***
 
-;;;### (autoloads (helm-w3m-bookmarks) "helm-w3m" "helm-w3m.el" (21521
-;;;;;;  39316 0 0))
-;;; Generated autoloads from helm-w3m.el
+;;;### (autoloads (helm-w3m-bookmarks) "helm-w3m" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-w3m.el"
+;;;;;;  "c9bc329069e0c809e586b66dc76b5563")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-w3m.el
 
 (autoload 'helm-w3m-bookmarks "helm-w3m" "\
 Preconfigured `helm' for w3m bookmark.
@@ -1320,9 +1332,9 @@ http://emacs-w3m.namazu.org/
 ;;;***
 
 ;;;### (autoloads (helm-yaoddmuse-emacswiki-post-library helm-yaoddmuse-emacswiki-edit-or-view
-;;;;;;  helm-yaoddmuse-cache-pages) "helm-yaoddmuse" "helm-yaoddmuse.el"
-;;;;;;  (21521 39314 0 0))
-;;; Generated autoloads from helm-yaoddmuse.el
+;;;;;;  helm-yaoddmuse-cache-pages) "helm-yaoddmuse" "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-yaoddmuse.el"
+;;;;;;  "d417119e09e26950548a1197068c8a18")
+;;; Generated autoloads from ../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-yaoddmuse.el
 
 (autoload 'helm-yaoddmuse-cache-pages "helm-yaoddmuse" "\
 Fetch the list of files on emacswiki and create cache file.
@@ -1350,8 +1362,51 @@ http://www.emacswiki.org/emacs/download/yaoddmuse.el
 
 ;;;***
 
-;;;### (autoloads nil nil ("helm-aliases.el" "helm-pkg.el" "helm-plugin.el"
-;;;;;;  "helm-source.el") (21521 39316 91014 0))
+;;;### (autoloads nil nil ("../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-adaptive.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-aliases.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-apt.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-bbdb.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-bookmark.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-buffers.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-color.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-command.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-config.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-dabbrev.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-elisp-package.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-elisp.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-elscreen.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-emms.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-eshell.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-eval.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-external.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-files.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-firefox.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-font.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-gentoo.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-grep.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-help.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-imenu.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-info.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-locate.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-man.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-match-plugin.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-misc.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-mode.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-net.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-org.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-pkg.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-plugin.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-regexp.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-ring.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-semantic.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-source.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-sys.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-tags.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-utils.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-w3m.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm-yaoddmuse.el"
+;;;;;;  "../../../../../../../.emacs.d/elpa/helm-20140910.1226/helm.el")
+;;;;;;  (21528 59329 338458 0))
 
 ;;;***
 
