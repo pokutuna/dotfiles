@@ -55,7 +55,7 @@ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 ## applications ##
 
 # less
-export LESS='-R'
+export LESS='-gj10 -R --no-init --quit-if-one-screen'
 
 # emacs
 export PATH=/Applications/Emacs.app/Contents/MacOS:/Applications/Emacs.app/Contents/MacOS/bin:$PATH
