@@ -76,6 +76,6 @@
 
 
 ;; helmコマンドで migemo を有効にする
-(require 'helm-migemo)
-(setq helm-migemize-command-idle-delay helm-idle-delay)
-(helm-migemize-command helm-for-files)
+;; (require 'helm-migemo)
+;; (setq helm-migemize-command-idle-delay helm-idle-delay)
+;; (helm-migemize-command helm-for-files)
