@@ -1,0 +1,4 @@
+# name: func (anonymous func)
+# key: fn
+# --
+func() { $0 }

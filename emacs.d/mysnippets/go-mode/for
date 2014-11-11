@@ -1,0 +1,6 @@
+# name: for (with range)
+# key: for
+# --
+for ${1:index}, ${2:value} := range ${3:target} {
+	$0
+}

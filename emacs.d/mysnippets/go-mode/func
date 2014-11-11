@@ -1,0 +1,6 @@
+# name: func (method)
+# key: func
+# --
+func ($1) $2($3) $4 {
+	$0
+}

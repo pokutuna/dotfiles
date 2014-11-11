@@ -1,0 +1,6 @@
+# name: error handle
+# key: error
+# --
+if err != nil {
+	$0
+}

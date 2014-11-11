@@ -1,0 +1,4 @@
+# name: sprintf
+# key: spr
+# --
+fmt.Sprintf($1, $2)
