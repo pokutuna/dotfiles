@@ -8,8 +8,8 @@
 (helm-mode 1)
 
 (setq
- helm-idle-delay 0.1
- helm-input-idle-delay 0.1
+ helm-idle-delay 0.02
+ helm-input-idle-delay 0.02
  helm-candidate-number-limit 200
  helm-quick-update t
  helm-buffer-max-length 35
