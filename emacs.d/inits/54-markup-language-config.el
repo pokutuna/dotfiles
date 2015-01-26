@@ -6,6 +6,12 @@
           (require 'flymake-haml))
 (add-hook 'haml-mode-hook 'flymake-haml-load)
 
+;; markdown
+(require 'markdown-mode)
+(add-to-list 'auto-mode-alist '("\\.md$" . gfm-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown$" . gfm-mode))
+(parenthesis-register-keys "{('\"[<`" gfm-mode-map)
+
 
 ;; slim
 (add-to-list 'auto-mode-alist '("\\.slim$" . slim-mode))
