@@ -79,6 +79,9 @@ if command -v peco > /dev/null; then
   _review_file() { git diff `_diff_from ${1}`...HEAD --name-only | peco }
   rdiff() { git diff `_diff_from ${1}`...HEAD -- $(_review_file ${1}) }
   ropen() { emacsclient -n $(_review_file) }
+
+  agp() { ag $@ | peco --query "$LBUFFER" | awk -F : '{print $1}' }
+  agec() { emacsclient -n $(ag $@ | peco --query "$LBUFFER" | awk -F : '{print "+" $2 " " $1}') }
 fi
 
 # 単語区切り設定
