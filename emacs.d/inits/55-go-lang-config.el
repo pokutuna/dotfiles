@@ -8,4 +8,11 @@
      (when (require 'smartchr nil t)
        (define-key go-mode-map (kbd ":") (smartchr '(":" ":=")))
        )
+
+     ;; `goimports` required
+     ;; $ go get code.google.com/p/go.tools/cmd/goimports
+     (when (executable-find "goimports")
+       (setq gofmt-command "goimports")
+       (add-hook 'before-save-hook 'gofmt-before-save)
+       )
      ))
