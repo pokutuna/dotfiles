@@ -203,3 +203,9 @@
 
 ;; 24.3.1 にしたら aling-rules-list が void-valiable と言われるのでロードしておく
 (require 'align)
+
+;; $SHELL が /bin/bash のままになってて動かないかもしれないので
+(when (executable-find "/usr/local/bin/zsh")
+  (setenv "SHELL" "/usr/local/bin/zsh")
+  (exec-path-from-shell-initialize)
+  )
