@@ -90,3 +90,8 @@ which brew > /dev/null && PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 
 # shared-mime-info
 export XDG_DATA_HOME=/usr/local/share
+
+# docker
+export DOCKER_HOST=tcp://192.168.59.103:2376
+export DOCKER_CERT_PATH=/Users/pokutuna/.boot2docker/certs/boot2docker-vm
+export DOCKER_TLS_VERIFY=1
