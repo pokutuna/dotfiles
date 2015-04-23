@@ -103,6 +103,9 @@
   (setq kill-ring (delete (ad-get-arg 0) kill-ring)))
 
 
+;; clipbord 共有
+(setq x-select-enable-clipboard t)
+
 ;; osのクリップボード監視してkill-ringに入れる
 ;; http://d.hatena.ne.jp/hitode909/20110924/1316853933
 (require 'clipboard-to-kill-ring)
