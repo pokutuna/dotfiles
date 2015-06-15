@@ -212,3 +212,10 @@
   (setenv "SHELL" "/usr/local/bin/zsh")
   (exec-path-from-shell-initialize)
   )
+
+
+;; 空白を kill-ling に入れない
+(require 'subr-x)
+(defun my-kill-new-string-blank-p (string &optional replace)
+  (or replace (not (string-blank-p string))))
+(advice-add 'kill-new :before-while 'my-kill-new-string-blank-p)
