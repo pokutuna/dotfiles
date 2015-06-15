@@ -214,7 +214,7 @@
   )
 
 
-;; 空白を kill-ling に入れない
+;; 空白を kill-ring に入れない
 (require 'subr-x)
 (defun my-kill-new-string-blank-p (string &optional replace)
   (or replace (not (string-blank-p string))))
