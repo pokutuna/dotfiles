@@ -156,6 +156,30 @@
 (global-git-gutter-mode t)
 
 
+;; split-window-n
+(defun split-window-vertically-n (num)
+  (interactive "n split: ")
+  (if (= num 2)
+      (split-window-vertically)
+    (progn
+      (split-window-vertically (- (window-height) (/ (window-height) num)))
+      (split-window-vertically-n (- num 1)))
+    ))
+
+(defun split-window-horizontally-n (num)
+  (interactive "n split: ")
+  (if (= num 2)
+      (split-window-horizontally)
+    (progn
+      (split-window-horizontally (- (window-width) (/ (window-width) num)))
+      (split-window-horizontally-n (- num 1)))
+    ))
+
+(defun split-window-horizontally-3 ()
+  (interactive)
+  (split-window-horizontally-n 3))
+(global-set-key (kbd "C-x 4") 'split-window-horizontally-3)
+
 ;; copy-as-rtf, copy-as-html
 ;; http://micubiculo.com/copy-as-rtf-in-emacs/
 ;; requires `highlight` command
