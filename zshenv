@@ -34,7 +34,10 @@ export PATH=/usr/local/share/npm/bin:$PATH
 # perl
 export PERLBREW_ROOT=$HOME/perl5/perlbrew
 export PERL5LIB=$HOME/perl5/lib
-[ -f $HOME/perl5/perlbrew/etc/bashrc ] && source $HOME/perl5/perlbrew/etc/bashrc
+if which plenv > /dev/null; then
+   eval "$(plenv init -)"
+   export PATH=$PATH:$(plenv prefix)/bin
+fi
 
 # java
 [ -f /usr/libexec/java_home ] && export JAVA_HOME=$(/usr/libexec/java_home)
@@ -89,7 +92,8 @@ which brew > /dev/null && PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 [ -f ~/.zsh.d/env_secret ] && source ~/.zsh.d/env_secret
 
 # shared-mime-info
-export XDG_DATA_HOME=/usr/local/share
+export XDG_DATA_HOME=`brew --prefix shared-mime-info`/share
+export XDG_DATA_DIRS=`brew --prefix shared-mime-info`/share
 
 # docker
 export DOCKER_HOST=tcp://192.168.59.103:2376
