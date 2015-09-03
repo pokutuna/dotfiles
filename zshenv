@@ -36,7 +36,7 @@ export PERLBREW_ROOT=$HOME/perl5/perlbrew
 export PERL5LIB=$HOME/perl5/lib
 if which plenv > /dev/null; then
    eval "$(plenv init -)"
-   export PATH=$PATH:$(plenv prefix)/bin
+   export PATH=$(plenv prefix)/bin:$PATH
 fi
 
 # java
