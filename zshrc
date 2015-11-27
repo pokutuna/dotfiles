@@ -64,7 +64,7 @@ if command -v peco > /dev/null; then
   bindkey '^@' peco-cdr
 
   p(){ git ls-files | peco | xargs $@ }
-  l(){ git ls-files | peco | xargs src-hilite-lesspipe.sh | less }
+  l(){ git ls-files | peco | xargs -I{} src-hilite-lesspipe.sh {} | less }
   repo() { cd $(ghq list -p | peco) }
 
   if command -v src-hilite-lesspipe.sh > /dev/null ; then
