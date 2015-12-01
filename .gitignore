@@ -1,3 +1,4 @@
 env_secret
 gitconfig
-bin/autossh.sh
+emacs.d/places
+emacs.d/recentf
