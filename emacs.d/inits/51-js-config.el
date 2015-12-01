@@ -1,6 +1,3 @@
-;; using patched js2 http://d.hatena.ne.jp/sabottenda/20110526/1306411032
-(add-to-load-path "co/js2-mode")
-
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
 
