@@ -66,8 +66,8 @@
 ;; helm + git
 (require 'helm-git-grep)
 (global-set-key (kbd "C-M-o") 'helm-git-grep)
-;(require 'helm-ls-git)
-;(global-set-key (kbd "C-M-;") 'helm-ls-git-ls)
+(require 'helm-git-files)
+(global-set-key (kbd "C-M-;") 'helm-git-files)
 
 
 ;; helm-ack
