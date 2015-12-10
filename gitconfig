@@ -39,7 +39,7 @@
 [http]
   # proxy = http://proxy.ksc.kwansei.ac.jp:8080
 [push]
-  # default = simple
+  default = simple
 [branch]
   # autosetuprebase = always
 [grep]
@@ -51,3 +51,5 @@
   root=~/.ghq
 [ghq "ssh://gitolite@pokutuna.com"]
   vcs = git
+[rebase]
+  autosquash = true
