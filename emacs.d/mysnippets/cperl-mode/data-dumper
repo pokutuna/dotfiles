@@ -3,5 +3,6 @@
 # name: Data::Dumper
 # binding: C-c C-d
 # --
-use Data::Dumper::Concise;
+{ package Data::Dumper; sub qquote {return shift } }
+ $Data::Dumper::Useperl = 1;
 warn Dumper(`yas/selected-text`$0);
