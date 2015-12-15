@@ -1,9 +1,12 @@
-(add-to-load-path "co/emacs-tss")
-
 (require 'typescript)
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
 
-;; tss command required
-;; npm install -g typescript-tools
-(require 'tss)
-(tss-config-default)
+(when (require 'tide nil t)
+  (add-hook 'typescript-mode-hook
+            (lambda ()
+              (tide-setup)
+              (flycheck-mode t)
+              (setq flycheck-check-syntax-automatically '(save mode-enabled))
+              (eldoc-mode t)
+              (company-mode-on))
+            ))
