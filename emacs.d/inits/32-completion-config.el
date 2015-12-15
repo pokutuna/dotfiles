@@ -1,11 +1,15 @@
-;; key-combo.el
-(when (require 'key-combo nil t)
-  (global-key-combo-mode t)
-  (key-combo-define-global "+" '("+" "++"))
-  (key-combo-define-global "{" '("{ `!!' }" "{"))
-  (key-combo-define-global ">" '(">" "=>" "=> '`!!''" "=> \"`!!'\""))
-  (key-combo-define-global "\"" '("\"" "\"`!!'\"" "\"\"\"`!!'\"\"\""))
-  (key-combo-define-global "'" '("'" "'`!!''"))
+;;smartchr
+;;(install-elisp "http://github.com/imakado/emacs-smartchr/raw/master/smartchr.el")
+(when (require 'smartchr nil t)
+  ; (define-key global-map (kbd "=") (smartchr '("=" "==" "===")))
+  (define-key global-map (kbd "+") (smartchr '("+" "++")))
+  (define-key global-map (kbd "{") (smartchr '("{ `!!' }" "{")))
+  (define-key global-map (kbd ">")
+    (smartchr '(">" "=>" "=> '`!!''" "=> \"`!!'\"")))
+  (define-key global-map (kbd "\"")
+    (smartchr '("\"" "\"`!!'\"" "\"\"\"`!!'\"\"\"")))
+  (define-key global-map (kbd "'")
+    (smartchr '("'" "'`!!''")))
   )
 
 

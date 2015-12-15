@@ -159,15 +159,16 @@
  ;; parenthesis
  (parenthesis-register-keys "{('\"[<" cperl-mode-map)
 
- ;; key-combo
- (key-combo-define cperl-mode-map "." '("->" "->{`!!'}" "."))
- (key-combo-define cperl-mode-map "-" '("-" "->" "->{`!!'}"))
- (key-combo-define cperl-mode-map ">" '(">" "=>" ">>" ">=" "=> '`!!''" "=> \"`!!'\""))
- (key-combo-define cperl-mode-map "F" '("F" "$" "$_" "$_->" "@$"))
- (key-combo-define cperl-mode-map "M" '("M" "my $`!!' = "))
- (key-combo-define cperl-mode-map "D" '("D" "use Data::Dumper; warn Dumper `!!';"))
- (key-combo-define cperl-mode-map "S" '("S" "my ($self) = @_;" "my ($self, $`!!') = @_;"))
- (key-combo-define cperl-mode-map "." '("->" "." ".." "..."))
- (key-combo-define cperl-mode-map "|" '("||" "|"))
- (key-combo-define cperl-mode-map "&" '("&&" "&"))
+ ;; smartchr
+ (define-key cperl-mode-map (kbd ".") (smartchr '("->" "->{`!!'}" ".")))
+ (define-key cperl-mode-map (kbd "-") (smartchr '("-" "->" "->{`!!'}")))
+ (define-key cperl-mode-map (kbd ">") (smartchr '(">" "=>" ">>" ">=" "=> '`!!''" "=> \"`!!'\"")))
+ (define-key cperl-mode-map (kbd "F") (smartchr '("F" "$" "$_" "$_->" "@$")))
+ (define-key cperl-mode-map (kbd "M") (smartchr '("M" "my $`!!' = ")))
+ (define-key cperl-mode-map (kbd "D") (smartchr '("D" "use Data::Dumper; warn Dumper `!!';")))
+ (define-key cperl-mode-map (kbd "S") (smartchr '("S" "my ($self) = @_;" "my ($self, $`!!') = @_;")))
+ (define-key cperl-mode-map (kbd ".") (smartchr '("->" "." "..")))
+ (define-key cperl-mode-map (kbd "|") (smartchr '("||" "|")))
+ (define-key cperl-mode-map (kbd "&") (smartchr '("&&" "&")))
+ ;; (define-key cperl-mode-map (kbd "{") (smartchr '("{`!!'}" "sub {`!!'}")))
  )
