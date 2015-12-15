@@ -31,6 +31,3 @@
 [submodule "vim/co/vundle"]
 	path = vim/co/vundle
 	url = git://github.com/gmarik/vundle.git
-[submodule "emacs.d/co/emacs-tss"]
-	path = emacs.d/co/emacs-tss
-	url = git@github.com:aki2o/emacs-tss.git
