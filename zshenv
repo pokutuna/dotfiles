@@ -104,3 +104,10 @@ export DOCKER_TLS_VERIFY=1
 if command -v direnv > /dev/null; then
    eval "$(direnv hook zsh)"
 fi
+
+# mysqlenv https://github.com/xaicron/mysqlenv
+if [[ -s "$HOME/.mysqlenv/etc/bashrc" ]]; then
+  source "$HOME/.mysqlenv/etc/bashrc"
+  export DBD_MYSQL_CONFIG="$(mysqlenv which mysql_config)"
+  export DYLD_LIBRARY_PATH="$(mysql_config --variable=pkglibdir)":$DYLD_LIBRARY_PATH
+fi
