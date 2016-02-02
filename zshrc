@@ -73,7 +73,7 @@ if command -v peco > /dev/null; then
 
   # for review
   _diff_from(){
-    ref_from=${1:-origin/dev}
+    ref_from=${1:-origin/devel}
     echo $ref_from
   }
   _review_file() { git diff `_diff_from ${1}`...HEAD --name-only | peco }
