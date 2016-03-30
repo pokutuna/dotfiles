@@ -19,10 +19,8 @@ export RSENSE_HOME=$HOME/Dropbox/etc_emacs/rsense-0.3
 
 
 # scala
-export SCALA_HOME=/usr/local/share/scala
+export SCALA_HOME=$(brew --prefix scala)
 export PATH=$SCALA_HOME/bin:$PATH
-export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:PermSize=256m -XX:MaxPermSize=256m"
-
 
 # node
 export NODE_PATH=$NODE_PATH:$(npm prefix -g 2>/dev/null)/lib/node_modules
