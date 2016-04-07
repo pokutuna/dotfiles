@@ -53,3 +53,5 @@
   vcs = git
 [rebase]
   autosquash = true
+[pull]
+  rebase = preserve
