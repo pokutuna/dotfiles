@@ -2,3 +2,4 @@ env_secret
 gitconfig
 emacs.d/places
 emacs.d/recentf
+emacs.d/ensime
