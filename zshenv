@@ -94,9 +94,9 @@ export XDG_DATA_HOME=`brew --prefix shared-mime-info`/share
 export XDG_DATA_DIRS=`brew --prefix shared-mime-info`/share
 
 # docker
-export DOCKER_HOST=tcp://192.168.59.103:2376
-export DOCKER_CERT_PATH=/Users/pokutuna/.boot2docker/certs/boot2docker-vm
-export DOCKER_TLS_VERIFY=1
+if command -v docker-machine > /dev/null; then
+  eval "$(docker-machine env default)"
+fi
 
 # direnv
 if command -v direnv > /dev/null; then
