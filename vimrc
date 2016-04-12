@@ -1,5 +1,6 @@
 set nocompatible
 set backspace=indent,eol,start
+set term=ansi
 
 set nobackup
 set viminfo=!,'50,<1000,s100,\"50 "
