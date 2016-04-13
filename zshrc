@@ -20,13 +20,8 @@ alias du="du -h"
 alias du1="du -d 1 ./"
 alias df="df -h"
 
-alias java="java -Dfile.encoding=UTF-8"
-alias javac="javac -J-Dfile.encoding=UTF-8"
-
 alias -g emacsclient="emacsclient -n"
 alias -g ec="emacsclient -n"
-
-alias t='tsocks'
 
 # git alias
 alias g='git'
@@ -57,7 +52,8 @@ bindkey "^[[3~" delete-char # del
 bindkey "\e[Z" reverse-menu-complete # reverse menu complete
 
 
-# peco
+# filter
+[ -f ~/.zsh.d/available.sh ] && source ~/.zsh.d/available.sh
 if command -v peco > /dev/null; then
   for f (~/.zsh.d/peco-sources/*) source "${f}" # load peco sources
   bindkey '^r' peco-select-history
@@ -98,7 +94,7 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 setopt hist_ignore_dups     # ignore duplication command history list
-setopt hist_ignore_space # スペースから始まるコマンドはヒストリから削除
+setopt hist_ignore_space    # スペースから始まるコマンドはヒストリから削除
 setopt hist_reduce_blanks
 setopt share_history        # share command history data
 
@@ -121,10 +117,6 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
 fi
 
 
-## autojump https://github.com/joelthelion/autojump
-which brew > /dev/null && [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
-
-
 ## commands
 # cd functions from hitode909
 [ -f ~/.zsh.d/hitode_cd.sh ] && source ~/.zsh.d/hitode_cd.sh
@@ -140,10 +132,7 @@ which brew > /dev/null && [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --
 [ -f ~/.zsh.d/hub.zsh_completion ] && source ~/.zsh.d/hub.zsh_completion
 
 # simple finds
-[ -f ~/.zsh.d/better_find.sh ] && source ~/.zsh.d/better_find.sh
-
-# 便利cd
-[ -f ~/.zsh.d/fd.sh ] && source ~/.zsh.d/fd.sh
+[ -f ~/.zsh.d/simple_find.sh ] && source ~/.zsh.d/simple_find.sh
 
 
 ## for git ##
@@ -201,17 +190,6 @@ case "${TERM}" in
     }
     ;;
 esac
-
-# # ls
-# case "${OSTYPE}" in
-#     freebsd*|darwin*)
-#     alias ls="ls -G -w"
-#     ;;
-#     linux*)
-#     alias ls="ls --color"
-#     ;;
-# esac
-
 
 ## other ##
 # report time spending more than 3 seconds

@@ -12,41 +12,47 @@ export EDITOR=nano
 
 ## for languages ##
 # ruby
-# export RBENV_ROOT=/usr/local/var/rbenv
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
-export RSENSE_HOME=$HOME/Dropbox/etc_emacs/rsense-0.3
+if type rbenv > /dev/null; then
+  eval "$(rbenv init -)"
+  export RSENSE_HOME=$HOME/Dropbox/etc_emacs/rsense-0.3
+fi
 
 
 # scala
-export SCALA_HOME=$(brew --prefix scala)
-export PATH=$SCALA_HOME/bin:$PATH
+if type brew > /dev/null; then
+  export SCALA_HOME=$(brew --prefix scala)
+  export PATH=$SCALA_HOME/bin:$PATH
+fi
 
 # node
-export NODE_PATH=$NODE_PATH:$(npm prefix -g 2>/dev/null)/lib/node_modules
-# newer
-export PATH=$PATH:$(npm bin -g 2>/dev/null)
-# old
-export PATH=/usr/local/share/npm/bin:$PATH
+if type npm > /dev/null; then
+  export NODE_PATH=$NODE_PATH:$(npm prefix -g 2>/dev/null)/lib/node_modules
+  export PATH=$PATH:$(npm bin -g 2>/dev/null)
+fi
 
 # perl
 export PERLBREW_ROOT=$HOME/perl5/perlbrew
 export PERL5LIB=$HOME/perl5/lib
-if which plenv > /dev/null; then
+if type plenv > /dev/null; then
    eval "$(plenv init -)"
    export PATH=$(plenv prefix)/bin:$PATH
 fi
 
 # java
-[ -f /usr/libexec/java_home ] && export JAVA_HOME=$(/usr/libexec/java_home)
-export JAVA_BIN=$JAVA_HOME/bin
-# export _JAVA_OPTIONS='-Dfile.encoding=UTF-8'
+if type /usr/libexec/java_home > /dev/null; then
+  export JAVA_HOME=$(/usr/libexec/java_home)
+  export JAVA_BIN=$JAVA_HOME/bin
+  alias java="java -Dfile.encoding=UTF-8"
+  alias javac="javac -J-Dfile.encoding=UTF-8"
+fi
 
 #python
-[[ -s "$HOME/.pythonbrew/etc/bashrc" ]] && source "$HOME/.pythonbrew/etc/bashrc"
+if type $HOME/.pythonbrew/etc/bashrc > /dev/null; then
+  source "$HOME/.pythonbrew/etc/bashrc"
+fi
 
 # go
-if command -v brew > /dev/null; then
+if type brew > /dev/null; then
   export GOROOT=`brew --prefix go`/libexec
 fi
 export GOPATH=~/.gopath
@@ -54,19 +60,17 @@ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 
 ## applications ##
-
 # less
 export LESS='-gj10 -R --no-init --quit-if-one-screen'
 
 # emacs
 export PATH=/Applications/Emacs.app/Contents/MacOS:/Applications/Emacs.app/Contents/MacOS/bin:$PATH
 
-# tex
-export PATH=/usr/texbin:$PATH
-
 # pkg-config
-export PKG_CONFIG_PATH=`which pkg-config`
-export PKG_CONFIG_PATH="/opt/X11/lib/pkgconfig:$PKG_CONFIG_PATH"
+if type pkg-config > /dev/null; then
+  export PKG_CONFIG_PATH=`which pkg-config`
+  export PKG_CONFIG_PATH="/opt/X11/lib/pkgconfig:$PKG_CONFIG_PATH"
+fi
 
 # aclocal
 export ACLOCAL_ARGS="-I /usr/local/share/aclocal"
@@ -79,27 +83,31 @@ export ANDROID_TOOLS=${ANDROID_HOME}/tools
 export PATH=$PATH:$ANDROID_BIN:$ANDROID_TOOLS
 
 # git
-export GISTY_DIR=$HOME/gists
-export PATH="$(brew --prefix git)/share/git-core/contrib/diff-highlight:$PATH"
-#export GIT_PROXY_COMMAND='~/bin/git-proxy.sh'
+if type brew > /dev/null; then
+  export PATH="$(brew --prefix git)/share/git-core/contrib/diff-highlight:$PATH"
+fi
 
 # coreutils
-which brew > /dev/null && PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+if type brew > /dev/null; then
+  PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+fi
 
 ## secret ##
 [ -f ~/.zsh.d/env_secret ] && source ~/.zsh.d/env_secret
 
 # shared-mime-info
-export XDG_DATA_HOME=`brew --prefix shared-mime-info`/share
-export XDG_DATA_DIRS=`brew --prefix shared-mime-info`/share
+if type brew > /dev/null; then
+  export XDG_DATA_HOME=`brew --prefix shared-mime-info`/share
+  export XDG_DATA_DIRS=`brew --prefix shared-mime-info`/share
+fi
 
 # docker
-if command -v docker-machine > /dev/null; then
+if type docker-machine > /dev/null; then
   eval "$(docker-machine env default)"
 fi
 
 # direnv
-if command -v direnv > /dev/null; then
+if type direnv > /dev/null; then
    eval "$(direnv hook zsh)"
 fi
 
@@ -109,3 +117,6 @@ if [[ -s "$HOME/.mysqlenv/etc/bashrc" ]]; then
   export DBD_MYSQL_CONFIG="$(mysqlenv which mysql_config)"
   export DYLD_LIBRARY_PATH="$(mysql_config --variable=pkglibdir)":$DYLD_LIBRARY_PATH
 fi
+
+# filter(fzf/peco)
+export FILTER="fzf:peco"
