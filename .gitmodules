@@ -31,3 +31,6 @@
 [submodule "vim/co/vundle"]
 	path = vim/co/vundle
 	url = git://github.com/gmarik/vundle.git
+[submodule "emacs.d/co/helm-git-files-el"]
+	path = emacs.d/co/helm-git-files-el
+	url = git@github.com:tarao/helm-git-files-el.git

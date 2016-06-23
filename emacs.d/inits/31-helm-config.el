@@ -62,10 +62,11 @@
 (require 'helm-descbinds)
 (helm-descbinds-mode)
 
-
 ;; helm + git
 (require 'helm-git-grep)
 (global-set-key (kbd "C-M-o") 'helm-git-grep)
+
+(add-to-load-path "co/helm-git-files-el")
 (require 'helm-git-files)
 (global-set-key (kbd "C-M-;") 'helm-git-files)
 
