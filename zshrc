@@ -52,16 +52,28 @@ bindkey "^[[3~" delete-char # del
 bindkey "\e[Z" reverse-menu-complete # reverse menu complete
 
 
-# filter
+# filter(fzf/peco)
 [ -f ~/.zsh.d/available.sh ] && source ~/.zsh.d/available.sh
-if command -v peco > /dev/null; then
+export FILTER=$(available "peco:fzf")
+
+if type fzf > /dev/null; then
+  export FZF_DEFAULT_OPTS='--bind=ctrl-j:accept,ctrl-k:kill-line'
+fi
+
+if type $(available $FILTER) > /dev/null; then
   for f (~/.zsh.d/peco-sources/*) source "${f}" # load peco sources
   bindkey '^r' peco-select-history
   bindkey '^@' peco-cdr
 
-  p(){ git ls-files | peco | xargs $@ }
-  l(){ git ls-files | peco | xargs -I{} src-hilite-lesspipe.sh {} | less }
-  repo() { cd $(ghq list -p | peco) }
+  p(){ git ls-files | $FILTER | xargs $@ }
+  l(){ git ls-files | $FILTER | xargs -I{} src-hilite-lesspipe.sh {} | less }
+  repo() { cd $(ghq list -p | $FILTER) }
+
+  function br() {
+      local branch_name
+      branch_name=$(git for-each-ref --sort=-committerdate refs/heads/ --format='%(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))' | fzf +s --ansi | awk '{ print $1 }')
+      [[ -n "$branch_name" ]] && git checkout $branch_name
+  }
 
   if command -v src-hilite-lesspipe.sh > /dev/null ; then
     alias -g cless='LESSOPEN="| src-hilite-lesspipe.sh %s" less'
@@ -72,12 +84,12 @@ if command -v peco > /dev/null; then
     ref_from=${1:-origin/devel}
     echo $ref_from
   }
-  _review_file() { git diff `_diff_from ${1}`...HEAD --name-only | peco }
+  _review_file() { git diff `_diff_from ${1}`...HEAD --name-only | $FILTER }
   rdiff() { git diff `_diff_from ${1}`...HEAD -- $(_review_file ${1}) }
   ropen() { emacsclient -n $(_review_file) }
 
-  agp() { ag $@ | peco --query "$LBUFFER" | awk -F : '{print $1}' }
-  agec() { emacsclient -n $(ag $@ | peco --query "$LBUFFER" | awk -F : '{print "+" $2 " " $1}') }
+  agp() { ag $@ | $FILTER --query "$LBUFFER" | awk -F : '{print $1}' }
+  agec() { emacsclient -n $(ag $@ | $FILTER --query "$LBUFFER" | awk -F : '{print "+" $2 " " $1}') }
 fi
 
 # 単語区切り設定

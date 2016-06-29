@@ -117,6 +117,3 @@ if [[ -s "$HOME/.mysqlenv/etc/bashrc" ]]; then
   export DBD_MYSQL_CONFIG="$(mysqlenv which mysql_config)"
   export DYLD_LIBRARY_PATH="$(mysql_config --variable=pkglibdir)":$DYLD_LIBRARY_PATH
 fi
-
-# filter(fzf/peco)
-export FILTER="fzf:peco"
