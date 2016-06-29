@@ -7,7 +7,8 @@ function peco-select-history() {
     fi
     BUFFER=$(history -n 1 | \
         eval $tac | \
-        peco --query "$LBUFFER")
+        $FILTER --query "$LBUFFER")
     CURSOR=$#BUFFER
+    zle redisplay
 }
 zle -N peco-select-history
