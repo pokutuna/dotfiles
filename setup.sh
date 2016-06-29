@@ -25,6 +25,15 @@ do
     ln -s ${DOTFILES_PATH}/${file} ${HOME_PATH}/${file}
 done
 
+## .config ##
+for file in $(ls ${DOTFILES_PATH}/config)
+do
+    echo "config/${file}"
+    mv ${HOME_PATH}/.config/${file} ${HOME_PATH}/.old_dotfiles/config.${file}
+    ln -s ${DOTFILES_PATH}/config/${file} ${HOME_PATH}/.config/${file}
+done
+
+
 
 echo ".ssh/config"
 mv ${HOME_PATH}/.ssh/config ${HOME_PATH}/.old_dotfiles/ssh-config
@@ -42,4 +51,3 @@ cd ${DOTFILES_PATH}
 git submodule init
 git submodule update
 git submodule foreach 'git checkout master'
-
