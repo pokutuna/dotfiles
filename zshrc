@@ -11,6 +11,17 @@ setopt auto_param_slash
 setopt complete_aliases
 setopt long_list_jobs
 
+# less
+export LESS='-gj10 -R --no-init --quit-if-one-screen'
+type src-hilite-lesspipe.sh &>/dev/null &&
+    alias -g cless='LESSOPEN="| src-hilite-lesspipe.sh %s" less'
+
+# git diff-highlight
+export PATH=$BREW/opt/git/share/git-core/contrib/diff-highlight:$PATH
+
+# direnv
+type direnv &>/dev/null && eval "$(direnv hook zsh)"
+
 ## alias ##
 alias ls="ls --color"
 alias la="ls -a"
@@ -52,45 +63,24 @@ bindkey "^[[3~" delete-char # del
 bindkey "\e[Z" reverse-menu-complete # reverse menu complete
 
 
-# filter(fzf/peco)
+## commands
+# simple finds
+[ -f ~/.zsh.d/simple_find.sh ] && source ~/.zsh.d/simple_find.sh
+
+# cd functions from hitode909
+[ -f ~/.zsh.d/hitode_cd.sh ] && source ~/.zsh.d/hitode_cd.sh
+
+# temp from kimoto
+[ -f ~/.zsh.d/kimoto_temp.sh ] && source ~/.zsh.d/kimoto_temp.sh
+
+# hub completion
+[ -f ~/.zsh.d/hub.zsh_completion ] && source ~/.zsh.d/hub.zsh_completion
+
+# available command
 [ -f ~/.zsh.d/available.sh ] && source ~/.zsh.d/available.sh
-export FILTER=$(available "peco:fzf")
 
-if type fzf > /dev/null; then
-  export FZF_DEFAULT_OPTS='--bind=ctrl-j:accept,ctrl-k:kill-line'
-fi
-
-if type $(available $FILTER) > /dev/null; then
-  for f (~/.zsh.d/peco-sources/*) source "${f}" # load peco sources
-  bindkey '^r' peco-select-history
-  bindkey '^@' peco-cdr
-
-  p(){ git ls-files | $FILTER | xargs $@ }
-  l(){ git ls-files | $FILTER | xargs -I{} src-hilite-lesspipe.sh {} | less }
-  repo() { cd $(ghq list -p | $FILTER) }
-
-  function br() {
-      local branch_name
-      branch_name=$(git for-each-ref --sort=-committerdate refs/heads/ --format='%(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))' | fzf +s --ansi | awk '{ print $1 }')
-      [[ -n "$branch_name" ]] && git checkout $branch_name
-  }
-
-  if command -v src-hilite-lesspipe.sh > /dev/null ; then
-    alias -g cless='LESSOPEN="| src-hilite-lesspipe.sh %s" less'
-  fi
-
-  # for review
-  _diff_from(){
-    ref_from=${1:-origin/devel}
-    echo $ref_from
-  }
-  _review_file() { git diff `_diff_from ${1}`...HEAD --name-only | $FILTER }
-  rdiff() { git diff `_diff_from ${1}`...HEAD -- $(_review_file ${1}) }
-  ropen() { emacsclient -n $(_review_file) }
-
-  agp() { ag $@ | $FILTER --query "$LBUFFER" | awk -F : '{print $1}' }
-  agec() { emacsclient -n $(ag $@ | $FILTER --query "$LBUFFER" | awk -F : '{print "+" $2 " " $1}') }
-fi
+# filter
+[ -f ~/.zsh.d/filter.sh ] && source ~/.zsh.d/filter.sh
 
 # 単語区切り設定
 autoload -Uz select-word-style
@@ -128,151 +118,5 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
   zstyle ":completion:*" recent-dirs-insert always
 fi
 
-
-## commands
-# cd functions from hitode909
-[ -f ~/.zsh.d/hitode_cd.sh ] && source ~/.zsh.d/hitode_cd.sh
-
-# temp from kimoto
-[ -f ~/.zsh.d/kimoto_temp.sh ] && source ~/.zsh.d/kimoto_temp.sh
-
-# glitch
-[ -f ~/.zsh.d/glitch.sh ] && source ~/.zsh.d/glitch.sh
-
-
-# hub completion
-[ -f ~/.zsh.d/hub.zsh_completion ] && source ~/.zsh.d/hub.zsh_completion
-
-# simple finds
-[ -f ~/.zsh.d/simple_find.sh ] && source ~/.zsh.d/simple_find.sh
-
-
-## for git ##
-_set_env_git_current_branch() {
-    GIT_CURRENT_BRANCH=$( git branch 2> /dev/null | grep '^\*' | cut -b 3- )
-}
-
-_update_prompt () {
-    case ${UID} in
-        0)
-            ;;
-        *)
-            if [ "`git ls-files 2>/dev/null`" ]; then
-                PROMPT="[%{${fg[green]}%}%B%~%b%{${reset_color}%}:%{${fg[red]}%}%B$GIT_CURRENT_BRANCH%b%{${reset_color}%}]$%{${reset_color}%} "
-                [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
-                PROMPT="[%{${fg[magenta]}%}%B${HOST}%b%{${reset_color}%}:%{${fg[green]}%}%B%~%b%{${reset_color}%}:%{${fg[red]}%}%B$GIT_CURRENT_BRANCH%b%{${reset_color}%}]$%{${reset_color}%} "
-            else
-                PROMPT="[%{${fg[green]}%}%B%~%b%{${reset_color}%}]$%{${reset_color}%} "
-                [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
-                PROMPT="[%{${fg[magenta]}%}%B${HOST}%b%{${reset_color}%}:%{${fg[green]}%}%B%~%b%{${reset_color}%}]$%{${reset_color}%} "
-            fi
-            ;;
-    esac
-}
-
-_update_rprompt()
-{}
-
-precmd()
-{
-    _update_title
-    _set_env_git_current_branch
-    _update_prompt
-    _update_rprompt
-
-    case "${TERM}" in screen)
-        echo -ne "\ek$(basename $(pwd))\e\\"
-    esac
-}
-
-chpwd()
-{
-    _set_env_git_current_branch
-    _update_prompt
-    _update_rprompt
-}
-
-
-
-# set terminal title including current directory
-case "${TERM}" in
-    xterm|xterm-256color|kterm|kterm-color|screen)
-    _update_title(){
-        echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
-    }
-    ;;
-esac
-
-## other ##
-# report time spending more than 3 seconds
-REPORTTIME=3
-
-#open new window for tmux
-function chpwd(){
-  [ $TMUX ] && tmux setenv TMUXPWD_$(tmux display -p "#I") $PWD
-}
-
-
-## prompt ##
-autoload colors
-colors
-
-case ${UID} in
-    0)
-        PROMPT="%{${fg[cyan]}%}%/%%%{${reset_color}%} "
-        PROMPT2="%{${fg[cyan]}%}%_%%%{${reset_color}%} "
-        SPROMPT="%{${fg[cyan]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
-        [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
-        PROMPT="%{${fg[red]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') ${PROMPT}"
-        ;;
-    *)
-#        PROMPT="%B%{${fg[green]}%}%n@%m$%{${reset_color}%}%b "
-#        PROMPT2="%B%{${fg[green]}%}%n@%m_$%{${reset_color}%}%b "
-        PROMPT="[%{${fg[green]}%}%B%~%b%{${reset_color}%}]$%{${reset_color}%} "
-        PROMPT2="[%{${fg[green]}%}%B%~%b%{${reset_color}%}]_>%{${reset_color}%} "
-        RPROMPT="%B%{${fg[cyan]}%}(%D %*)%{${reset_color}%}%b"
-        SPROMPT="%B%{${fg[yellow]}%}%r is correct? [n,y,a,e]:%{${reset_color}%}%b "
-        [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
-        PROMPT="[%{${fg[magenta]}%}%B${HOST}%b%{${reset_color}%}:%{${fg[green]}%}%B%~%b%{${reset_color}%}]$%{${reset_color}%} "
-        ;;
-esac
-
-case "${TERM}" in
-    xterm|xterm-256color|screen)
-        export LSCOLORS=ExFxCxdxBxegedabagacad
-        export LS_COLORS='di=34;01:ln=35;01:so=32:pi=33:ex=31;01:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-        zstyle ':completion:*' list-colors 'di=34;01' 'ln=35;01' 'so=32' 'ex=31;01' 'bd=46;34' 'cd=43;34'
-        ;;
-    kterm-color)
-        stty erase '^H'
-        export LSCOLORS=exfxcxdxbxegedabagacad
-        export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-        zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
-        ;;
-    kterm)
-    stty erase '^H'
-    ;;
-    cons25)
-    unset LANG
-    export LSCOLORS=ExFxCxdxBxegedabagacad
-    export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-    zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
-    ;;
-    jfbterm-color)
-    export LSCOLORS=gxFxCxdxBxegedabagacad
-    export LS_COLORS='di=01;36:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-    zstyle ':completion:*' list-colors 'di=;36;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
-    ;;
-    dumb | emacs)
-    PROMPT="%n@%~%(!.#.$)"
-    RPROMPT=""
-    PS1='%(?..[%?])%!:%~%# '
-    # for tramp to not hang, need the following. cf:
-    # http://www.emacswiki.org/emacs/TrampMode
-    unsetopt zle
-    unsetopt prompt_cr
-    unsetopt prompt_subst
-    unfunction precmd
-    unfunction preexec
-    ;;
-esac
+## prompt setting
+. ~/.zsh.d/prompt.sh
