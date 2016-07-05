@@ -1,4 +1,0 @@
-#name : require_ok($module);
-# --
-require_ok('${1:module}');
-$0

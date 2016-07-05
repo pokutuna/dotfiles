@@ -1,4 +1,0 @@
-#name : isnt($got, $expected, $test_name);
-# --
-isnt(\$${1:got}, ${2:expected}, '${3:test_name}');
-$0

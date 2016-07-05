@@ -1,36 +1,3 @@
-[submodule "emacs.d/co/rhtml"]
-	path = emacs.d/co/rhtml
-	url = https://github.com/eschulte/rhtml.git
-[submodule "emacs.d/co/rvm"]
-	path = emacs.d/co/rvm
-	url = https://github.com/senny/rvm.el.git
-[submodule "emacs.d/co/zencoding"]
-	path = emacs.d/co/zencoding
-	url = https://github.com/rooney/zencoding.git
-[submodule "emacs.d/co/perlbrew-mini"]
-	path = emacs.d/co/perlbrew-mini
-	url = https://github.com/dams/perlbrew-mini.el.git
-[submodule "emacs.d/co/pyong-pyong.el"]
-	path = emacs.d/co/pyong-pyong.el
-	url = git@github.com:pokutuna/pyong-pyong.el.git
-[submodule "emacs.d/co/yasnippet"]
-	path = emacs.d/co/yasnippet
-	url = https://github.com/capitaomorte/yasnippet.git
-[submodule "emacs.d/co/replace-region-by-ruby.el"]
-	path = emacs.d/co/replace-region-by-ruby.el
-	url = git@github.com:pokutuna/replace-region-by-ruby.el.git
-[submodule "emacs.d/co/direx-el"]
-	path = emacs.d/co/direx-el
-	url = https://github.com/m2ym/direx-el.git
-[submodule "emacs.d/co/auto-complete.el"]
-	path = emacs.d/co/auto-complete.el
-	url = git@github.com:auto-complete/auto-complete.git
-[submodule "emacs.d/co/popwin-el"]
-	path = emacs.d/co/popwin-el
-	url = git@github.com:m2ym/popwin-el.git
 [submodule "vim/co/vundle"]
 	path = vim/co/vundle
 	url = git://github.com/gmarik/vundle.git
-[submodule "emacs.d/co/helm-git-files-el"]
-	path = emacs.d/co/helm-git-files-el
-	url = git@github.com:tarao/helm-git-files-el.git

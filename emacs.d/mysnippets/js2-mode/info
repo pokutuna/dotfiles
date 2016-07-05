@@ -1,3 +1,0 @@
-#name: console.info(...)
-# --
-console.info($0);

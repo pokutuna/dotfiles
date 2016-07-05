@@ -1,7 +1,0 @@
-#name : SKIP: { ... }
-# --
-SKIP: {
-    eval { require ${1:module} };
-    plan "$1 not installed", ${2:num of tests} if $@;
-    $0
-}

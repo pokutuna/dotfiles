@@ -1,4 +1,0 @@
-#name : like($got, qr/expected/, $test_name);
-# --
-like(${1:got}, qr/${2:expected}/, '${3:test_name}');
-$0

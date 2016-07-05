@@ -1,4 +1,0 @@
-# name: append (re-assign)
-# key: append
-# --
-$1 = append($1, $0)
