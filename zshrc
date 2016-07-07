@@ -43,7 +43,7 @@ alias gd='git diff '
 alias gdc='git diff --cached '
 alias gf='git diff --function-context '
 alias gp='git grep '
-which hub > /dev/null && eval "$(hub alias -s)" # for alias git=hub
+type hub &>/dev/null && eval "$(hub alias -s)" # for alias git=hub
 
 # keybind
 stty -ixon -ixoff # C-s C-q

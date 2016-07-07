@@ -14,8 +14,6 @@ if type $FILTER &>/dev/null; then
     bindkey '^@' peco-cdr
 
     repo() { cd $(ghq list -p | $FILTER) }
-    p() { git ls-files | $FILTER | xargs $@ }
-    l() { git ls-files | $FILTER | xargs -I{} src-hilite-lesspipe.sh {} | less }
 
     br() {
         local branch_name=$(git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short) - %(objectname:short) - %(contents:subject) - %(authorname) (%(committerdate:relative))' | $FILTER | awk '{ print $1 }')
