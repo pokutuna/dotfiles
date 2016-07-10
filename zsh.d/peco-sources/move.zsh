@@ -22,7 +22,10 @@ p () {
 
 l() {
     IFS=';' read command prompt < <(_file_candidates);
-    eval $command | $FILTER --prompt=$prompt | xargs -I{} src-hilite-lesspipe.sh {} | less
+    local file=$(eval $command | $FILTER --prompt=$prompt)
+    if [ -n "$file" ]; then
+        src-hilite-lesspipe.sh $file | less
+    fi
 }
 
 d() {
