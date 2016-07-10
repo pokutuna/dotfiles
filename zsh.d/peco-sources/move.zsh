@@ -8,7 +8,7 @@ _file_candidates() {
 
 _dir_candidates() {
     if git ls-files --error-unmatch &>/dev/null; then
-        echo 'git ls-files | sed "s|/[^/]*$||" | uniq;GIT>'
+        echo 'git ls-files | sed "s|/[^/]*$|/|" | grep ".*/$" | sort | uniq;GIT>'
     else
         echo 'find . -type d -maxdepth 3 -not -path "*.git*" -not -path "*node_modules*" | uniq;FIND>'
     fi
