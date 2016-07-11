@@ -69,4 +69,7 @@ if [[ -s "$HOME/.mysqlenv/etc/bashrc" ]]; then
     source "$HOME/.mysqlenv/etc/bashrc"
     export DBD_MYSQL_CONFIG="$(mysqlenv which mysql_config)"
     export DYLD_LIBRARY_PATH="$(mysql_config --variable=pkglibdir)":$DYLD_LIBRARY_PATH
+
+    MYSQL_PREFIX="$HOME/.mysqlenv/mysqls/$(head -n1 $HOME/.mysqlenv/version)"
+    export PATH=$MYSQL_PREFIX/scripts:$MYSQL_PREFIX/support-files:$PATH
 fi
