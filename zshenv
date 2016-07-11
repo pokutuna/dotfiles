@@ -1,3 +1,6 @@
+. ~/.zsh.d/stopwatch.sh
+stopwatch_on zshenv
+
 setopt no_global_rcs
 
 ## basic path
@@ -73,3 +76,5 @@ if [[ -s "$HOME/.mysqlenv/etc/bashrc" ]]; then
     MYSQL_PREFIX="$HOME/.mysqlenv/mysqls/$(head -n1 $HOME/.mysqlenv/version)"
     export PATH=$MYSQL_PREFIX/scripts:$MYSQL_PREFIX/support-files:$PATH
 fi
+
+stopwatch_off zshenv

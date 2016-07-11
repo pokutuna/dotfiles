@@ -1,3 +1,5 @@
+stopwatch_on zshrc
+
 ## setopt ##
 setopt auto_cd
 setopt auto_pushd
@@ -120,3 +122,5 @@ fi
 
 ## prompt setting
 . ~/.zsh.d/prompt.sh
+
+stopwatch_off zshrc
