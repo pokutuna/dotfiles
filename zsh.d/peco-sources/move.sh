@@ -17,12 +17,12 @@ _dir_candidates() {
 
 p () {
     IFS=';' read command prompt < <(_file_candidates);
-    eval $command | $FILTER --prompt=$prompt | xargs $@
+    eval $command | $FILTER --prompt=$prompt --query="$1" | xargs $@
 }
 
 l() {
     IFS=';' read command prompt < <(_file_candidates);
-    local file=$(eval $command | $FILTER --prompt=$prompt)
+    local file=$(eval $command | $FILTER --prompt=$prompt --query="$1")
     if [ -n "$file" ]; then
         src-hilite-lesspipe.sh $file | less
     fi
@@ -30,7 +30,7 @@ l() {
 
 d() {
     IFS=';' read command prompt < <(_dir_candidates);
-    local dir=$(eval $command | $FILTER --prompt=$prompt)
+    local dir=$(eval $command | $FILTER --prompt=$prompt --query="$1")
     if [ -n "$dir" ]; then
         cd $dir
     fi
