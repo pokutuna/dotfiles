@@ -8,10 +8,10 @@ fi
 
 if type $FILTER &>/dev/null; then
     # load all sources
-    for f (~/.zsh.d/peco-sources/*) source "${f}"
+    for f (~/.zsh.d/filter-sources/*) source "${f}"
 
-    bindkey '^r' peco-select-history
-    bindkey '^@' peco-cdr
+    bindkey '^r' filter-select-history
+    bindkey '^@' filter-cdr
 
     agp() { ag $@ | $FILTER --query "$LBUFFER" | awk -F : '{print $1}' }
     agec() { emacsclient -n $(ag $@ | $FILTER --query "$LBUFFER" | awk -F : '{print "+" $2 " " $1}') }

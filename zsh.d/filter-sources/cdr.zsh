@@ -1,4 +1,4 @@
-peco-cdr () {
+filter-cdr () {
     local selected_dir=$(cdr -l | awk '{ print $2 }' | $FILTER --query="$LBUFFER")
     zle redisplay
     if [ -n "$selected_dir" ]; then
@@ -6,4 +6,4 @@ peco-cdr () {
         zle accept-line
     fi
 }
-zle -N peco-cdr
+zle -N filter-cdr

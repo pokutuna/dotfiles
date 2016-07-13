@@ -1,4 +1,4 @@
-peco-select-history() {
+filter-select-history() {
     local tac
     if which tac > /dev/null; then
         tac="tac"
@@ -9,4 +9,4 @@ peco-select-history() {
     CURSOR=$#BUFFER
     zle redisplay
 }
-zle -N peco-select-history
+zle -N filter-select-history
