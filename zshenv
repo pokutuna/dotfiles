@@ -62,11 +62,6 @@ export PATH=$BREW/opt/coreutils/libexec/gnubin:$PATH
 ## secret ##
 [ -f ~/.zsh.d/env_secret ] && source ~/.zsh.d/env_secret
 
-# docker
-if type docker-machine &>/dev/null; then
-  eval "$(docker-machine env default)"
-fi
-
 # mysqlenv https://github.com/xaicron/mysqlenv
 if [[ -s "$HOME/.mysqlenv/etc/bashrc" ]]; then
     source "$HOME/.mysqlenv/etc/bashrc"
