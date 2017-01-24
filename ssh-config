@@ -8,9 +8,6 @@ Host pokutuna.com
   Port 8080
   User pokutuna
 
-Host *
-  UseRoaming no
-
 Host lab_desktop
   HostName 172.29.91.62
   User pokutuna
