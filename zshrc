@@ -47,6 +47,9 @@ alias gf='git diff --function-context '
 alias gp='git grep '
 type hub &>/dev/null && eval "$(hub alias -s)" # for alias git=hub
 
+alias dateu='date -u +"%Y-%m-%dT%H:%M:%SZ"'
+alias datel='date +%Y-%m-%dT%H:%M:%S%z'
+
 # keybind
 stty -ixon -ixoff # C-s C-q
 bindkey -e
