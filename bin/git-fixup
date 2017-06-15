@@ -25,4 +25,3 @@ line=$("$FILTER" <<< "$commits")
 [[ "$?" = 0 && "$line" != "" ]] || exit "$?"
 
 git commit --fixup "$(awk '{print $1}' <<< "$line")"
-git rebase -i `git rev-parse --abbrev-ref --symbolic-full-name @{u}`
