@@ -29,7 +29,7 @@
   nffmerge = merge --no-ff
   has-merged   = "!sh -c 'git rev-list HEAD | grep `git rev-parse $0`'"
   clone-branch = "!sh -c 'git checkout -t origin/$0'"
-  current-branch = "!sh -c \"git branch | grep '*' | awk '{ print \\$2 }' \""%
+  current-branch = "!sh -c \"git branch | grep '*' | awk '{ print \\$2 }' \""
   rebase-from-upstream = "!sh -c 'git rebase -i `git rev-parse --abbrev-ref --symbolic-full-name @{u}`'"
   reset-firm = "!sh -c 'git commit -a -m \"backup to reset --hard\" && git reset --hard HEAD^'"
 [pager]
