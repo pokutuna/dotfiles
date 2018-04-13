@@ -50,6 +50,8 @@ type hub &>/dev/null && eval "$(hub alias -s)" # for alias git=hub
 alias dateu='date -u +"%Y-%m-%dT%H:%M:%SZ"'
 alias datel='date +%Y-%m-%dT%H:%M:%S%z'
 
+alias curl_header='curl -D - -s -o /dev/null'
+
 # keybind
 stty -ixon -ixoff # C-s C-q
 bindkey -e

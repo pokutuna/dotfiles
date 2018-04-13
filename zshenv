@@ -35,6 +35,13 @@ if type plenv &>/dev/null; then
    export PATH=$(plenv prefix)/bin:$PATH
 fi
 
+# python
+if type pyenv &>/dev/null; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+fi
+
 # java
 if type /usr/libexec/java_home &>/dev/null; then
   export JAVA_HOME=$(/usr/libexec/java_home)
@@ -44,7 +51,7 @@ if type /usr/libexec/java_home &>/dev/null; then
 fi
 
 # go
-export GOPATH=~/.gopath
+export GOPATH=~/go
 export PATH=$GOPATH/bin:$PATH
 
 # pkg-config
@@ -70,6 +77,13 @@ if [[ -s "$HOME/.mysqlenv/etc/bashrc" ]]; then
 
     MYSQL_PREFIX="$HOME/.mysqlenv/mysqls/$(head -n1 $HOME/.mysqlenv/version)"
     export PATH=$MYSQL_PREFIX/scripts:$MYSQL_PREFIX/support-files:$PATH
+fi
+
+# openssl with homebrew
+OPENSSLDIR=$(brew --prefix openssl 2>/dev/null)
+if [ -e $OPENSSLDIR ]; then
+  export C_INCLUDE_PATH="$OPENSSLDIR/include:$C_INCLUDE_PATH"
+  export LIBRARY_PATH="$OPENSSLDIR/lib:$LIBRARY_PATH"
 fi
 
 stopwatch_off zshenv
