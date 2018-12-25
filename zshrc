@@ -33,7 +33,6 @@ alias du="du -h"
 alias du1="du -d 1 ./"
 alias df="df -h"
 
-alias -g emacsclient="emacsclient -n"
 alias -g ec="emacsclient -n"
 
 # git alias

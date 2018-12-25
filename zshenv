@@ -15,9 +15,17 @@ export EDITOR=nano
 
 export BREW=$(brew --prefix)
 
-# ruby
-type rbenv &>/dev/null && eval "$(rbenv init -)"
-export RSENSE_HOME=$HOME/Dropbox/etc_emacs/rsense-0.3
+if [[ -s "$HOME/.anyenv/bin" ]]; then
+    export PATH="$HOME/.anyenv/bin:$PATH"
+    eval "$(anyenv init -)"
+
+    # ruby
+    export RSENSE_HOME=$HOME/Dropbox/etc_emacs/rsense-0.3
+
+    # use `npm bin -g` and `$(npm prefix -g 2>/dev/null)/lib/node_modules` but slow
+    export NODE_PATH=$BREW/lib/node_modules
+fi
+
 
 # scala
 export SCALA_HOME=$BREW/opt/scala
@@ -68,6 +76,18 @@ export PATH=$BREW/opt/coreutils/libexec/gnubin:$PATH
 
 ## secret ##
 [ -f ~/.zsh.d/env_secret ] && source ~/.zsh.d/env_secret
+
+# emacs
+EMACSAPP_BIN="/Applications/Emacs.app/Contents/MacOS/bin/"
+if [[ -e $EMACSAPP_BIN ]]; then
+    export PATH=$EMACSAPP_BIN:$PATH
+fi
+
+# vscode
+VSCODE_BIN="/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+if [[ -e $VSCODE_BIN ]]; then
+    export PATH=$VSCODE_BIN:$PATH
+fi
 
 # mysqlenv https://github.com/xaicron/mysqlenv
 if [[ -s "$HOME/.mysqlenv/etc/bashrc" ]]; then
