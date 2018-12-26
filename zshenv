@@ -31,25 +31,6 @@ fi
 export SCALA_HOME=$BREW/opt/scala
 export PATH=$SCALA_HOME/bin:$PATH
 
-# node
-if type npm &>/dev/null; then
-    # use `npm bin -g` and `$(npm prefix -g 2>/dev/null)/lib/node_modules` but slow
-    export NODE_PATH=$BREW/lib/node_modules
-fi
-
-# perl
-if type plenv &>/dev/null; then
-   eval "$(plenv init -)"
-   export PATH=$(plenv prefix)/bin:$PATH
-fi
-
-# python
-if type pyenv &>/dev/null; then
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
-fi
-
 # java
 if type /usr/libexec/java_home &>/dev/null; then
   export JAVA_HOME=$(/usr/libexec/java_home)

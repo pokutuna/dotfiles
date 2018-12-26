@@ -14,7 +14,7 @@ test.db
 TAGS
 *_flymake.*
 ,
-
+.vscode
 # Ensime
 .ensime
 .ensime_cache/
