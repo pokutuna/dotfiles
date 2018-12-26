@@ -10,12 +10,7 @@
             "simultaneous": [
               { "key_code": "s" },
               { "key_code": "d" }
-            ],
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
+            ]
           },
           "to": [
             {
