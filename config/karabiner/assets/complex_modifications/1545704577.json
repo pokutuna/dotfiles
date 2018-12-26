@@ -10,7 +10,10 @@
             "simultaneous": [
               { "key_code": "s" },
               { "key_code": "d" }
-            ]
+            ],
+            "simultaneous_options": {
+              "detect_key_down_uninterruptedly": true
+            }
           },
           "to": [
             {
