@@ -16,6 +16,9 @@ do
     ln -s ${DOTFILES_PATH}/${file} ${HOME_PATH}/.${file}
 done
 
+if [[ -e ~/Dropbox/config/env_secret ]]; then
+    ln -s ~/Dropbox/config/env_secret ~/.zsh.d/env_secret
+fi
 
 ## without dot prefix ##
 for file in bin
@@ -33,18 +36,9 @@ do
     ln -s ${DOTFILES_PATH}/config/${file} ${HOME_PATH}/.config/${file}
 done
 
-
-
 echo ".ssh/config"
 mv ${HOME_PATH}/.ssh/config ${HOME_PATH}/.old_dotfiles/ssh-config
 ln -s ${DOTFILES_PATH}/ssh-config ${HOME_PATH}/.ssh/config
-
-
-echo "--- .emacs.d/etc/ ---"
-mv ${HOME_PATH}/.emacs.d/etc ${HOME_PATH}/.old_dotfiles/etc_emacs
-ln -s ${HOME_PATH}/Dropbox/etc_emacs ${HOME_PATH}/.emacs.d/etc
-ls -l ${HOME_PATH}/Dropbox/etc_emacs | tee -a etc_emacs
-
 
 echo "--- submodule ---"
 cd ${DOTFILES_PATH}
