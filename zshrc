@@ -35,6 +35,12 @@ alias df="df -h"
 
 alias -g ec="emacsclient -n"
 
+# vscode
+alias code='PATH="/usr/bin:$PATH" code'
+pecode() {
+    f $1 | PATH="/usr/bin:$PATH" xargs code
+}
+
 # git alias
 alias g='git'
 alias gs='git status '
