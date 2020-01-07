@@ -39,7 +39,7 @@
 [diff "nkf"]
   textconv = nkf -w
 [http]
-  # proxy = http://proxy.ksc.kwansei.ac.jp:8080
+  cookiefile = /Users/pokutuna/.gitcookies
 [push]
   default = current
 [branch]
@@ -56,8 +56,8 @@
 [rebase]
   autosquash = true
 [pull]
-  rebase = preserve
+  rebase = merges
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
