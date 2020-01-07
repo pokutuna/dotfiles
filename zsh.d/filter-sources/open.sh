@@ -27,11 +27,6 @@ p() {
     f | xargs $@
 }
 
-# ファイルを選んで emacsclient で開く
-pec() {
-    f $1 | xargs emacsclient -n
-}
-
 # ファイルを選んで syntax highligt 付き less で開く
 l() {
     IFS=';' read command prompt < <(_file_candidates);

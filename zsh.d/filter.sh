@@ -1,6 +1,6 @@
 ### filter(fzf/peco)
 
-export FILTER=$(available "peco:fzf")
+export FILTER=$(available "fzf:peco")
 
 if type fzf > /dev/null; then
   export FZF_DEFAULT_OPTS='--bind=ctrl-j:accept,ctrl-k:kill-line'

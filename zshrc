@@ -37,7 +37,7 @@ alias -g ec="emacsclient -n"
 
 # vscode
 alias code='PATH="/usr/bin:$PATH" code'
-pecode() {
+pec() {
     f $1 | PATH="/usr/bin:$PATH" xargs code
 }
 
