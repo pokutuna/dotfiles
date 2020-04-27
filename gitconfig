@@ -39,7 +39,7 @@
 [diff "nkf"]
   textconv = nkf -w
 [http]
-  cookiefile = /Users/pokutuna/.gitcookies
+	cookiefile = /Users/pokutuna/.gitcookies
 [push]
   default = current
 [branch]

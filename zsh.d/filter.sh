@@ -3,7 +3,7 @@
 export FILTER=$(available "fzf:peco")
 
 if type fzf > /dev/null; then
-  export FZF_DEFAULT_OPTS='--bind=ctrl-j:accept,ctrl-k:kill-line'
+  export FZF_DEFAULT_OPTS='--bind=ctrl-j:accept,ctrl-k:kill-line --no-sort --exact'
 fi
 
 if type $FILTER &>/dev/null; then
