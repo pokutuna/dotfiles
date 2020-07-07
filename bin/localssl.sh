@@ -3,7 +3,7 @@
 CWD=$(cd $(dirname "$0") && pwd)
 
 if [ $# == 0 ]; then
-  echo 'localssl.sh {on|off} {port}'
+  echo 'localssl.sh {on|off}'
   exit
 fi
 
