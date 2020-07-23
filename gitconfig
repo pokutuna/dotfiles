@@ -1,6 +1,6 @@
 [user]
   name = pokutuna
-  email = popopopopokutuna@gmail.com
+  email = mail@pokutuna.com
 [core]
   pager = less -r
   excludesfile = /Users/pokutuna/.gitignore
