@@ -19,11 +19,11 @@ if [[ -s "$HOME/.anyenv/bin" ]]; then
     export PATH="$HOME/.anyenv/bin:$PATH"
     eval "$(anyenv init -)"
 
+    # node
+    export NODE_PATH="$(npm root -g)"
+
     # ruby
     export RSENSE_HOME=$HOME/Dropbox/etc_emacs/rsense-0.3
-
-    # use `npm bin -g` and `$(npm prefix -g 2>/dev/null)/lib/node_modules` but slow
-    export NODE_PATH=$BREW/lib/node_modules
 fi
 
 
@@ -83,6 +83,7 @@ fi
 # openssl with homebrew
 OPENSSLDIR=$(brew --prefix openssl 2>/dev/null)
 if [ -e $OPENSSLDIR ]; then
+  export PATH="$OPENSSLDIR/bin:$PATH"
   export C_INCLUDE_PATH="$OPENSSLDIR/include:$C_INCLUDE_PATH"
   export LIBRARY_PATH="$OPENSSLDIR/lib:$LIBRARY_PATH"
 fi
