@@ -18,14 +18,11 @@ export BREW=$(brew --prefix)
 if [[ -s "$HOME/.anyenv/bin" ]]; then
     export PATH="$HOME/.anyenv/bin:$PATH"
     eval "$(anyenv init -)"
-
     # node
-    export NODE_PATH="$(npm root -g)"
-
+    # export NODE_PATH="$(npm root -g)"
     # ruby
     export RSENSE_HOME=$HOME/Dropbox/etc_emacs/rsense-0.3
 fi
-
 
 # scala
 export SCALA_HOME=$BREW/opt/scala
@@ -86,6 +83,39 @@ if [ -e $OPENSSLDIR ]; then
   export PATH="$OPENSSLDIR/bin:$PATH"
   export C_INCLUDE_PATH="$OPENSSLDIR/include:$C_INCLUDE_PATH"
   export LIBRARY_PATH="$OPENSSLDIR/lib:$LIBRARY_PATH"
+fi
+
+# kubectl
+if type kubectl &>/dev/null; then
+  source <(kubectl completion zsh)
+
+  # krew
+  # https://github.com/kubernetes-sigs/krew
+  export KREW_ROOT="$HOME/.krew"
+  if [ -e $KREW_ROOT ]; then
+    export PATH="${KREW_ROOT}/bin:$PATH"
+  fi
+
+  # kube-ps1
+  # https://github.com/jonmosco/kube-ps1
+  export KUBE_PS1="/usr/local/opt/kube-ps1/share/kube-ps1.sh"
+  if [ -e $KUBE_PS1 ]; then
+    source $KUBE_PS1
+    # set prompt on _update_prompt() in prompt.sh
+    # PROMPT='$(kube_ps1)'$PROMPT
+
+    # for kube-ps1 cluster name shortener
+    _kube_ps1_get_cluster_short() {
+      if [[ $1 =~ "^gke_" ]]; then
+        # GKE {project}.{cluster}
+        echo "$1" | cut -d_ -f2,4 --output-delimiter='.'
+      else
+        echo "$1"
+      fi
+    }
+    export KUBE_PS1_SYMBOL_USE_IMG=true
+    export KUBE_PS1_CLUSTER_FUNCTION=_kube_ps1_get_cluster_short
+  fi
 fi
 
 stopwatch_off zshenv

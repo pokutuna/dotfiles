@@ -20,6 +20,10 @@ _update_prompt () {
             fi
             ;;
     esac
+
+    if [ -e $KUBE_PS1 ]; then
+        PROMPT='$(kube_ps1)'$PROMPT
+    fi;
 }
 
 _update_rprompt()
