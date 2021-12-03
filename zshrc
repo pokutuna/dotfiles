@@ -85,11 +85,7 @@ bindkey "\e[Z" reverse-menu-complete # reverse menu complete
 # cd functions from hitode909
 [ -f ~/.zsh.d/hitode_cd.sh ] && source ~/.zsh.d/hitode_cd.sh
 
-# temp from kimoto
-[ -f ~/.zsh.d/kimoto_temp.sh ] && source ~/.zsh.d/kimoto_temp.sh
-
-# hub completion
-[ -f ~/.zsh.d/hub.zsh_completion ] && source ~/.zsh.d/hub.zsh_completion
+[ -f ~/.zsh.d/temp.sh ] && source ~/.zsh.d/temp.sh
 
 # available command
 [ -f ~/.zsh.d/available.sh ] && source ~/.zsh.d/available.sh
