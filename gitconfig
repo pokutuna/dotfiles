@@ -22,7 +22,6 @@
   wd = diff --word-diff=color
   stat = log -- stat -- summary
   hist = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
-  #hist = log --date=short --graph --pretty=oneline --decorate --abbrev-commit --branches
   type = cat-file -t
   dump = cat-file -p
   oneline = log --oneline --decorate
@@ -48,11 +47,8 @@
   lineNumber = true
 [tig]
   commit-order = topo
-
 [ghq]
-  root=~/.ghq
-[ghq "ssh://gitolite@pokutuna.com"]
-  vcs = git
+  root=~/ghq
 [rebase]
   autosquash = true
 [pull]

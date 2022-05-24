@@ -19,7 +19,7 @@ type src-hilite-lesspipe.sh &>/dev/null &&
     alias -g cless='LESSOPEN="| src-hilite-lesspipe.sh %s" less'
 
 # git diff-highlight
-export PATH=$BREW/opt/git/share/git-core/contrib/diff-highlight:$PATH
+export PATH=$HOMEBREW_HOME/opt/git/share/git-core/contrib/diff-highlight:$PATH
 
 # direnv
 type direnv &>/dev/null && eval "$(direnv hook zsh)"
@@ -110,24 +110,6 @@ setopt hist_ignore_dups     # ignore duplication command history list
 setopt hist_ignore_space    # スペースから始まるコマンドはヒストリから削除
 setopt hist_reduce_blanks
 setopt share_history        # share command history data
-
-
-## completion ##
-fpath=(~/.zsh.d/functions /usr/local/share/zsh/site-functions $fpath)
-
-autoload -U predict-on
-autoload -Uz compinit && compinit
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-zstyle ':completion:*:default' menu select=1
-zstyle ':completion:*:cd:*' tag-order local-directories path-directories
-
-if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
-  autoload -U chpwd_recent_dirs cdr
-  chpwd_functions+=chpwd_recent_dirs
-  zstyle ":chpwd:*" recent-dirs-max 500
-  zstyle ":chpwd:*" recent-dirs-default true
-  zstyle ":completion:*" recent-dirs-insert always
-fi
 
 ## prompt setting
 . ~/.zsh.d/prompt.sh
