@@ -5,6 +5,7 @@
   pager = less -r
   excludesfile = /Users/pokutuna/.gitignore
   precomposeunicode = true
+	attributesfile = /Users/pokutuna/.gitattributes
 [github]
   user = pokutuna
 [color]
@@ -48,12 +49,16 @@
 [tig]
   commit-order = topo
 [ghq]
+  root=~/go/src
   root=~/ghq
 [rebase]
   autosquash = true
 [pull]
   rebase = merges
 [filter "lfs"]
-  clean = git-lfs clean %f
-  smudge = git-lfs smudge %f
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
   required = true
+	process = git-lfs filter-process
+[diff "jupyternotebook"]
+	textconv = jupyter nbconvert --to python --stdout

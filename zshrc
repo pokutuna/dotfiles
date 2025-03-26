@@ -14,7 +14,7 @@ setopt complete_aliases
 setopt long_list_jobs
 
 # less
-export LESS='-gj10 -R --no-init --quit-if-one-screen'
+export LESS='-gj10 -R --no-init'
 type src-hilite-lesspipe.sh &>/dev/null &&
     alias -g cless='LESSOPEN="| src-hilite-lesspipe.sh %s" less'
 
@@ -34,6 +34,17 @@ alias du1="du -d 1 ./"
 alias df="df -h"
 
 alias -g ec="emacsclient -n"
+
+# Rust made tools
+if type bat &> /dev/null; then
+    alias _cat="\cat"
+    alias cat="bat --style=plain"
+fi
+
+if type exa &> /dev/null; then
+    alias _ls="\ls"
+    alias ls="exa"
+fi
 
 # vscode
 alias code='PATH="/usr/bin:$PATH" code'
@@ -85,7 +96,9 @@ bindkey "\e[Z" reverse-menu-complete # reverse menu complete
 # cd functions from hitode909
 [ -f ~/.zsh.d/hitode_cd.sh ] && source ~/.zsh.d/hitode_cd.sh
 
-[ -f ~/.zsh.d/temp.sh ] && source ~/.zsh.d/temp.sh
+[ -f ~/.zsh.d/u.sh ] && source ~/.zsh.d/u.sh
+
+[ -f ~/.zsh.d/tmp.sh ] && source ~/.zsh.d/tmp.sh
 
 # available command
 [ -f ~/.zsh.d/available.sh ] && source ~/.zsh.d/available.sh

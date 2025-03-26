@@ -8,7 +8,7 @@ SELECTED_FILE_TO_ADD="$(git status --porcelain | \
                               awk -F ' ' '{print $NF}')"
 if [ -n "$SELECTED_FILE_TO_ADD" ]; then
   search_root=`git rev-parse --show-toplevel`
-  files=`echo "$SELECTED_FILE_TO_ADD" | tr '\n' ' '`
+  files=`echo "$SELECTED_FILE_TO_ADD --multi" | tr '\n' ' '`
   `cd ${search_root} && git add ${files}`
 fi
 

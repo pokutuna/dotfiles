@@ -1,11 +1,11 @@
 ## from hitode909 http://d.hatena.ne.jp/hitode909/20110219/1298088499
 # gitリポジトリから相対パスでcdする
-function u() {
-    cd ./$(git rev-parse --show-cdup)
-    if [ $# = 1 ]; then
-        cd $1
-    fi
-}
+# function u() {
+#     cd ./$(git rev-parse --show-cdup)
+#     if [ $# = 1 ]; then
+#         cd $1
+#     fi
+# }
 
 #ホームディレクトリから相対パスでcdする
 function h() {

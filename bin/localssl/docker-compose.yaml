@@ -9,6 +9,6 @@ services:
       - "443:443"
     volumes:
       - ./localhost.pokutuna.com.nginx.conf:/template.conf:ro
-      - ~/letsencrypt/:/etc/letsencrypt/:ro
+      - ~/Dropbox/certbot/config/:/etc/letsencrypt/:ro
     command: >
       /bin/bash -c "envsubst '$$APPLICATION_PORT' < /template.conf > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"

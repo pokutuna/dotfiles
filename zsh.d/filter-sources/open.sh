@@ -32,7 +32,11 @@ l() {
     IFS=';' read command prompt < <(_file_candidates);
     local file=$(eval $command | $FILTER --prompt=$prompt --query="$1")
     if [ -n "$file" ]; then
-        src-hilite-lesspipe.sh $file | less
+        if type bat &> /dev/null; then
+            bat --style=plain --paging=always $file
+        else
+            cat $file | less
+        fi
     fi
 }
 

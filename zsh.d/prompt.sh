@@ -1,3 +1,5 @@
+_update_title()
+{}
 
 # git current branch to prompt
 _set_env_git_current_branch() {
@@ -52,7 +54,7 @@ chpwd()
 
 # set terminal title including current directory
 case "${TERM}" in
-    xterm|xterm-256color|kterm|kterm-color|screen)
+    xterm|xterm-256color|kterm|kterm-color|screen|screen-256color)
     _update_title(){
         echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
     }
@@ -86,7 +88,8 @@ case ${UID} in
 #        PROMPT2="%B%{${fg[green]}%}%n@%m_$%{${reset_color}%}%b "
         PROMPT="[%{${fg[green]}%}%B%~%b%{${reset_color}%}]$%{${reset_color}%} "
         PROMPT2="[%{${fg[green]}%}%B%~%b%{${reset_color}%}]_>%{${reset_color}%} "
-        RPROMPT="%B%{${fg[cyan]}%}(%D %*)%{${reset_color}%}%b"
+        # Cline/RooCode で Terminal 読めないので RPROMPT 消す、$TERM_PROGRAM で分岐したらよさそうではある
+        # RPROMPT="%B%{${fg[cyan]}%}(%D %*)%{${reset_color}%}%b"
         SPROMPT="%B%{${fg[yellow]}%}%r is correct? [n,y,a,e]:%{${reset_color}%}%b "
         [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
         PROMPT="[%{${fg[magenta]}%}%B${HOST}%b%{${reset_color}%}:%{${fg[green]}%}%B%~%b%{${reset_color}%}]$%{${reset_color}%} "
@@ -94,7 +97,7 @@ case ${UID} in
 esac
 
 case "${TERM}" in
-    xterm|xterm-256color|screen)
+    xterm|xterm-256color|screen|screen-256color)
         export LSCOLORS=ExFxCxdxBxegedabagacad
         export LS_COLORS='di=34;01:ln=35;01:so=32:pi=33:ex=31;01:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
         zstyle ':completion:*' list-colors 'di=34;01' 'ln=35;01' 'so=32' 'ex=31;01' 'bd=46;34' 'cd=43;34'

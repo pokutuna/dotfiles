@@ -20,12 +20,10 @@ export SHELL=$HOMEBREW_HOME/bin/zsh
 export HOMEBREW_HOME=/opt/homebrew
 eval "$($HOMEBREW_HOME/bin/brew shellenv)"
 
-# asdf
+# mise
 () {
-  local asdf_init=$HOMEBREW_HOME/opt/asdf/libexec/asdf.sh
-  if [[ -e $asdf_init ]]; then
-    . $asdf_init
-  fi
+  local mise_path=$HOMEBREW_HOME/bin/mise
+  eval "$($mise_path activate zsh)"
 }
 
 export LDFLAGS="-L$HOMEBREW_HOME/lib $LDFLAGS"
@@ -45,6 +43,13 @@ export PATH=$SCALA_HOME/bin:$PATH
 # go
 export GOPATH=~/go
 export PATH=$GOPATH/bin:$PATH
+
+
+# python
+if [[ -e "$HOME/.rye/env" ]]; then
+  source "$HOME/.rye/env"
+fi
+
 
 # pkg-config
 if type pkg-config &>/dev/null; then
@@ -91,6 +96,12 @@ if [ -e $OPENSSLDIR ]; then
   export LDFLAGS="-L$OPENSSLDIR/lib $LDFLAGS"
   export CPPFLAGS="-I$OPENSSLDIR/include $CPPFLAGS"
 fi
+
+# gcloud
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'; fi
+# The next line enables shell command completion for gcloud.
+if [ -f '/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc' ]; then . '/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'; fi
 
 # kubectl
 if type kubectl &>/dev/null; then
