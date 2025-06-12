@@ -51,6 +51,8 @@ alias code='PATH="/usr/bin:$PATH" code'
 pec() {
     f $1 | PATH="/usr/bin:$PATH" xargs code
 }
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+
 
 # git alias
 alias g='git'

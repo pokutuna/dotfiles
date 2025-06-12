@@ -49,6 +49,22 @@ export PATH=$GOPATH/bin:$PATH
 if [[ -e "$HOME/.rye/env" ]]; then
   source "$HOME/.rye/env"
 fi
+if [[ -e "$HOMEBREW_HOME/bin/uv" ]]; then
+  source <(uv generate-shell-completion zsh)
+
+  # https://github.com/astral-sh/uv/issues/8432#issuecomment-2453494736
+  _uv_run_mod() {
+    if [[ "$words[2]" == "run" && "$words[CURRENT]" != -* ]]; then
+        _arguments '*:filename:_files'
+    else
+        _uv "$@"
+    fi
+  }
+  compdef _uv_run_mod uv
+fi
+if [[ -e "$HOMEBREW_HOME/bin/uvx" ]]; then
+  source <(uvx --generate-shell-completion zsh)
+fi
 
 
 # pkg-config
