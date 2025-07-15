@@ -108,6 +108,9 @@ bindkey "\e[Z" reverse-menu-complete # reverse menu complete
 # filter
 [ -f ~/.zsh.d/filter.sh ] && source ~/.zsh.d/filter.sh
 
+# git worktree helper
+[ -f ~/.zsh.d/worktree.sh ] && source ~/.zsh.d/worktree.sh
+
 # 単語区切り設定
 autoload -Uz select-word-style
 select-word-style default
