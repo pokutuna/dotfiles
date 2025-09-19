@@ -1,5 +1,5 @@
 # git worktree を扱いやすくする関数
-# .git/wt/DIR に worktree を作成していく
+# .worktrees/DIR に worktree を作成していく
 #
 # Usage:
 #   worktree として foobar ブランチを作成して移動
@@ -44,7 +44,7 @@ wt() {
     # 引数がある場合 worktree 作成
     if [ $# -gt 0 ]; then
         local WORKTREE_NAME=$(echo "$1" | sed 's/[^a-zA-Z0-9_-]/-/g')
-        local WORKTREE_PATH="$GIT_ROOT/.git/wt/$WORKTREE_NAME"
+        local WORKTREE_PATH="$GIT_ROOT/.worktrees/$WORKTREE_NAME"
         # 既にディレクトリがあるなら移動
         if [ -d "$WORKTREE_PATH" ]; then
             echo "Error: worktree '$WORKTREE_NAME' already exists" >&2
