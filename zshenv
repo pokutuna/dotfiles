@@ -4,7 +4,7 @@ stopwatch_on zshenv
 setopt no_global_rcs
 
 ## basic path
-export PATH=/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:/usr/bin:/bin:$PATH
+export PATH=~/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:/usr/bin:/bin:$PATH
 export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:$MANPATH
 
 ## basic config ##
@@ -66,6 +66,14 @@ if [[ -e "$HOMEBREW_HOME/bin/uvx" ]]; then
   source <(uvx --generate-shell-completion zsh)
 fi
 
+# pnpm
+export PNPM_HOME="/Users/pokutuna/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# yarn
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # pkg-config
 if type pkg-config &>/dev/null; then
@@ -91,6 +99,8 @@ VSCODE_BIN="/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 if [[ -e $VSCODE_BIN ]]; then
     export PATH=$VSCODE_BIN:$PATH
 fi
+
+
 
 # 2021-12-04 switching to asdf
 # mysqlenv https://github.com/xaicron/mysqlenv

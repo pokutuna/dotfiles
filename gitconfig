@@ -2,7 +2,8 @@
   name = pokutuna
   email = mail@pokutuna.com
 [core]
-  pager = less -r
+  # pager = less -r
+  pager = delta 2>/dev/null || less -R
   excludesfile = /Users/pokutuna/.gitignore
   precomposeunicode = true
 	attributesfile = /Users/pokutuna/.gitattributes
@@ -33,9 +34,9 @@
   rebase-from-upstream = "!sh -c 'git rebase -i `git rev-parse --abbrev-ref --symbolic-full-name @{u}`'"
   reset-firm = "!sh -c 'git commit -a -m \"backup to reset --hard\" && git reset --hard HEAD^'"
 [pager]
-  log = diff-highlight | less
-  show = diff-highlight | less
-  diff = diff-highlight | less
+  # log = diff-highlight | less
+  # show = diff-highlight | less
+  # diff = diff-highlight | less
 [diff "nkf"]
   textconv = nkf -w
 [http]
@@ -61,6 +62,16 @@
   required = true
 	process = git-lfs filter-process
 [diff "jupyternotebook"]
-	textconv = jupyter nbconvert --to python --stdout
+	textconv = uvx --from=jupyterlab jupyter nbconvert --to=python --stdout
 [init]
 	defaultBranch = main
+
+[interactive]
+diffFilter = delta --color-only
+[delta]
+navigate = true
+keep-plus-minus-markers = true
+syntax-theme = "Dracula"
+# color-only = true
+[merge]
+conflictStyle = zdiff3

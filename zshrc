@@ -38,12 +38,13 @@ alias -g ec="emacsclient -n"
 # Rust made tools
 if type bat &> /dev/null; then
     alias _cat="\cat"
-    alias cat="bat --style=plain"
+    alias cat="bat"
+    alias catp="bat --style=plain"
 fi
 
-if type exa &> /dev/null; then
+if type eza &> /dev/null; then
     alias _ls="\ls"
-    alias ls="exa"
+    alias ls="eza"
 fi
 
 # vscode
@@ -133,5 +134,3 @@ setopt share_history        # share command history data
 . ~/.zsh.d/prompt.sh
 
 stopwatch_off zshrc
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
