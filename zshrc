@@ -99,8 +99,6 @@ bindkey "\e[Z" reverse-menu-complete # reverse menu complete
 # cd functions from hitode909
 [ -f ~/.zsh.d/hitode_cd.sh ] && source ~/.zsh.d/hitode_cd.sh
 
-[ -f ~/.zsh.d/u.sh ] && source ~/.zsh.d/u.sh
-
 [ -f ~/.zsh.d/tmp.sh ] && source ~/.zsh.d/tmp.sh
 
 # available command
