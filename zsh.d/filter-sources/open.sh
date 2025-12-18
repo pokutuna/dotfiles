@@ -14,7 +14,7 @@ _file_candidates() {
         for dir in "${__FILTER_EXCLUDE_DIRS[@]}"; do
             excludes="$excludes --exclude $dir"
         done
-        echo "fd --type f --max-depth 3 --color=never$excludes;FD>"
+        echo "fd --hidden --type f --color=never$excludes;FD>"
     elif git rev-parse --is-inside-work-tree &>/dev/null; then
         echo 'git ls-files;GIT>'
     else
@@ -28,7 +28,7 @@ _dir_candidates() {
         for dir in "${__FILTER_EXCLUDE_DIRS[@]}"; do
             excludes="$excludes --exclude $dir"
         done
-        echo "fd --type d --max-depth 3 --color=never$excludes;FD>"
+        echo "fd --hidden --type d --color=never$excludes;FD>"
     elif git rev-parse --is-inside-work-tree &>/dev/null; then
         echo 'git ls-files | sed "s|/[^/]*$|/|" | grep ".*/$" | sort | uniq;GIT>'
     else

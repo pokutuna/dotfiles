@@ -32,6 +32,7 @@ alias ll="ls -l"
 alias du="du -h"
 alias du1="du -d 1 ./"
 alias df="df -h"
+alias rg="rg --hidden"
 
 alias -g ec="emacsclient -n"
 
