@@ -1,7 +1,10 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "cleanupPeriodDays": 3000,
-  "includeCoAuthoredBy": false,
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "permissions": {
     "allow": [
       "Bash(cat:*)",
@@ -70,6 +73,7 @@
       "Bash(terraform fmt:*)",
       "Bash(timeout:*)",
       "Bash(top:*)",
+      "Bash(tree:*)",
       "Bash(uv add:*)",
       "Bash(uv run pytest:*)",
       "Bash(uv run ruff check:*)",
@@ -83,52 +87,31 @@
       "Bash(yarn build:*)",
       "Bash(yarn install:*)",
       "Bash(yarn test:*)",
+      "Edit(/tmp)",
+      "Edit(/Users/pokutuna/.npm)",
+      "Edit(/Users/pokutuna/Library/Caches/uv)",
+      "Edit(/Users/pokutuna/Library/Caches/Yarn)",
+      "Edit(/Users/pokutuna/Library/pnpm)",
       "Edit(docs/**)",
       "Edit(lib/**)",
       "Edit(libs/**)",
       "Edit(src/**)",
       "Edit(test/**)",
-      "mcp__chrome-devtools__close_page",
-      "mcp__chrome-devtools__evaluate_script",
-      "mcp__chrome-devtools__list_pages",
-      "mcp__chrome-devtools__navigate_page",
-      "mcp__chrome-devtools__new_page",
-      "mcp__chrome-devtools__select_page",
-      "mcp__chrome-devtools__take_screenshot",
-      "mcp__chrome-devtools__take_snapshot",
-      "mcp__chrome-tabs__list_tabs",
-      "mcp__chrome-tabs__open_in_new_tab",
-      "mcp__chrome-tabs__read_tab_content",
-      "mcp__deepwiki__ask_question",
-      "mcp__deepwiki__read_wiki_contents",
-      "mcp__deepwiki__read_wiki_structure",
-      "mcp__fetch__fetch",
-      "mcp__google_search__web_search",
-      "mcp__google-search__web_search",
-      "mcp__ide__executeCode",
+      "mcp__chrome-devtools__*",
+      "mcp__chrome-tabs__*",
+      "mcp__deepwiki__*",
+      "mcp__fetch__*",
+      "mcp__google_search__*",
+      "mcp__google-search__*",
       "mcp__ide__getDiagnostics",
-      "mcp__playwright__browser_click",
-      "mcp__playwright__browser_navigate",
-      "mcp__playwright__browser_press_key",
-      "mcp__playwright__browser_snapshot",
-      "mcp__playwright__browser_type",
-      "mcp__playwright__browser_wait_for",
-      "mcp__serena__check_onboarding_performed",
-      "mcp__serena__find_file",
-      "mcp__serena__find_referencing_symbols",
-      "mcp__serena__find_symbol",
-      "mcp__serena__get_symbols_overview",
-      "mcp__serena__insert_after_symbol",
-      "mcp__serena__list_dir",
-      "mcp__serena__onboarding",
-      "mcp__serena__read_memory",
-      "mcp__serena__replace_regex",
-      "mcp__serena__replace_symbol_body",
-      "mcp__serena__search_for_pattern",
-      "mcp__serena__think_about_collected_information",
-      "mcp__serena__write_memory",
+      "mcp__playwright__*",
+      "mcp__serena__*",
       "Read(node_modules/**)",
       "WebSearch"
+    ],
+    "ask": [
+      "mcp__ide__executeCode",
+      "mcp__serena__execute_shell_command"
     ],
     "deny": [
       "Edit(/etc/**)",
@@ -180,5 +163,18 @@
   "feedbackSurveyState": {
     "lastShownTime": 1754731026912
   },
-  "alwaysThinkingEnabled": false
+  "alwaysThinkingEnabled": false,
+  "sandbox": {
+    "enabled": false,
+    "autoAllowBashIfSandboxed": true,
+    "excludedCommands": [
+      "docker"
+    ],
+    "network": {
+      "allowUnixSockets": [
+        "/var/run/docker.sock"
+      ],
+      "allowLocalBinding": true
+    }
+  }
 }

@@ -36,6 +36,15 @@ do
     ln -s ${DOTFILES_PATH}/config/${file} ${HOME_PATH}/.config/${file}
 done
 
+## .claude ##
+mkdir -p ${HOME_PATH}/.claude
+for file in $(ls ${DOTFILES_PATH}/claude)
+do
+    echo "claude/${file}"
+    mv ${HOME_PATH}/.claude/${file} ${HOME_PATH}/.old_dotfiles/claude.${file}
+    ln -s ${DOTFILES_PATH}/claude/${file} ${HOME_PATH}/.claude/${file}
+done
+
 echo ".ssh/config"
 mv ${HOME_PATH}/.ssh/config ${HOME_PATH}/.old_dotfiles/ssh-config
 ln -s ${DOTFILES_PATH}/ssh-config ${HOME_PATH}/.ssh/config
