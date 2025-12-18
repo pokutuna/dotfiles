@@ -161,4 +161,15 @@ if type kubectl &>/dev/null; then
   fi
 fi
 
+# psql
+POSTGRESDIR=$(brew --prefix postgresql@15 2>/dev/null)
+if [ -e $POSTGRESDIR ]; then
+  export PATH="$POSTGRESDIR/bin:$PATH"
+fi
+
+# Coding Agents
+export CLAUDE_CONFIG_DIR=$HOME/.claude
+alias codex="op run --no-masking --env-file=/Users/pokutuna/.codex/env -- codex"
+export PATH="/Users/pokutuna/.antigravity/antigravity/bin:$PATH"
+
 stopwatch_off zshenv
