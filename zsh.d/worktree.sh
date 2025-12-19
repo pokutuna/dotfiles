@@ -5,6 +5,9 @@
 #   worktree として foobar ブランチを作成して移動
 #   $ wt foobar
 #
+#   PullRequest #123 のブランチを checkout して worktree 作成
+#   $ wt #123
+#
 #   worktree を一覧して fzf で選択
 #   $ wt
 #
@@ -43,7 +46,21 @@ wt() {
 
     # 引数がある場合 worktree 作成
     if [ $# -gt 0 ]; then
-        local WORKTREE_NAME=$(echo "$1" | sed 's/[^a-zA-Z0-9_-]/-/g')
+        local BRANCH_NAME="$1"
+
+        # #123 形式の場合は PR のブランチ名を取得
+        if [[ "$1" =~ ^#([0-9]+)$ ]]; then
+            local PR_NUMBER="${match[1]}"
+            echo "Fetching PR #${PR_NUMBER}..."
+            git fetch --quiet
+            BRANCH_NAME=$(gh pr view "$PR_NUMBER" --json headRefName --jq '.headRefName' 2>/dev/null)
+            if [ -z "$BRANCH_NAME" ]; then
+                echo "Error: failed to get branch name for PR #${PR_NUMBER}" >&2
+                return 1
+            fi
+        fi
+
+        local WORKTREE_NAME=$(echo "$BRANCH_NAME" | sed 's/[^a-zA-Z0-9_-]/-/g')
         local WORKTREE_PATH="$GIT_ROOT/.worktrees/$WORKTREE_NAME"
         # 既にディレクトリがあるなら移動
         if [ -d "$WORKTREE_PATH" ]; then
@@ -52,9 +69,9 @@ wt() {
             return 0
         fi
         # worktree 作成
-        if ! git worktree add "$WORKTREE_PATH" "$1" 2>/dev/null; then
+        if ! git worktree add "$WORKTREE_PATH" "$BRANCH_NAME" 2>/dev/null; then
             # ブランチが存在しない場合は新規作成
-            if ! git worktree add -b "$1" "$WORKTREE_PATH" 2>/dev/null; then
+            if ! git worktree add -b "$BRANCH_NAME" "$WORKTREE_PATH" 2>/dev/null; then
                 echo "Error: failed to create worktree '$WORKTREE_NAME'" >&2
                 return 1
             fi
