@@ -15,11 +15,14 @@
 #   $ wt -d
 
 wt() {
-    local GIT_ROOT=$(git rev-parse --show-toplevel 2>/dev/null)
+    # worktree 内からでも元のリポジトリのルートを取得
+    local GIT_COMMON_DIR=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
     if [ $? -ne 0 ]; then
         echo "Error: not in a git repository" >&2
         return 1
     fi
+    # .git ディレクトリの親が元のリポジトリのルート
+    local GIT_ROOT=$(dirname "$GIT_COMMON_DIR")
 
     # -d で fzf で選択して worktree 削除
     if [ "$1" = "-d" ]; then
