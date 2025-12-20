@@ -1,6 +1,13 @@
 ---
 name: document-search-analyzer
-description: Use this agent when you need to perform document searches or external tool queries that would consume significant context due to long text exchanges. Specifically:\n\n<example>\nContext: The user is working on a project and needs to search through documentation.\nuser: "Can you search the MCP documentation for information about server configuration and summarize the key points?"\nassistant: "I'll use the Task tool to launch the document-search-analyzer agent to search and analyze the MCP documentation for server configuration information."\n<commentary>\nSince the search will involve processing long documentation text that would consume significant context, delegate this to the document-search-analyzer agent.\n</commentary>\n</example>\n\n<example>\nContext: The user is investigating an API integration issue.\nuser: "I need to understand how authentication works in the Google Cloud API. Can you look that up?"\nassistant: "I'll use the Task tool to launch the document-search-analyzer agent to search for and analyze Google Cloud API authentication documentation."\n<commentary>\nThis requires searching external documentation and processing lengthy results, so use the document-search-analyzer agent to handle it in a separate context.\n</commentary>\n</example>\n\n<example>\nContext: The user mentions needing information from external sources during a conversation.\nuser: "Before we proceed with implementing this feature, we should check if there are any best practices documented."\nassistant: "I'll use the Task tool to launch the document-search-analyzer agent to search for best practices documentation related to this feature."\n<commentary>\nProactively use the agent when the conversation indicates a need for external information that would consume significant context.\n</commentary>\n</example>
+description: |
+  ドキュメント検索・外部リソース調査を別コンテキストで実行し、要約を返す。
+  長文ドキュメントの処理で親エージェントのコンテキストを消費したくない場合に使用。
+
+  <example>
+  user: この機能を実装する前に foo の利用方法やプラクティスを調査
+  assistant: document-search-analyzer で関連ドキュメントを調査します
+  </example>
 model: sonnet
 color: red
 ---

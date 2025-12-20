@@ -1,6 +1,13 @@
 ---
 name: bug-reproduction-generator
-description: Use this agent when you need to create minimal reproduction code for GitHub issues or bug reports. Examples: <example>Context: User encountered a bug in their complex application and needs to create a GitHub issue with reproduction code. user: "I'm getting a TypeError when using the API client with nested configuration objects. The error happens in production but my code is too complex to share directly." assistant: "I'll use the bug-reproduction-generator agent to create a minimal reproduction case for your GitHub issue."</example> <example>Context: User found a bug in a library and wants to report it with clear reproduction steps. user: "The date parsing library crashes when I pass certain timezone formats, but my actual code has a lot of business logic mixed in." assistant: "Let me use the bug-reproduction-generator agent to isolate the core issue and create a simple reproduction case."</example>
+description: |
+  Use this agent when you need to create minimal reproduction code for GitHub issues or bug reports.
+
+  <example>
+  Context: User found a bug in a library and wants to report it with clear reproduction steps.
+  user: "The date parsing library crashes when I pass certain timezone formats, but my actual code has a lot of business logic mixed in."
+  assistant: "Let me use the bug-reproduction-generator agent to isolate the core issue and create a simple reproduction case."
+  </example>
 model: sonnet
 color: red
 ---

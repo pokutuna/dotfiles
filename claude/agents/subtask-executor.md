@@ -1,6 +1,13 @@
 ---
 name: subtask-executor
-description: Use this agent when you need to execute a self-contained, isolated subtask that would otherwise consume significant context in the main conversation thread. Typical scenarios include:\n\n<example>\nContext: User is working on a large refactoring project and needs to check specific file patterns without cluttering main session.\nuser: "このプロジェクト内の全てのPythonファイルでdeprecatedな関数呼び出しを探して"\nassistant: "メインセッションのコンテキストを保つため、subtask-executorエージェントを使用してこのタスクを実行します"\n<Task tool call to subtask-executor with context about the deprecated functions and project structure>\n</example>\n\n<example>\nContext: User is debugging and needs isolated investigation of a specific module.\nuser: "auth.pyの実装を詳しく分析して、セキュリティ上の問題がないか確認して"\nassistant: "独立したタスクとして実行するため、subtask-executorエージェントを起動します"\n<Task tool call to subtask-executor with relevant security context and file path>\n</example>\n\n<example>\nContext: User needs data processing that requires multiple file operations.\nuser: "全てのログファイルからエラーパターンを抽出して集計したい"\nassistant: "このデータ処理タスクをsubtask-executorで実行します"\n<Task tool call to subtask-executor with log file locations and error patterns to search>\n</example>\n\nUse proactively when:\n- A task is well-defined and self-contained\n- The task involves file operations, searches, or analysis that don't require ongoing conversation\n- You need to preserve main session context for higher-level discussion\n- The task can be completed independently without back-and-forth interaction
+description: |
+  独立したサブタスクを別コンテキストで実行し、メインセッションのコンテキストを節約する。
+  作業が長くなりそうなファイル検索、コード分析、データ処理など会話不要な作業に使用。
+
+  <example>
+  user: deprecated な関数呼び出しをプロジェクト全体から探して
+  assistant: subtask-executor でファイル検索・分析を実行します
+  </example>
 model: sonnet
 color: green
 ---

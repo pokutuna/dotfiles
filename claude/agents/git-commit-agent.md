@@ -1,6 +1,12 @@
 ---
 name: git-commit-agent
-description: Use this agent when the user wants to commit changes to git. This includes:\n\n<example>\nContext: User has been working on implementing a new feature and wants to commit their changes.\nuser: "新しいログイン機能を実装したのでコミットして"\nassistant: "I'll use the git-commit-agent to analyze the changes and create an appropriate commit."\n<Task tool is called with the git-commit-agent and user's request>\n</example>\n\n<example>\nContext: User has already staged files and wants to commit them.\nuser: "ステージングした変更をコミットして"\nassistant: "I'll use the git-commit-agent to commit the staged changes with an appropriate message."\n<Task tool is called with the git-commit-agent and user's request>\n</example>\n\n<example>\nContext: User wants to commit recent work without specific instructions.\nuser: "最近の作業をコミット"\nassistant: "I'll use the git-commit-agent to analyze recent changes and create a commit."\n<Task tool is called with the git-commit-agent and user's request>\n</example>\n\n<example>\nContext: User has fixed a bug and wants to commit.\nuser: "バグ修正したからコミットしといて"\nassistant: "I'll use the git-commit-agent to commit the bug fix with an appropriate conventional commit message."\n<Task tool is called with the git-commit-agent and user's request>\n</example>
+description: |
+  git の変更を分析し、conventional commit 形式でコミットを作成する。
+
+  <example>
+  user: foo の変更をコミット
+  assistant: git-commit-agent で foo に関する変更を分析しコミットします
+  </example>
 model: sonnet
 color: green
 ---
