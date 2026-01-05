@@ -33,12 +33,12 @@ export SCALA_HOME=$BREW/opt/scala
 export PATH=$SCALA_HOME/bin:$PATH
 
 # java
-# if type /usr/libexec/java_home &>/dev/null; then
-#   export JAVA_HOME=$(/usr/libexec/java_home)
-#   export JAVA_BIN=$JAVA_HOME/bin
+if [[ -e "$HOMEBREW_HOME/opt/openjdk/bin/java" ]]; then
+  export JAVA_HOME="/opt/homebrew/opt/openjdk"
+  export PATH="$JAVA_HOME/bin:$PATH"
 #   alias java="java -Dfile.encoding=UTF-8"
 #   alias javac="javac -J-Dfile.encoding=UTF-8"
-# fi
+fi
 
 # go
 export GOPATH=~/go

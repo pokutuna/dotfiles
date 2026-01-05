@@ -109,13 +109,15 @@
       "Read(node_modules/**)",
       "WebSearch"
     ],
-    "ask": [
-      "mcp__ide__executeCode",
-      "mcp__serena__execute_shell_command"
-    ],
     "deny": [
+      "Bash(rm -rf:*)",
       "Edit(/etc/**)",
       "Edit(~/.ssh/**)"
+    ],
+    "ask": [
+      "Bash(rm:*)",
+      "mcp__ide__executeCode",
+      "mcp__serena__execute_shell_command"
     ],
     "defaultMode": "acceptEdits",
     "additionalDirectories": [
@@ -158,23 +160,29 @@
   },
   "enabledPlugins": {
     "frontend-design@claude-code-plugins": true,
-    "model-trainer@huggingface-skills": true
+    "model-trainer@huggingface-skills": true,
+    "code-review@claude-plugins-official": true,
+    "plugin-dev@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true
   },
-  "feedbackSurveyState": {
-    "lastShownTime": 1754731026912
-  },
-  "alwaysThinkingEnabled": false,
   "sandbox": {
     "enabled": false,
     "autoAllowBashIfSandboxed": true,
-    "excludedCommands": [
-      "docker"
-    ],
     "network": {
       "allowUnixSockets": [
         "/var/run/docker.sock"
       ],
       "allowLocalBinding": true
-    }
+    },
+    "excludedCommands": [
+      "docker"
+    ]
+  },
+  "alwaysThinkingEnabled": false,
+  "feedbackSurveyState": {
+    "lastShownTime": 1754731026912
   }
 }

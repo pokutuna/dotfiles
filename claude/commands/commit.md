@@ -1,4 +1,6 @@
-git-commit-agent を以下の指示を与えて起動
+Launch git-commit-agent asynchronously with the following instructions:
+
+If ARGUMENTS is empty, summarize recent work and provide context for the commit message.
 
 <ARGUMENTS>
 $ARGUMENTS

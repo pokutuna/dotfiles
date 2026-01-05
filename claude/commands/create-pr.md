@@ -29,9 +29,9 @@ $ARGUMENTS
 - 作成したのち `gh pr view --web` でブラウザで開いてください
 
 ### Copilot レビューの依頼
-- リポジトリの owner が `hatena` の場合、PR 作成後に Copilot レビューを依頼してください
+- リポジトリの owner が `hatena` の場合、Copilot レビューを依頼してください
   - ただし `<EXTRA_CONTEXT>` に「レビュー不要」「no review」等の指示があれば依頼しない
-- `gh pr create` の `--reviewer` では bot を指定できないため、PR 作成後に以下を実行:
+- `gh pr create` の `--reviewer` では bot を指定できないため、以下を実行:
   ```
   gh api repos/{owner}/{repo}/pulls/{pr_number}/requested_reviewers \
     --method POST -f 'reviewers[]=copilot-pull-request-reviewer[bot]'
