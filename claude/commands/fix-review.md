@@ -11,8 +11,8 @@ $ARGUMENTS
 - URL (例: `https://github.com/owner/repo/pull/456`) → パースして PR 情報を取得
 
 GitHub CLI を使用して以下を取得:
-- `gh pr view <number> --json number,title,body,headRefName,baseRefName,files`
-- `gh api repos/{owner}/{repo}/pulls/{number}/comments` でレビューコメント
+- `gh pr view <number> --json number,title,body,headRefName,baseRefName,files,reviews,comments`
+- `gh api repos/{owner}/{repo}/pulls/{number}/comments` で行コメント
 
 ## コンテキストの理解
 
