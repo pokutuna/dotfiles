@@ -24,7 +24,7 @@ Execute `git status` to identify modified/added/deleted files and staging status
 
 **If already staged:** Proceed to step 3 with ONLY the staged files. Do NOT add or modify staging.
 
-**If nothing staged:** Analyze user input and `git diff`, then stage relevant files with `git add`. EXCLUDE unless explicitly requested: test scripts (verification only), temporary output files, debug scripts, files in common ignore patterns. Stage only files related to user's specified changes, or most recent logical unit of work if input is vague.
+**If nothing staged:** Stage only files related to this commit's logical unit of work. Use `git add <files>` to add relevant files explicitly - NEVER use `git add -A` or `git add .`. EXCLUDE unless explicitly requested: test scripts, temporary output files, debug scripts, files in common ignore patterns.
 
 **If mixed (some staged, some unstaged):** Commit ONLY the staged files. Do NOT auto-add unstaged changes.
 
