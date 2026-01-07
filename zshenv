@@ -46,9 +46,6 @@ export PATH=$GOPATH/bin:$PATH
 
 
 # python
-if [[ -e "$HOME/.rye/env" ]]; then
-  source "$HOME/.rye/env"
-fi
 if [[ -e "$HOMEBREW_HOME/bin/uv" ]]; then
   source <(uv generate-shell-completion zsh)
 
