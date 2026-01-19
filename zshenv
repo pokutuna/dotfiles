@@ -1,5 +1,5 @@
-. ~/.zsh.d/stopwatch.sh
-stopwatch_on zshenv
+# . ~/.zsh.d/stopwatch.sh
+# stopwatch_on zshenv
 
 setopt no_global_rcs
 
@@ -169,4 +169,4 @@ export CLAUDE_CONFIG_DIR=$HOME/.claude
 alias codex="op run --no-masking --env-file=/Users/pokutuna/.codex/env -- codex"
 export PATH="/Users/pokutuna/.antigravity/antigravity/bin:$PATH"
 
-stopwatch_off zshenv
+# stopwatch_off zshenv

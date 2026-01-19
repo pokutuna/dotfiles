@@ -1,4 +1,4 @@
-stopwatch_on zshrc
+# stopwatch_on zshrc
 
 ## setopt ##
 setopt auto_cd
@@ -132,4 +132,4 @@ setopt share_history        # share command history data
 ## prompt setting
 . ~/.zsh.d/prompt.sh
 
-stopwatch_off zshrc
+# stopwatch_off zshrc
