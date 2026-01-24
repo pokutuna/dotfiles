@@ -529,6 +529,33 @@
                                 "type": "basic"
                             }
                         ]
+                    },
+                    {
+                        "description": "Ghostty: Swap left_command and left_option",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": { "key_code": "left_command" },
+                                "to": [{ "key_code": "left_option" }],
+                                "conditions": [
+                                    {
+                                        "type": "frontmost_application_if",
+                                        "bundle_identifiers": ["com.mitchellh.ghostty"]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
+                                "from": { "key_code": "left_option" },
+                                "to": [{ "key_code": "left_command" }],
+                                "conditions": [
+                                    {
+                                        "type": "frontmost_application_if",
+                                        "bundle_identifiers": ["com.mitchellh.ghostty"]
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 ]
             },

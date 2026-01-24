@@ -1,0 +1,48 @@
+# Ghostty Configuration
+# https://ghostty.org/docs/config
+
+# Font
+font-family = "VL Gothic"
+font-size = 18
+
+# Theme
+# ghostty +list-themes | grep -i dark
+# theme = Elegant
+# theme = Doom One
+# theme = Cobalt Next
+# theme = Catppuccin Mocha
+# theme = Breeze
+# theme = Bluloco Dark
+theme = Tomorrow Night Eighties
+# background-opacity = 0.95
+
+# Window
+window-padding-x = 8
+window-padding-y = 4
+
+# Cursor
+cursor-style = block
+
+# Bell
+bell-features = system,title,attention
+
+# Shell integration
+shell-integration = zsh
+
+# macOS specific
+macos-option-as-alt = true
+
+# Swap Cmd and Option for Meta keys (use Karabiner instead)
+# # Cmd -> Meta
+# keybind = cmd+d=unbind
+# keybind = cmd+v=unbind
+# keybind = cmd+c=unbind
+# keybind = cmd+b=esc:b
+# keybind = cmd+f=esc:f
+# keybind = cmd+d=esc:d
+# keybind = cmd+v=esc:v
+# keybind = cmd+c=esc:c
+#
+# # Option -> macOS shortcuts
+# keybind = opt+c=copy_to_clipboard
+# keybind = opt+v=paste_from_clipboard
