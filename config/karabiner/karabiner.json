@@ -531,8 +531,36 @@
                         ]
                     },
                     {
-                        "description": "Ghostty: Swap left_command and left_option",
+                        "description": "Ghostty: Swap left_command and left_option (except Cmd+Tab)",
                         "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "tab",
+                                    "modifiers": { "mandatory": ["left_option"] }
+                                },
+                                "to": [{ "key_code": "tab", "modifiers": ["left_command"] }],
+                                "conditions": [
+                                    {
+                                        "type": "frontmost_application_if",
+                                        "bundle_identifiers": ["com.mitchellh.ghostty"]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "grave_accent_and_tilde",
+                                    "modifiers": { "mandatory": ["left_option"] }
+                                },
+                                "to": [{ "key_code": "grave_accent_and_tilde", "modifiers": ["left_command"] }],
+                                "conditions": [
+                                    {
+                                        "type": "frontmost_application_if",
+                                        "bundle_identifiers": ["com.mitchellh.ghostty"]
+                                    }
+                                ]
+                            },
                             {
                                 "type": "basic",
                                 "from": { "key_code": "left_command" },
