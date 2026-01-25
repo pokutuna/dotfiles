@@ -67,10 +67,7 @@ alias gf='git diff --function-context '
 alias gp='git grep '
 type hub &>/dev/null && eval "$(hub alias -s)" # for alias git=hub
 # git-wt: https://github.com/k1LoW/git-wt
-if type git-wt &>/dev/null; then
-    eval "$(git wt --init zsh)"
-    source ~/.zsh.d/git-wt-pr.sh
-fi
+[ -f ~/.zsh.d/git-wt-pr.sh ] && source ~/.zsh.d/git-wt-pr.sh
 
 alias dateu='date -u +"%Y-%m-%dT%H:%M:%SZ"'
 alias datel='date +%Y-%m-%dT%H:%M:%S%z'

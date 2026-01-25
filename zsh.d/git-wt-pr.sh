@@ -1,12 +1,19 @@
 # git-wt with PR number support (zsh)
 # Extends git-wt shell integration to support: git wt #123
-# Requires: gh CLI, git-wt shell integration already initialized
+# Requires: gh CLI, git-wt
 
-# Save the original git function
+type git-wt &>/dev/null || return
+
+eval "$(git-wt --init zsh)"
 functions[_git_wt_original]=$functions[git]
 
-# Override git function to preprocess PR numbers
 git() {
+    # Fall back to command git if _git_wt_original is not available
+    if [[ -z "$functions[_git_wt_original]" ]]; then
+        command git "$@"
+        return
+    fi
+
     if [[ "$1" == "wt" ]]; then
         local args=(wt)
         local arg branch pr_num
