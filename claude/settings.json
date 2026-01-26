@@ -160,13 +160,15 @@
   },
   "enabledPlugins": {
     "frontend-design@claude-code-plugins": true,
-    "model-trainer@huggingface-skills": true,
+    "model-trainer@huggingface-skills": false,
     "code-review@claude-plugins-official": true,
-    "plugin-dev@claude-plugins-official": true,
+    "plugin-dev@claude-plugins-official": false,
     "typescript-lsp@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": true,
     "gopls-lsp@claude-plugins-official": true,
-    "rust-analyzer-lsp@claude-plugins-official": true
+    "rust-analyzer-lsp@claude-plugins-official": false,
+    "actions-ubuntu-slim-migration@pokutuna-plugins": false,
+    "gemini-batch-request@pokutuna-plugins": true
   },
   "sandbox": {
     "enabled": false,
