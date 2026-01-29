@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Simple statusline for Claude Code
+// statusline for Claude Code
 // Docs: https://code.claude.com/docs/en/statusline
 
 import { $ } from "bun";
@@ -98,12 +98,22 @@ const progressBar =
 const color = (code: number) => (s: string) => `\x1b[${code}m${s}\x1b[0m`;
 const [red, green] = [31, 32].map(color);
 
+// Truncate string: if over maxLength, cut to truncatedLength and add "..."
+function truncateString(
+  s: string,
+  maxLength = 32,
+  truncatedLength = 29,
+): string {
+  if (s.length <= maxLength) return s;
+  return `${s.slice(0, truncatedLength)}...`;
+}
+
 // Shorten path: abbreviate leading segments to uppercase first letter until under maxLength
 // Always keep at least minFullSegments at the end
 function shortenPath(
   path: string,
   maxLength = 32,
-  minFullSegments = 3,
+  minFullSegments = 2,
 ): string {
   const segments = path.split("/").filter(Boolean);
   if (segments.length <= minFullSegments || path.length <= maxLength)
@@ -122,14 +132,14 @@ async function formatPath(fullPath: string): Promise<string> {
   const ghqRoot = await $`ghq root`
     .quiet()
     .text()
-    .then((s) => s.trim())
+    .then((s: string) => s.trim())
     .catch(() => "");
   if (ghqRoot && fullPath.startsWith(ghqRoot))
     return fullPath.slice(ghqRoot.length + 1);
 
   const home = process.env.HOME ?? "";
   if (home && fullPath.startsWith(home))
-    return "~" + fullPath.slice(home.length);
+    return `~${fullPath.slice(home.length)}`;
 
   return fullPath;
 }
@@ -138,16 +148,17 @@ const gitInfo = await (async () => {
   const branch = await $`git -C ${projectDir} branch --show-current`
     .quiet()
     .text()
-    .then((s) => s.trim())
+    .then((s: string) => s.trim())
     .catch(() => "");
   if (!branch) return "";
 
   const path = shortenPath(await formatPath(currentDir));
   const arrow = currentDir.startsWith(projectDir) ? "" : "↗ ";
-  return ` | ${green(arrow + path)}:${red(branch)}`;
+  const branchDisplay = truncateString(branch);
+  return ` | ${green(arrow + path)}:${red(branchDisplay)}`;
 })();
 
 // Model | Context | Session | Path:Branch
 console.log(
-  `${model} | ${contextK}/${contextSizeK} ${progressBar}  ${contextPercent}% | Session: ${costFmt}・↥ ${totalIn} ↧ ${totalOut}・◷ ${durationFmt} ⧗ ${apiDurationFmt}${gitInfo}`,
+  `${model} | ${contextK}/${contextSizeK} ${progressBar}  ${contextPercent}% | ${costFmt}・↥ ${totalIn} ↧ ${totalOut}・◷ ${durationFmt} ⧗ ${apiDurationFmt}${gitInfo}`,
 );
