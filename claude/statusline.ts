@@ -59,31 +59,12 @@ const contextWindow = input.context_window;
 const currentUsage = contextWindow?.current_usage;
 const contextSize = contextWindow?.context_window_size ?? 200000;
 
-let contextTokens: number;
-let contextPercent: number;
-
-if (currentUsage) {
-  // Sum of tokens currently in context
-  const {
-    input_tokens,
-    output_tokens,
-    cache_creation_input_tokens,
-    cache_read_input_tokens,
-  } = currentUsage;
-  contextTokens = [
-    input_tokens,
-    output_tokens,
-    cache_creation_input_tokens,
-    cache_read_input_tokens,
-  ].reduce((sum, v) => sum + (v ?? 0), 0);
-  contextPercent = Math.round((contextTokens * 100) / contextSize);
-} else if (contextWindow?.used_percentage != null) {
-  contextPercent = Math.round(contextWindow.used_percentage);
-  contextTokens = Math.round((contextPercent * contextSize) / 100);
-} else {
-  contextTokens = contextWindow?.total_input_tokens ?? 0;
-  contextPercent = Math.round((contextTokens * 100) / contextSize);
-}
+const contextTokens = currentUsage
+  ? Object.values(currentUsage).reduce((sum, v) => sum + (v ?? 0), 0)
+  : contextWindow?.used_percentage != null
+    ? Math.round((contextWindow.used_percentage * contextSize) / 100)
+    : (contextWindow?.total_input_tokens ?? 0);
+const contextPercent = Math.round((contextTokens * 100) / contextSize);
 
 // Format duration: "1h 23m" or "45m" or "30s"
 function formatDuration(ms: number): string {
@@ -98,74 +79,75 @@ function formatDuration(ms: number): string {
 }
 
 const costFmt = `$${cost.toFixed(2)}`;
+const formatK = (n: number) =>
+  n >= 1000 ? `${(n / 1000).toFixed(0)}k` : `${n}`;
+const totalIn = formatK(contextWindow?.total_input_tokens ?? 0);
+const totalOut = formatK(contextWindow?.total_output_tokens ?? 0);
 const durationFmt = formatDuration(durationMs);
 const apiDurationFmt = formatDuration(apiDurationMs);
-const tokenFmt = contextTokens.toLocaleString();
+
+// Context progress bar
+const contextK = formatK(contextTokens);
+const contextSizeK = formatK(contextSize);
+const barLength = 10;
+const filledLength = Math.round((contextPercent / 100) * barLength);
+const progressBar =
+  "▰".repeat(filledLength) + "▱".repeat(barLength - filledLength);
 
 // ANSI color codes
 const color = (code: number) => (s: string) => `\x1b[${code}m${s}\x1b[0m`;
 const [red, green] = [31, 32].map(color);
 
-// Shorten path: keep last 2+ segments full, abbreviate earlier ones to uppercase first letter
-// Only abbreviate if path exceeds maxLength
+// Shorten path: abbreviate leading segments to uppercase first letter until under maxLength
+// Always keep at least minFullSegments at the end
 function shortenPath(
   path: string,
   maxLength = 32,
-  minFullSegments = 2,
+  minFullSegments = 3,
 ): string {
   const segments = path.split("/").filter(Boolean);
-  if (segments.length <= minFullSegments) return path;
-  if (path.length <= maxLength) return path;
+  if (segments.length <= minFullSegments || path.length <= maxLength)
+    return path;
 
-  // Start with all segments abbreviated except the last minFullSegments
   const result = [...segments];
-  let currentLength = result.join("/").length;
-
-  // Abbreviate from the beginning until we're under maxLength or hit minFullSegments
-  for (
-    let i = 0;
-    i < segments.length - minFullSegments && currentLength > maxLength;
-    i++
-  ) {
-    const original = result[i];
-    const abbreviated = original.charAt(0).toUpperCase();
-    result[i] = abbreviated;
-    currentLength = result.join("/").length;
+  for (let i = 0; i < segments.length - minFullSegments; i++) {
+    result[i] = result[i].charAt(0).toUpperCase();
+    if (result.join("/").length <= maxLength) break;
   }
-
   return result.join("/");
 }
 
-let gitInfo = "";
-try {
-  // Use project_dir for branch (stable even when cd to different dirs)
-  const branch = (
-    await $`git -C ${projectDir} branch --show-current`.quiet().text()
-  ).trim();
-  if (branch) {
-    const gitRoot = (
-      await $`git -C ${projectDir} rev-parse --show-toplevel`.quiet().text()
-    ).trim();
-    // Check if currentDir is inside the git repo
-    const isInsideRepo = currentDir.startsWith(gitRoot);
-    let shortPath: string;
-    if (!isInsideRepo) {
-      // Outside repo - show with arrow icon
-      const dirName = currentDir.split("/").pop() ?? currentDir;
-      shortPath = `↗ ${dirName}`;
-    } else if (currentDir === gitRoot) {
-      shortPath = ".";
-    } else {
-      const relPath = currentDir.replace(`${gitRoot}/`, "");
-      shortPath = shortenPath(relPath);
-    }
-    gitInfo = ` | ${green(shortPath)}:${red(branch)}`;
-  }
-} catch {
-  // Not a git repo
+// Format path: strip ghq root or home prefix
+async function formatPath(fullPath: string): Promise<string> {
+  const ghqRoot = await $`ghq root`
+    .quiet()
+    .text()
+    .then((s) => s.trim())
+    .catch(() => "");
+  if (ghqRoot && fullPath.startsWith(ghqRoot))
+    return fullPath.slice(ghqRoot.length + 1);
+
+  const home = process.env.HOME ?? "";
+  if (home && fullPath.startsWith(home))
+    return "~" + fullPath.slice(home.length);
+
+  return fullPath;
 }
 
-// Format: 🤖 Model | 💰 $X.XX | ⏱️ elapsed (api) | 🧠 tokens (%) | branch:path
+const gitInfo = await (async () => {
+  const branch = await $`git -C ${projectDir} branch --show-current`
+    .quiet()
+    .text()
+    .then((s) => s.trim())
+    .catch(() => "");
+  if (!branch) return "";
+
+  const path = shortenPath(await formatPath(currentDir));
+  const arrow = currentDir.startsWith(projectDir) ? "" : "↗ ";
+  return ` | ${green(arrow + path)}:${red(branch)}`;
+})();
+
+// Model | Context | Session | Path:Branch
 console.log(
-  `🤖 ${model} | 💰 ${costFmt} | ⏱️ ${durationFmt} (${apiDurationFmt}) | 🧠 ${tokenFmt} (${contextPercent}%)${gitInfo}`,
+  `${model} | ${contextK}/${contextSizeK} ${progressBar}  ${contextPercent}% | Session: ${costFmt}・↥ ${totalIn} ↧ ${totalOut}・◷ ${durationFmt} ⧗ ${apiDurationFmt}${gitInfo}`,
 );
