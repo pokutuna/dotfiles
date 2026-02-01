@@ -1,3 +1,6 @@
+---
+description: CLAUDE.md をベストプラクティスに基づいて改善する
+---
 # Improve CLAUDE.md
 
 Analyze and improve the existing CLAUDE.md based on best practices from context engineering research.

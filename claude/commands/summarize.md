@@ -1,3 +1,9 @@
+---
+description: 作業内容をまとめてファイルに追記する
+allowed-tools:
+  - Bash(fd *)
+  - Bash(date *)
+---
 ここまでの作業内容をまとめて DESTINATION_FILE の末尾に追記せよ
 
 <DESTINATION_FILE>

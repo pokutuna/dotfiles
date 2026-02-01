@@ -1,3 +1,10 @@
+---
+description: GitHub PullRequest に対応する GitHub Actions の CI 実行を確認し、失敗を分析・修正する
+allowed-tools:
+  - Bash(gh pr checks:*)
+  - Bash(gh run view:*)
+  - Bash(gh pr checkout:*)
+---
 ゴール: GitHub PullRequest に対応する GitHub Actions の CI 実行を確認し、失敗を分析・修正する
 
 <PR_IDENTIFIER>

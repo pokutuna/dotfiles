@@ -1,3 +1,8 @@
+---
+description: AI が生成した冗長なコードを削除する
+allowed-tools:
+  - Bash(git diff:*)
+---
 # Remove AI code slop
 
 Check the diff against main, and remove all AI generated slop introduced in this branch.

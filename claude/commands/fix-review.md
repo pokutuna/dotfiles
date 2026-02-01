@@ -1,3 +1,10 @@
+---
+description: GitHub PullRequest のレビューコメントを分析し修正する
+allowed-tools:
+  - Bash(git fetch:*)
+  - Bash(gh pr view:*)
+  - Bash(gh api */comments)
+---
 ゴール: GitHub PullRequest のレビューコメントを分析し、適切にコードを修正する
 
 <PR_IDENTIFIER>

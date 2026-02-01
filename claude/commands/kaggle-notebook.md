@@ -1,3 +1,11 @@
+---
+description: Kaggle notebook を取得・分析する
+allowed-tools:
+  - Bash(kaggle kernels pull:*)
+  - mcp__chrome-tabs__list_tabs
+  - mcp__chrome-tabs__read_tab_content
+  - mcp__chrome-tabs__open_in_new_tab
+---
 あなたは与えられた kaggle で公開されている jupyter notebook を分析する専門家です
 現在のリポジトリで取り組んでいる competition で高い成果を上げるための調査・分析を行うことがあたなのタスクです
 

@@ -1,3 +1,10 @@
+---
+description: MCP DeepWiki を利用してリポジトリについて調査する
+allowed-tools:
+  - mcp__deepwiki__ask_question
+  - mcp__deepwiki__read_wiki_contents
+  - mcp__deepwiki__read_wiki_structure
+---
 MCP DeepWiki を利用して調査してください
 
 調査内容: $ARGUMENTS

@@ -1,3 +1,13 @@
+---
+description: 現在のブランチの内容で PullRequest を作成する
+allowed-tools:
+  - Bash(git diff:*)
+  - Bash(git rev-parse:*)
+  - Bash(git fetch:*)
+  - Bash(git push:*)
+  - Bash(gh pr view:*)
+  - Bash(gh api */requested_reviewers)
+---
 ゴール: 現在のブランチの内容で PullRequest を作成する
 
 <EXTRA_CONTEXT>
@@ -34,7 +44,7 @@ $ARGUMENTS
   - ただし `<EXTRA_CONTEXT>` に「レビュー不要」「no review」等の指示があれば依頼しない
 - `gh pr create` の `--reviewer` では bot を指定できないため、以下を実行:
   ```
-  gh api repos/{owner}/{repo}/pulls/{pr_number}/requested_reviewers \
-    --method POST -f 'reviewers[]=copilot-pull-request-reviewer[bot]'
+  gh api --method POST -f 'reviewers[]=copilot-pull-request-reviewer[bot]' \
+    repos/{owner}/{repo}/pulls/{pr_number}/requested_reviewers
   ```
 - PR 番号は `gh pr view --json number -q .number` で取得できます
