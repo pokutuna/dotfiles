@@ -11,6 +11,7 @@
       "Bash(curl:*)",
       "Bash(docker-compose:*)",
       "Bash(docker:*)",
+      "Bash(echo:*)",
       "Bash(fd:*)",
       "Bash(find:*)",
       "Bash(gcloud builds log:*)",
@@ -179,7 +180,8 @@
     "gopls-lsp@claude-plugins-official": true,
     "rust-analyzer-lsp@claude-plugins-official": false,
     "actions-ubuntu-slim-migration@pokutuna-plugins": false,
-    "gemini-batch-request@pokutuna-plugins": true
+    "gemini-batch-request@pokutuna-plugins": true,
+    "cloud-logging@pokutuna-plugins": true
   },
   "sandbox": {
     "enabled": false,

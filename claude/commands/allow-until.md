@@ -1,7 +1,7 @@
 ---
 description: 時限式の自動承認モードを有効化する
 allowed-tools:
-  - Bash(*/allow-until.sh *)
+  - Bash(CLAUDE_SESSION_ID=* ~/.claude/bin/allow-until.sh *)
 ---
 時限式の自動承認モードを制御します。
 
@@ -11,13 +11,13 @@ $ARGUMENTS
 
 ## 実行
 
-ARGUMENTS を解析して適切なコマンドを実行:
+以下の形式でコマンドを実行:
+`CLAUDE_SESSION_ID=${CLAUDE_SESSION_ID} ~/.claude/bin/allow-until.sh <subcommand>`
 
-- 空または "enable" → `allow-until.sh enable 10` (10分間有効化)
-- "enable N" または数字のみ → `allow-until.sh enable N` (N分間有効化)
-- "disable" または "off" → `allow-until.sh disable`
-- "status" → `allow-until.sh status`
-
-スクリプトのパス: `~/.claude/bin/allow-until.sh`
+ARGUMENTS に応じて subcommand を決定:
+- 空または "enable" → `enable 10` (10分間有効化)
+- "enable N" または数字のみ → `enable N` (N分間有効化)
+- "disable" または "off" → `disable`
+- "status" → `status`
 
 実行後、結果をユーザーに報告してください。

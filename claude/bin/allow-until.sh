@@ -6,7 +6,7 @@
 #   有効化すると指定時間の間、危険なコマンド以外は許可プロンプトなしで実行される。
 #
 # 設定ファイル:
-#   ~/.claude-allow-until  - 有効期限の epoch を記録 (自動削除される)
+#   ~/.claude-allow-until.conf  - git config 形式でセッションごとの有効期限を記録
 #
 # hook 設定 (settings.json):
 #   "hooks": {
@@ -24,29 +24,60 @@
 
 set -euo pipefail
 
-# 設定ファイルのパス (ホームディレクトリに配置)
-APPROVE_FILE="$HOME/.claude-allow-until"
+# 設定ファイルのパス (git config 形式)
+CONFIG_FILE="$HOME/.claude-allow-until.conf"
+
+# セッションIDのチェック
+require_session_id() {
+    if [[ -z "${CLAUDE_SESSION_ID:-}" ]]; then
+        echo "Error: CLAUDE_SESSION_ID is not set" >&2
+        exit 1
+    fi
+}
+
+# セッションIDでセクションを分離
+get_section() {
+    echo "session.${CLAUDE_SESSION_ID}"
+}
 
 # 危険なコマンドパターン (これらは常に許可を求める)
 DANGEROUS_PATTERNS=(
-    'rm -rf /'
-    'rm -rf ~'
+    # sudo は全て禁止
+    'sudo'
+    # ファイル削除系 (様々な書き方に対応)
+    'rm -rf /*'
+    'rm -rf /[^.]'      # /. 以外の / から始まるパス
+    'rm -rf [~$]'       # ~ または $HOME など
+    'rm -rf \.'         # カレントディレクトリ
     'rm -rf \*'
-    'sudo rm'
+    # ファイルシステム破壊
     'mkfs'
     'dd if='
+    'truncate'
+    'shred'
+    # fork bomb
     ':(){:|:&};:'
+    # パーミッション変更
     'chmod -R 777 /'
     'chown -R'
+    # デバイス書き込み
     '> /dev/sd'
-    'curl.*| ?bash'
-    'curl.*| ?sh'
-    'wget.*| ?bash'
-    'wget.*| ?sh'
+    # リモートコード実行
+    'curl.*\| ?bash'
+    'curl.*\| ?sh'
+    'wget.*\| ?bash'
+    'wget.*\| ?sh'
+    'bash.*<\(.*curl'
+    'bash.*<\(.*wget'
+    'sh.*<\(.*curl'
+    'sh.*<\(.*wget'
+    # git 危険操作
     'git push.*--force'
-    'git push.*-f'
+    'git push.*-f[^i]'  # -f but not -fixup
     'git reset --hard'
     'git clean -fd'
+    'git checkout \.'
+    'git restore \.'
 )
 
 is_dangerous() {
@@ -60,25 +91,29 @@ is_dangerous() {
 }
 
 enable_allow() {
+    require_session_id
     local minutes="${1:-10}"
     local until_epoch=$(($(date +%s) + minutes * 60))
-    echo "$until_epoch" > "$APPROVE_FILE"
+    git config -f "$CONFIG_FILE" "$(get_section).until" "$until_epoch"
     local until_time=$(date -r "$until_epoch" '+%Y-%m-%d %H:%M:%S' 2>/dev/null || date -d "@$until_epoch" '+%Y-%m-%d %H:%M:%S')
     echo "Auto-approve enabled until $until_time ($minutes minutes)"
 }
 
 disable_allow() {
-    rm -f "$APPROVE_FILE"
+    require_session_id
+    git config -f "$CONFIG_FILE" --remove-section "$(get_section)" 2>/dev/null || true
     echo "Auto-approve disabled"
 }
 
 show_status() {
-    if [[ ! -f "$APPROVE_FILE" ]]; then
+    require_session_id
+    local until_epoch=$(git config -f "$CONFIG_FILE" "$(get_section).until" 2>/dev/null || echo 0)
+
+    if [[ "$until_epoch" -eq 0 ]]; then
         echo "Auto-approve: disabled"
         return
     fi
 
-    local until_epoch=$(cat "$APPROVE_FILE")
     local now=$(date +%s)
 
     if [[ "$now" -lt "$until_epoch" ]]; then
@@ -87,13 +122,20 @@ show_status() {
         echo "Auto-approve: enabled until $until_time ($remaining minutes remaining)"
     else
         echo "Auto-approve: expired"
-        rm -f "$APPROVE_FILE"
+        git config -f "$CONFIG_FILE" --remove-section "$(get_section)" 2>/dev/null || true
     fi
 }
 
 # hook から呼ばれる判定モード
 check_approval() {
     local input=$(cat)
+
+    # stdin の JSON から session_id を取得
+    export CLAUDE_SESSION_ID=$(echo "$input" | gojq -r '.session_id // empty')
+    if [[ -z "$CLAUDE_SESSION_ID" ]]; then
+        exit 0  # session_id がなければ通常フロー
+    fi
+
     local command=$(echo "$input" | gojq -r '.tool_input.command // empty')
 
     # コマンドが空なら何もしない
@@ -106,17 +148,18 @@ check_approval() {
         exit 0
     fi
 
-    # 承認ファイルがなければ通常フロー
-    if [[ ! -f "$APPROVE_FILE" ]]; then
+    local until_epoch=$(git config -f "$CONFIG_FILE" "$(get_section).until" 2>/dev/null || echo 0)
+
+    # 設定がなければ通常フロー
+    if [[ "$until_epoch" -eq 0 ]]; then
         exit 0
     fi
 
-    local until_epoch=$(cat "$APPROVE_FILE")
     local now=$(date +%s)
 
     # 期限切れなら通常フロー
     if [[ "$now" -ge "$until_epoch" ]]; then
-        rm -f "$APPROVE_FILE"
+        git config -f "$CONFIG_FILE" --remove-section "$(get_section)" 2>/dev/null || true
         exit 0
     fi
 

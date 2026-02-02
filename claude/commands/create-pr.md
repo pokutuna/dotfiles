@@ -5,7 +5,10 @@ allowed-tools:
   - Bash(git rev-parse:*)
   - Bash(git fetch:*)
   - Bash(git push:*)
+  - Bash(git remote:*)
+  - Bash(gh repo view:*)
   - Bash(gh pr view:*)
+  - Bash(gh pr create --draft:*)
   - Bash(gh api */requested_reviewers)
 ---
 ゴール: 現在のブランチの内容で PullRequest を作成する
