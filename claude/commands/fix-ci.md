@@ -1,11 +1,14 @@
 ---
-description: GitHub PullRequest に対応する GitHub Actions の CI 実行を確認し、失敗を分析・修正する
+description: GitHub PullRequest に対応する CI (GitHub Actions / Google Cloud Build) の実行を確認し、失敗を分析・修正する
 allowed-tools:
   - Bash(gh pr checks:*)
   - Bash(gh run view:*)
   - Bash(gh pr checkout:*)
+  - Bash(gcloud builds describe:*)
+  - Bash(gcloud builds log:*)
+  - Bash(gcloud projects list:*)
 ---
-ゴール: GitHub PullRequest に対応する GitHub Actions の CI 実行を確認し、失敗を分析・修正する
+ゴール: GitHub PullRequest に対応する CI の実行を確認し、失敗を分析・修正する
 
 <PR_IDENTIFIER>
 $ARGUMENTS
@@ -18,7 +21,28 @@ $ARGUMENTS
 ```bash
 gh pr checks [<number>]  # 引数なしで現在ブランチの PR
 gh pr checks --json name,state,bucket --jq '.[] | select(.bucket == "fail")'
+```
+
+### GitHub Actions の場合
+
+```bash
 gh run view <run_id> --log-failed
+```
+
+### Google Cloud Build の場合
+
+`gh pr checks` の出力に `console.cloud.google.com/cloud-build/builds/` を含む URL があれば Cloud Build。
+URL から build ID と project number を抽出して詳細を取得する。
+
+```bash
+# Build ID は URL パスから、project number は query parameter から取得
+# 例: https://console.cloud.google.com/cloud-build/builds/<build_id>?project=<project_number>
+
+# project number から project ID を取得 (gcloud は project ID が必要)
+gcloud projects list --filter="projectNumber=<project_number>" --format="value(projectId)"
+
+gcloud builds describe <build_id> --project=<project_id> --format="yaml(status,statusDetail,failureInfo)"
+gcloud builds log <build_id> --project=<project_id>
 ```
 
 ## 修正フロー
