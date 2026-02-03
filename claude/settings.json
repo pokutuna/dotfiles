@@ -7,6 +7,8 @@
   },
   "permissions": {
     "allow": [
+      "Bash(bq ls:*)",
+      "Bash(bq show:*)",
       "Bash(cat:*)",
       "Bash(curl:*)",
       "Bash(docker-compose:*)",
@@ -181,7 +183,8 @@
     "rust-analyzer-lsp@claude-plugins-official": false,
     "actions-ubuntu-slim-migration@pokutuna-plugins": false,
     "gemini-batch-request@pokutuna-plugins": true,
-    "cloud-logging@pokutuna-plugins": true
+    "cloud-logging@pokutuna-plugins": true,
+    "vertexai-gemini-batch@pokutuna-plugins": true
   },
   "sandbox": {
     "enabled": false,
