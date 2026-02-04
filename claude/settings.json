@@ -128,17 +128,6 @@
     ]
   },
   "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/bin/allow-until.sh check"
-          }
-        ]
-      }
-    ],
     "PostToolUse": [
       {
         "matcher": "Write|Edit|MultiEdit",
@@ -175,16 +164,23 @@
   "enabledPlugins": {
     "frontend-design@claude-code-plugins": true,
     "model-trainer@huggingface-skills": false,
-    "code-review@claude-plugins-official": true,
+    "code-review@claude-plugins-official": false,
     "plugin-dev@claude-plugins-official": false,
     "typescript-lsp@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": true,
     "gopls-lsp@claude-plugins-official": true,
     "rust-analyzer-lsp@claude-plugins-official": false,
-    "actions-ubuntu-slim-migration@pokutuna-plugins": false,
-    "gemini-batch-request@pokutuna-plugins": true,
-    "cloud-logging@pokutuna-plugins": true,
-    "vertexai-gemini-batch@pokutuna-plugins": true
+    "hydra-experiment@pokutuna-plugins": true,
+    "allow-until@pokutuna-plugins": true,
+    "cloud-logging@pokutuna-plugins": true
+  },
+  "extraKnownMarketplaces": {
+    "pokutuna-plugins": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/pokutuna/ghq/github.com/pokutuna/claude-plugins"
+      }
+    }
   },
   "sandbox": {
     "enabled": false,
