@@ -24,6 +24,9 @@ export PATH=$HOMEBREW_HOME/opt/git/share/git-core/contrib/diff-highlight:$PATH
 # direnv
 type direnv &>/dev/null && eval "$(direnv hook zsh)"
 
+# zoxide
+type zoxide &>/dev/null && eval "$(zoxide init zsh)"
+
 ## alias ##
 alias ls="ls --color"
 alias la="ls -a"
