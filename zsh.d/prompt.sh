@@ -26,6 +26,10 @@ _update_prompt () {
     if [ -e $KUBE_PS1 ]; then
         PROMPT='$(kube_ps1)'$PROMPT
     fi;
+
+    if type runpod_ps1 &>/dev/null; then
+        PROMPT='$(runpod_ps1)'$PROMPT
+    fi;
 }
 
 _update_rprompt()

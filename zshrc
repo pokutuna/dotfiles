@@ -116,6 +116,9 @@ bindkey "\e[Z" reverse-menu-complete # reverse menu complete
 # git worktree helper
 [ -f ~/.zsh.d/worktree.sh ] && source ~/.zsh.d/worktree.sh
 
+# runpod prompt
+[ -f ~/.zsh.d/runpod-ps1.sh ] && source ~/.zsh.d/runpod-ps1.sh
+
 # 単語区切り設定
 autoload -Uz select-word-style
 select-word-style default
