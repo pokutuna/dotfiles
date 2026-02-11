@@ -170,9 +170,10 @@
     "pyright-lsp@claude-plugins-official": true,
     "gopls-lsp@claude-plugins-official": true,
     "rust-analyzer-lsp@claude-plugins-official": false,
-    "hydra-experiment@pokutuna-plugins": true,
+    "hydra-experiment@pokutuna-plugins": false,
     "allow-until@pokutuna-plugins": true,
-    "cloud-logging@pokutuna-plugins": true
+    "cloud-logging@pokutuna-plugins": true,
+    "swift-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "pokutuna-plugins": {

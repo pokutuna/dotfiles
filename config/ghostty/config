@@ -12,9 +12,10 @@ font-size = 18
 # theme = Cobalt Next
 # theme = Catppuccin Mocha
 # theme = Breeze
+# theme = Arcoiris
 # theme = Bluloco Dark
 theme = Tomorrow Night Eighties
-# background-opacity = 0.95
+background-opacity = 1
 
 # Window
 window-padding-x = 8
@@ -31,6 +32,12 @@ shell-integration = zsh
 
 # macOS specific
 macos-option-as-alt = true
+
+# Global hotkey
+keybind = global:ctrl+grave_accent=toggle_visibility
+
+# Update
+auto-update-channel = tip
 
 # Swap Cmd and Option for Meta keys (use Karabiner instead)
 # # Cmd -> Meta
