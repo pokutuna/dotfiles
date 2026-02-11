@@ -36,6 +36,12 @@ macos-option-as-alt = true
 # Global hotkey
 keybind = global:ctrl+grave_accent=toggle_visibility
 
+# TODO: Claude Code が fixterms 形式 (^[[27;2;13~) を認識したら削除する
+# Ghostty は Shift+Enter を fixterms 形式で送るが、tmux がパススルーできないため ESC+CR に変換する
+# ref: https://github.com/anthropics/claude-code/issues/1282
+# ref: https://github.com/ghostty-org/ghostty/issues/1850
+keybind = shift+enter=text:\x1b\r
+
 # Update
 auto-update-channel = tip
 
