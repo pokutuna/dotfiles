@@ -118,6 +118,9 @@
       "Edit(~/.ssh/**)"
     ],
     "ask": [
+      "Bash(gh issue comment:*)",
+      "Bash(gh issue create:*)",
+      "Bash(gh pr comment:*)",
       "Bash(rm:*)",
       "mcp__ide__executeCode",
       "mcp__serena__execute_shell_command"
