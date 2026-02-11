@@ -1,13 +1,10 @@
 ---
 description: 変更をコミットする Sub Agent を起動する
 ---
-Launch git-commit-agent with the following context.
-Provide only the files and summary related to the work in this conversation. Do not include lengthy explanations.
+Stage the files modified in this conversation using `git add`, then launch git-commit-agent.
+Do NOT stage files unrelated to this conversation even if they appear in `git status`.
 
-- Files: <list of modified files in this conversation>
-- Summary: <one-line description of the work>
-
-If ARGUMENTS is provided, use it as additional context.
+If ARGUMENTS is provided, use it as additional context for selecting files and the commit message.
 
 <ARGUMENTS>
 $ARGUMENTS
