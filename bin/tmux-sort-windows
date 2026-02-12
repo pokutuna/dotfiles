@@ -1,0 +1,24 @@
+#!/bin/bash
+# Sort tmux windows by pane's current directory basename
+
+set -e
+
+# Get sorted list: "window_index basename"
+sorted=$(tmux list-windows -F '#{window_index} #{b:pane_current_path}' | sort -t' ' -k2 -f)
+
+# Collect original indices in sorted order
+indices=()
+while read -r idx _name; do
+  indices+=("$idx")
+done <<< "$sorted"
+
+# Move each window to a high temporary index to avoid collision, in sorted order
+tmp=10000
+for i in "${!indices[@]}"; do
+  tmux move-window -s "${indices[$i]}" -t "$((tmp + i))"
+done
+
+# Move them back to sequential indices
+for i in "${!indices[@]}"; do
+  tmux move-window -s "$((tmp + i))" -t "$((i + 1))"
+done
