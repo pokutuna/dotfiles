@@ -14,6 +14,7 @@ font-size = 18
 # theme = Breeze
 # theme = Arcoiris
 # theme = Bluloco Dark
+# theme = Tomorrow Night Eighties
 theme = Tomorrow Night Eighties
 background-opacity = 1
 
@@ -41,6 +42,9 @@ keybind = global:ctrl+grave_accent=toggle_visibility
 # ref: https://github.com/anthropics/claude-code/issues/1282
 # ref: https://github.com/ghostty-org/ghostty/issues/1850
 keybind = shift+enter=text:\x1b\r
+
+# Random theme (calls shell function)
+keybind = cmd+shift+t=text:ghostty-random-theme\n
 
 # Update
 auto-update-channel = tip

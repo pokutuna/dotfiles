@@ -119,6 +119,9 @@ bindkey "\e[Z" reverse-menu-complete # reverse menu complete
 # runpod prompt
 [ -f ~/.zsh.d/runpod-ps1.sh ] && source ~/.zsh.d/runpod-ps1.sh
 
+# ghostty
+[ -f ~/.zsh.d/ghostty.sh ] && source ~/.zsh.d/ghostty.sh
+
 # 単語区切り設定
 autoload -Uz select-word-style
 select-word-style default
