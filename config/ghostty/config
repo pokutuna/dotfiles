@@ -31,7 +31,7 @@ bell-features = system,title,attention
 shell-integration = zsh
 
 # macOS specific
-macos-option-as-alt = true
+macos-option-as-alt = left
 
 # Global hotkey
 keybind = global:ctrl+grave_accent=toggle_visibility
