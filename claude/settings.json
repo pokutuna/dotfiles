@@ -91,7 +91,7 @@
       "Bash(yarn build:*)",
       "Bash(yarn install:*)",
       "Bash(yarn test:*)",
-      "Edit(/tmp)",
+      "Edit(/tmp/**)",
       "Edit(/Users/pokutuna/.npm)",
       "Edit(/Users/pokutuna/Library/Caches/uv)",
       "Edit(/Users/pokutuna/Library/Caches/Yarn)",
@@ -101,6 +101,7 @@
       "Edit(libs/**)",
       "Edit(src/**)",
       "Edit(test/**)",
+      "Edit(tmp/**)",
       "mcp__chrome-devtools__*",
       "mcp__chrome-tabs__*",
       "mcp__deepwiki__*",
@@ -111,6 +112,11 @@
       "mcp__playwright__*",
       "mcp__serena__*",
       "Read(node_modules/**)",
+      "Skill(allow-until)",
+      "Skill(fix-ci)",
+      "Skill(fix-review)",
+      "Skill(improve-claude-md)",
+      "Skill(task-interview)",
       "WebSearch"
     ],
     "deny": [
@@ -166,18 +172,22 @@
     "padding": 0
   },
   "enabledPlugins": {
-    "frontend-design@claude-code-plugins": true,
-    "model-trainer@huggingface-skills": false,
-    "code-review@claude-plugins-official": false,
-    "plugin-dev@claude-plugins-official": false,
-    "typescript-lsp@claude-plugins-official": true,
-    "pyright-lsp@claude-plugins-official": true,
-    "gopls-lsp@claude-plugins-official": true,
-    "rust-analyzer-lsp@claude-plugins-official": false,
-    "hydra-experiment@pokutuna-plugins": false,
+    "actions-ubuntu-slim-migration@pokutuna-plugins": false,
     "allow-until@pokutuna-plugins": true,
-    "cloud-logging@pokutuna-plugins": true,
-    "swift-lsp@claude-plugins-official": true
+    "cloud-logging@pokutuna-plugins": false,
+    "code-review@claude-plugins-official": false,
+    "frontend-design@claude-plugins-official": false,
+    "gopls-lsp@claude-plugins-official": false,
+    "hydra-experiment@pokutuna-plugins": false,
+    "model-trainer@huggingface-skills": false,
+    "plugin-dev@claude-plugins-official": false,
+    "pyright-lsp@claude-plugins-official": true,
+    "runpod@pokutuna-plugins": false,
+    "rust-analyzer-lsp@claude-plugins-official": false,
+    "swift-lsp@claude-plugins-official": false,
+    "typescript-lsp@claude-plugins-official": false,
+    "uv-features@pokutuna-plugins": true,
+    "vertexai-gemini-batch@pokutuna-plugins": false
   },
   "extraKnownMarketplaces": {
     "pokutuna-plugins": {
@@ -203,5 +213,7 @@
   "alwaysThinkingEnabled": false,
   "feedbackSurveyState": {
     "lastShownTime": 1754731026912
-  }
+  },
+  "effortLevel": "medium",
+  "preferredNotifChannel": "terminal_bell"
 }
