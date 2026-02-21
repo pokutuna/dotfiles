@@ -85,6 +85,7 @@
       "Bash(uv sync:*)",
       "Bash(uv tool dir:*)",
       "Bash(uvx ruff:*)",
+      "Bash(wc:*)",
       "Bash(whereis:*)",
       "Bash(which:*)",
       "Bash(whois:*)",
@@ -125,6 +126,7 @@
       "Edit(~/.ssh/**)"
     ],
     "ask": [
+      "Bash(find * -exec rm)",
       "Bash(gh issue comment:*)",
       "Bash(gh issue create:*)",
       "Bash(gh pr comment:*)",
@@ -174,7 +176,7 @@
   "enabledPlugins": {
     "actions-ubuntu-slim-migration@pokutuna-plugins": false,
     "allow-until@pokutuna-plugins": true,
-    "cloud-logging@pokutuna-plugins": false,
+    "cloud-logging@pokutuna-plugins": true,
     "code-review@claude-plugins-official": false,
     "frontend-design@claude-plugins-official": false,
     "gopls-lsp@claude-plugins-official": false,
@@ -182,12 +184,13 @@
     "model-trainer@huggingface-skills": false,
     "plugin-dev@claude-plugins-official": false,
     "pyright-lsp@claude-plugins-official": true,
-    "runpod@pokutuna-plugins": false,
+    "runpod@pokutuna-plugins": true,
     "rust-analyzer-lsp@claude-plugins-official": false,
     "swift-lsp@claude-plugins-official": false,
     "typescript-lsp@claude-plugins-official": false,
     "uv-features@pokutuna-plugins": true,
-    "vertexai-gemini-batch@pokutuna-plugins": false
+    "vertexai-gemini-batch@pokutuna-plugins": false,
+    "side-fork@pokutuna-plugins": true
   },
   "extraKnownMarketplaces": {
     "pokutuna-plugins": {
