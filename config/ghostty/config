@@ -7,15 +7,63 @@ font-size = 18
 
 # Theme
 # ghostty +list-themes | grep -i dark
-# theme = Elegant
-# theme = Doom One
-# theme = Cobalt Next
-# theme = Catppuccin Mocha
-# theme = Breeze
+# A (12/4)
+# theme = 0x96f
+# theme = Aizen Dark
+# theme = Andromeda
+# theme = Apple system Colors
 # theme = Arcoiris
+# theme = Argonaut
+# theme = Arthur
+# theme = Atom
+# theme = Atom One Dark
+# theme = Aura
+# theme = Aurora
+# theme = Ayu Mirage
+# B (4/6)
+# theme = Banana Blueberry
+# theme = Birds of Paradise
 # theme = Bluloco Dark
+# theme = Breeze
+# C (2/4)
+# theme = Catppuccin Mocha
+# theme = Cobalt Next
+# D (2/4)
+# theme = Desert
+# theme = Doom One
+# E (1/2)
+# theme = Elegant
+# F (0/3)
+# G (0/4)
+# H (0/3)
+# I (0/3)
+# J (0/1)
+# K (0/2)
+# L (0/2)
+# M (0/5)
+# N (0/3)
+# O (0/3)
+# P (0/3)
+# R (0/3)
+# S (4/7)
+# theme = Starlight
+# theme = Subliminal
+# theme = Sunset Drive
+# theme = Synthwave Everything
+# T (2/4)
+# theme = TokyoNight Moon
 # theme = Tomorrow Night Eighties
-theme = Cobalt Next
+# U (1/1)
+# theme = Ultra Violent
+# V (1/2)
+# theme = Vercel
+# W (1/2)
+# theme = Wombat
+# X (0/1)
+# Z (2/1)
+# theme = Zenburned
+# theme = Zenbones Dark
+theme = Aura
 background-opacity = 1
 
 # Window
