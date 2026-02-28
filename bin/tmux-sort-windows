@@ -3,6 +3,9 @@
 
 set -e
 
+# Remember the current window to return after sorting
+current_window=$(tmux display-message -p '#{window_id}')
+
 # Get sorted list: "window_index basename"
 sorted=$(tmux list-windows -F '#{window_index} #{b:pane_current_path}' | sort -t' ' -k2 -f)
 
@@ -22,3 +25,6 @@ done
 for i in "${!indices[@]}"; do
   tmux move-window -s "$((tmp + i))" -t "$((i + 1))"
 done
+
+# Return to the original window
+tmux select-window -t "$current_window"
