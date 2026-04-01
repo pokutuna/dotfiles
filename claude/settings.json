@@ -214,9 +214,9 @@
     ]
   },
   "alwaysThinkingEnabled": false,
+  "voiceEnabled": false,
   "feedbackSurveyState": {
     "lastShownTime": 1754731026912
   },
-  "effortLevel": "medium",
   "preferredNotifChannel": "terminal_bell"
 }
