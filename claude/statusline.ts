@@ -43,11 +43,21 @@ type HookInput = {
       cache_read_input_tokens?: number;
     };
   };
+  rate_limits?: {
+    five_hour?: {
+      used_percentage?: number;
+      resets_at?: number;
+    };
+    seven_day?: {
+      used_percentage?: number;
+      resets_at?: number;
+    };
+  };
 };
 
 const input: HookInput = JSON.parse(await Bun.stdin.text());
 
-const model = input.model?.display_name ?? "Unknown";
+const model = (input.model?.display_name ?? "Unknown").replace(/\s*\(.*\)/, "");
 const cost = input.cost?.total_cost_usd ?? 0;
 const durationMs = input.cost?.total_duration_ms ?? 0;
 const apiDurationMs = input.cost?.total_api_duration_ms ?? 0;
@@ -58,13 +68,14 @@ const projectDir = input.workspace?.project_dir ?? currentDir;
 const contextWindow = input.context_window;
 const currentUsage = contextWindow?.current_usage;
 const contextSize = contextWindow?.context_window_size ?? 200000;
+// 200k 超えると挙動が悪くなるのでゲージの上限はこれに固定
+const contextGaugeMax = 200000;
 
 const contextTokens = currentUsage
   ? Object.values(currentUsage).reduce((sum, v) => sum + (v ?? 0), 0)
   : contextWindow?.used_percentage != null
     ? Math.round((contextWindow.used_percentage * contextSize) / 100)
     : (contextWindow?.total_input_tokens ?? 0);
-const contextPercent = Math.round((contextTokens * 100) / contextSize);
 
 // Format duration: "1h 23m" or "45m" or "30s"
 function formatDuration(ms: number): string {
@@ -79,24 +90,42 @@ function formatDuration(ms: number): string {
 }
 
 const costFmt = `$${cost.toFixed(2)}`;
-const formatK = (n: number) =>
-  n >= 1000 ? `${(n / 1000).toFixed(0)}k` : `${n}`;
-const totalIn = formatK(contextWindow?.total_input_tokens ?? 0);
-const totalOut = formatK(contextWindow?.total_output_tokens ?? 0);
+const formatTokens = (n: number) =>
+  n >= 1000000
+    ? `${(n / 1000000).toFixed(0)}M`
+    : n >= 1000
+      ? `${(n / 1000).toFixed(0)}k`
+      : `${n}`;
+const totalIn = formatTokens(contextWindow?.total_input_tokens ?? 0);
+const totalOut = formatTokens(contextWindow?.total_output_tokens ?? 0);
 const durationFmt = formatDuration(durationMs);
 const apiDurationFmt = formatDuration(apiDurationMs);
 
-// Context progress bar
-const contextK = formatK(contextTokens);
-const contextSizeK = formatK(contextSize);
+// Context progress bar (based on 200k gauge max)
+const contextK = formatTokens(contextTokens);
+const contextGaugeMaxK = formatTokens(contextGaugeMax);
 const barLength = 10;
-const filledLength = Math.round((contextPercent / 100) * barLength);
+const gaugePercent = Math.min(
+  Math.round((contextTokens * 100) / contextGaugeMax),
+  100,
+);
+const filledLength = Math.round((gaugePercent / 100) * barLength);
 const progressBar =
   "▰".repeat(filledLength) + "▱".repeat(barLength - filledLength);
 
 // ANSI color codes
 const color = (code: number) => (s: string) => `\x1b[${code}m${s}\x1b[0m`;
-const [red, green] = [31, 32].map(color);
+const [red, green, yellow] = [31, 32, 33].map(color);
+
+// Rate limits
+const fiveHourPct = input.rate_limits?.five_hour?.used_percentage;
+const sevenDayPct = input.rate_limits?.seven_day?.used_percentage;
+const colorByQuota = (pct: number) =>
+  pct >= 90 ? red : pct >= 75 ? yellow : green;
+const rateLimitInfo =
+  fiveHourPct != null || sevenDayPct != null
+    ? ` | ⚡${fiveHourPct != null ? colorByQuota(fiveHourPct)(`${fiveHourPct.toFixed(0)}%`) : "?"}・${sevenDayPct != null ? colorByQuota(sevenDayPct)(`${sevenDayPct.toFixed(0)}%`) : "?"}`
+    : "";
 
 // Truncate string: if over maxLength, cut to truncatedLength and add "..."
 function truncateString(
@@ -159,6 +188,8 @@ const gitInfo = await (async () => {
 })();
 
 // Model | Context | Session | Path:Branch
+const contextColor =
+  gaugePercent >= 100 ? red : gaugePercent >= 80 ? yellow : (s: string) => s;
 console.log(
-  `${model} | ${contextK}/${contextSizeK} ${progressBar}  ${contextPercent}% | ${costFmt}・↥ ${totalIn} ↧ ${totalOut}・◷ ${durationFmt} ⧗ ${apiDurationFmt}${gitInfo}`,
+  `${model} | ${contextK}/${contextGaugeMaxK} ${contextColor(progressBar)}  ${gaugePercent}%${rateLimitInfo} | ${costFmt}・↥ ${totalIn} ↧ ${totalOut}・◷ ${durationFmt} ⧖ ${apiDurationFmt}${gitInfo}`,
 );
