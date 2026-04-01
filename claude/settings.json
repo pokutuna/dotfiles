@@ -1,6 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "cleanupPeriodDays": 3000,
+  "env": {
+    "ENABLE_CLAUDEAI_MCP_SERVERS": "false"
+  },
   "attribution": {
     "commit": "",
     "pr": ""
@@ -176,7 +179,7 @@
   "enabledPlugins": {
     "actions-ubuntu-slim-migration@pokutuna-plugins": false,
     "allow-until@pokutuna-plugins": true,
-    "cloud-logging@pokutuna-plugins": true,
+    "cloud-logging@pokutuna-plugins": false,
     "code-review@claude-plugins-official": false,
     "frontend-design@claude-plugins-official": false,
     "gopls-lsp@claude-plugins-official": false,
@@ -184,13 +187,14 @@
     "model-trainer@huggingface-skills": false,
     "plugin-dev@claude-plugins-official": false,
     "pyright-lsp@claude-plugins-official": true,
-    "runpod@pokutuna-plugins": true,
+    "runpod@pokutuna-plugins": false,
     "rust-analyzer-lsp@claude-plugins-official": false,
     "swift-lsp@claude-plugins-official": false,
     "typescript-lsp@claude-plugins-official": false,
     "uv-features@pokutuna-plugins": true,
     "vertexai-gemini-batch@pokutuna-plugins": false,
-    "side-fork@pokutuna-plugins": true
+    "side-fork@pokutuna-plugins": true,
+    "kaggle-helper@pokutuna-plugins": false
   },
   "extraKnownMarketplaces": {
     "pokutuna-plugins": {
