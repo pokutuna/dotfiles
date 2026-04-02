@@ -191,5 +191,5 @@ const gitInfo = await (async () => {
 const contextColor =
   gaugePercent >= 100 ? red : gaugePercent >= 80 ? yellow : (s: string) => s;
 console.log(
-  `${model} | ${contextK}/${contextGaugeMaxK} ${contextColor(progressBar)}  ${gaugePercent}%${rateLimitInfo} | ${costFmt}・↥ ${totalIn} ↧ ${totalOut}・◷ ${durationFmt} ⧖ ${apiDurationFmt}${gitInfo}`,
+  `${model} | ${contextK}/${contextGaugeMaxK}${contextGaugeMax !== contextSize ? "*" : ""} ${contextColor(progressBar)}  ${gaugePercent}%${rateLimitInfo} | ${costFmt}・↥ ${totalIn} ↧ ${totalOut}・◷ ${durationFmt} ⧖ ${apiDurationFmt}${gitInfo}`,
 );
