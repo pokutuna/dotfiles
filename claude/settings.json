@@ -122,6 +122,7 @@
       "Skill(fix-review)",
       "Skill(improve-claude-md)",
       "Skill(task-interview)",
+      "WebFetch",
       "WebSearch"
     ],
     "deny": [
