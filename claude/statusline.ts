@@ -105,11 +105,11 @@ const apiDurationFmt = formatDuration(apiDurationMs);
 const contextK = formatTokens(contextTokens);
 const contextGaugeMaxK = formatTokens(contextGaugeMax);
 const barLength = 10;
-const gaugePercent = Math.min(
-  Math.round((contextTokens * 100) / contextGaugeMax),
-  100,
+const gaugePercent = Math.round((contextTokens * 100) / contextGaugeMax);
+const filledLength = Math.min(
+  Math.round((gaugePercent / 100) * barLength),
+  barLength,
 );
-const filledLength = Math.round((gaugePercent / 100) * barLength);
 const progressBar =
   "▰".repeat(filledLength) + "▱".repeat(barLength - filledLength);
 
