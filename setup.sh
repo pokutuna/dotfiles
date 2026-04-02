@@ -45,6 +45,15 @@ do
     ln -s ${DOTFILES_PATH}/claude/${file} ${HOME_PATH}/.claude/${file}
 done
 
+## .bunfig.toml ##
+echo "bunfig.toml"
+mv ${HOME_PATH}/.bunfig.toml ${HOME_PATH}/.old_dotfiles/.bunfig.toml
+ln -s ${DOTFILES_PATH}/bunfig.toml ${HOME_PATH}/.bunfig.toml
+
+## npmrc (append, not symlink -- ~/.npmrc contains auth tokens) ##
+echo "npmrc (min-release-age)"
+grep -q 'min-release-age' ${HOME_PATH}/.npmrc 2>/dev/null || printf '\nmin-release-age=3\n' >> ${HOME_PATH}/.npmrc
+
 echo ".ssh/config"
 mv ${HOME_PATH}/.ssh/config ${HOME_PATH}/.old_dotfiles/ssh-config
 ln -s ${DOTFILES_PATH}/ssh-config ${HOME_PATH}/.ssh/config
