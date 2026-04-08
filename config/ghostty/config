@@ -74,7 +74,7 @@ window-padding-y = 4
 cursor-style = block
 
 # Bell
-bell-features = system,title,attention
+bell-features = system,title,attention,audio
 
 # Shell integration
 shell-integration = zsh

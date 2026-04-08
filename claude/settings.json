@@ -3,7 +3,7 @@
   "cleanupPeriodDays": 3000,
   "env": {
     "ENABLE_CLAUDEAI_MCP_SERVERS": "false",
-    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "23"
+    "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "230000"
   },
   "attribution": {
     "commit": "",
@@ -96,11 +96,11 @@
       "Bash(yarn build *)",
       "Bash(yarn install *)",
       "Bash(yarn test *)",
-      "Edit(/tmp/**)",
-      "Edit(/Users/pokutuna/.npm)",
-      "Edit(/Users/pokutuna/Library/Caches/uv)",
-      "Edit(/Users/pokutuna/Library/Caches/Yarn)",
-      "Edit(/Users/pokutuna/Library/pnpm)",
+      "Edit(//tmp/**)",
+      "Edit(//Users/pokutuna/.npm)",
+      "Edit(//Users/pokutuna/Library/Caches/uv)",
+      "Edit(//Users/pokutuna/Library/Caches/Yarn)",
+      "Edit(//Users/pokutuna/Library/pnpm)",
       "Edit(docs/**)",
       "Edit(lib/**)",
       "Edit(libs/**)",
@@ -117,6 +117,7 @@
       "mcp__playwright__*",
       "mcp__serena__*",
       "Read(node_modules/**)",
+      "Read(~/ghq/github.com/pokutuna/**)",
       "Skill(allow-until)",
       "Skill(fix-ci)",
       "Skill(fix-review)",
@@ -127,7 +128,7 @@
     ],
     "deny": [
       "Bash(rm -rf *)",
-      "Edit(/etc/**)",
+      "Edit(//etc/**)",
       "Edit(~/.ssh/**)"
     ],
     "ask": [
@@ -197,7 +198,8 @@
     "vertexai-gemini-batch@pokutuna-plugins": false,
     "side-fork@pokutuna-plugins": true,
     "kaggle-helper@pokutuna-plugins": false,
-    "things-app@pokutuna-plugins": true
+    "things-app@pokutuna-plugins": true,
+    "toggle-plugin@pokutuna-plugins": true
   },
   "extraKnownMarketplaces": {
     "pokutuna-plugins": {
