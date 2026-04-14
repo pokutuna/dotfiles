@@ -3,3 +3,5 @@ gitconfig
 emacs.d/places
 emacs.d/recentf
 .worktrees/
+
+claude/skills/playwright-cli/

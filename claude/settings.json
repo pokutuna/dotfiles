@@ -15,8 +15,8 @@
       "Bash(bq show *)",
       "Bash(cat *)",
       "Bash(curl *)",
-      "Bash(docker-compose *)",
       "Bash(docker *)",
+      "Bash(docker-compose *)",
       "Bash(echo *)",
       "Bash(fd *)",
       "Bash(find *)",
@@ -70,6 +70,7 @@
       "Bash(npm run typecheck *)",
       "Bash(npm test *)",
       "Bash(npx tsc *)",
+      "Bash(open http*)",
       "Bash(ping *)",
       "Bash(pip show *)",
       "Bash(pkill *)",
@@ -199,7 +200,9 @@
     "side-fork@pokutuna-plugins": true,
     "kaggle-helper@pokutuna-plugins": false,
     "things-app@pokutuna-plugins": true,
-    "toggle-plugin@pokutuna-plugins": true
+    "toggle-plugin@pokutuna-plugins": true,
+    "octave-notification@pokutuna-plugins": true,
+    "github-copilot@pokutuna-plugins": true
   },
   "extraKnownMarketplaces": {
     "pokutuna-plugins": {
@@ -226,6 +229,5 @@
   "voiceEnabled": false,
   "feedbackSurveyState": {
     "lastShownTime": 1754731026912
-  },
-  "preferredNotifChannel": "terminal_bell"
+  }
 }
