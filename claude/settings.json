@@ -108,6 +108,7 @@
       "Edit(src/**)",
       "Edit(test/**)",
       "Edit(tmp/**)",
+      "Edit(/tmp/**)",
       "mcp__chrome-devtools__*",
       "mcp__chrome-tabs__*",
       "mcp__deepwiki__*",
@@ -122,6 +123,7 @@
       "Skill(allow-until)",
       "Skill(fix-ci)",
       "Skill(fix-review)",
+      "Skill(git-commit-agent)",
       "Skill(improve-claude-md)",
       "Skill(task-interview)",
       "WebFetch",
@@ -229,5 +231,6 @@
   "voiceEnabled": false,
   "feedbackSurveyState": {
     "lastShownTime": 1754731026912
-  }
+  },
+  "skipAutoPermissionPrompt": true
 }
