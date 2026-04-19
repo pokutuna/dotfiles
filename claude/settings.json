@@ -118,6 +118,9 @@
       "mcp__ide__getDiagnostics",
       "mcp__playwright__*",
       "mcp__serena__*",
+      "Read(//tmp/**)",
+      "Read(/tmp/**)",
+      "Read(tmp/**)",
       "Read(node_modules/**)",
       "Read(~/ghq/github.com/pokutuna/**)",
       "Skill(allow-until)",
@@ -204,7 +207,8 @@
     "things-app@pokutuna-plugins": true,
     "toggle-plugin@pokutuna-plugins": true,
     "octave-notification@pokutuna-plugins": true,
-    "github-copilot@pokutuna-plugins": true
+    "github-copilot@pokutuna-plugins": true,
+    "zoom@pokutuna-plugins": false
   },
   "extraKnownMarketplaces": {
     "pokutuna-plugins": {
@@ -228,9 +232,10 @@
     ]
   },
   "alwaysThinkingEnabled": false,
+  "effortLevel": "medium",
+  "skipAutoPermissionPrompt": true,
   "voiceEnabled": false,
   "feedbackSurveyState": {
     "lastShownTime": 1754731026912
-  },
-  "skipAutoPermissionPrompt": true
+  }
 }
