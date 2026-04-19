@@ -173,23 +173,22 @@ async function formatPath(fullPath: string): Promise<string> {
   return fullPath;
 }
 
-const gitInfo = await (async () => {
+const pathInfo = await (async () => {
   const branch = await $`git -C ${projectDir} branch --show-current`
     .quiet()
     .text()
     .then((s: string) => s.trim())
     .catch(() => "");
-  if (!branch) return "";
 
   const path = shortenPath(await formatPath(currentDir));
   const arrow = currentDir.startsWith(projectDir) ? "" : "↗ ";
-  const branchDisplay = truncateString(branch);
-  return ` | ${green(arrow + path)}:${red(branchDisplay)}`;
+  const branchDisplay = branch ? `:${red(truncateString(branch))}` : "";
+  return ` | ${green(arrow + path)}${branchDisplay}`;
 })();
 
 // Model | Context | Session | Path:Branch
 const contextColor =
   gaugePercent >= 100 ? red : gaugePercent >= 80 ? yellow : (s: string) => s;
 console.log(
-  `${model} | ${contextK}/${contextGaugeMaxK}${contextGaugeMax !== contextSize ? "*" : ""} ${contextColor(progressBar)}  ${gaugePercent}%${rateLimitInfo} | ${costFmt}・↥ ${totalIn} ↧ ${totalOut}・◷ ${durationFmt} ⧖ ${apiDurationFmt}${gitInfo}`,
+  `${model} | ${contextK}/${contextGaugeMaxK}${contextGaugeMax !== contextSize ? "*" : ""} ${contextColor(progressBar)}  ${gaugePercent}%${rateLimitInfo} | ${costFmt}・↥ ${totalIn} ↧ ${totalOut}・◷ ${durationFmt} ⧖ ${apiDurationFmt}${pathInfo}`,
 );
