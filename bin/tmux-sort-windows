@@ -1,13 +1,13 @@
 #!/bin/bash
-# Sort tmux windows by pane's current directory basename
+# Sort tmux windows by pane's current directory path
 
 set -e
 
 # Remember the current window to return after sorting
 current_window=$(tmux display-message -p '#{window_id}')
 
-# Get sorted list: "window_index basename"
-sorted=$(tmux list-windows -F '#{window_index} #{b:pane_current_path}' | sort -t' ' -k2 -f)
+# Get sorted list: "window_index path"
+sorted=$(tmux list-windows -F '#{window_index} #{pane_current_path}' | sort -t' ' -k2 -f)
 
 # Collect original indices in sorted order
 indices=()
