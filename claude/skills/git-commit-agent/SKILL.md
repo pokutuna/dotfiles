@@ -36,6 +36,8 @@ $ARGUMENTS
 
 ## Instructions
 
+Run `git` directly — do not use `git -C <path>` or `cd`. The `!`-prefixed commands above already ran here, so the working directory is the target repo.
+
 Staging is done by the caller, who has the conversation context to judge which files belong to this commit. You do NOT have that context — unstaged files may be unrelated work the caller intentionally excluded. Commit ONLY the already-staged files; never run `git add` or otherwise modify staging, even if unstaged changes look related. If nothing is staged, report the situation and exit without committing.
 
 ### Commit Message
