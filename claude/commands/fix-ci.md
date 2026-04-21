@@ -10,13 +10,22 @@ allowed-tools:
 ---
 ゴール: GitHub PullRequest に対応する CI の実行を確認し、失敗を分析・修正する
 
-<PR_IDENTIFIER>
+<ARGUMENTS>
 $ARGUMENTS
-</PR_IDENTIFIER>
+</ARGUMENTS>
+
+`<ARGUMENTS>` から以下を抽出する (順不同、空白区切り):
+- `wait` トークン: CI 実行中なら完了を待ってから修正フローに入る
+- それ以外 (数字 / URL): PR 識別子 (空なら現在のブランチの PR)
+
+## CI 完了待ち (wait が指定された場合のみ)
+
+`gh pr checks [<number>] --watch --fail-fast` をバックグラウンドで起動し、完了まで待つ。
+- Bash tool の `run_in_background: true` で起動
+- Monitor tool で標準出力/終了を監視し、完了したら次フェーズへ
+- 10 分経っても終わらなければ中断してユーザーに報告
 
 ## PR と CI 情報の取得
-
-`<PR_IDENTIFIER>` から PR を特定 (空なら現在のブランチの PR を使用)
 
 ```bash
 gh pr checks [<number>]  # 引数なしで現在ブランチの PR

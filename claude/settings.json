@@ -232,7 +232,7 @@
     ]
   },
   "alwaysThinkingEnabled": false,
-  "effortLevel": "medium",
+  "effortLevel": "high",
   "skipAutoPermissionPrompt": true,
   "voiceEnabled": false,
   "feedbackSurveyState": {

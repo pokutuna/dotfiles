@@ -3,6 +3,8 @@ name: fix-review
 description: GitHub PullRequest のレビューコメントを分析し修正する。/fix-review で起動。
 allowed-tools:
   - Bash(git fetch *)
+  - Bash(git status)
+  - Bash(git diff *)
   - Bash(gh pr view *)
   - Bash(gh api */comments)
   - Bash(gh api */replies *)
