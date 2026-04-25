@@ -208,7 +208,8 @@
     "toggle-plugin@pokutuna-plugins": true,
     "octave-notification@pokutuna-plugins": true,
     "github-copilot@pokutuna-plugins": true,
-    "zoom@pokutuna-plugins": false
+    "zoom@pokutuna-plugins": false,
+    "andrej-karpathy-skills@karpathy-skills": true
   },
   "extraKnownMarketplaces": {
     "pokutuna-plugins": {
@@ -233,9 +234,12 @@
   },
   "alwaysThinkingEnabled": false,
   "effortLevel": "high",
-  "skipAutoPermissionPrompt": true,
+  "verbose": true,
+  "preferredNotifChannel": "terminal_bell",
+  "remoteControlAtStartup": false,
   "voiceEnabled": false,
   "feedbackSurveyState": {
     "lastShownTime": 1754731026912
-  }
+  },
+  "skipAutoPermissionPrompt": true
 }
