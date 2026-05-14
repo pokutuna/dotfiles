@@ -1,9 +1,6 @@
+Include ~/.ssh/config.d/*
+
 ServerAliveInterval 30
 ServerAliveCountMax 5
 StrictHostKeyChecking no
 # yes, no, ask(default)
-
-Host pokutuna.com
-  HostName pokutuna.com
-  Port 8080
-  User pokutuna
