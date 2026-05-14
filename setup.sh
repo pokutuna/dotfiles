@@ -16,10 +16,6 @@ do
     ln -s ${DOTFILES_PATH}/${file} ${HOME_PATH}/.${file}
 done
 
-if [[ -e ~/Dropbox/config/env_secret ]]; then
-    ln -s ~/Dropbox/config/env_secret ~/.zsh.d/env_secret
-fi
-
 ## without dot prefix ##
 for file in bin
 do
