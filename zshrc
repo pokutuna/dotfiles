@@ -116,6 +116,9 @@ bindkey "\e[Z" reverse-menu-complete # reverse menu complete
 # git worktree helper
 [ -f ~/.zsh.d/worktree.sh ] && source ~/.zsh.d/worktree.sh
 
+# pyright venv setup helper
+[ -f ~/.zsh.d/pyright.sh ] && source ~/.zsh.d/pyright.sh
+
 # runpod prompt
 [ -f ~/.zsh.d/runpod-ps1.sh ] && source ~/.zsh.d/runpod-ps1.sh
 

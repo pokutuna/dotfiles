@@ -15,6 +15,7 @@
       "Bash(bq show *)",
       "Bash(cat *)",
       "Bash(curl *)",
+      "Bash(cut *)",
       "Bash(docker *)",
       "Bash(docker-compose *)",
       "Bash(echo *)",
@@ -233,13 +234,13 @@
     ]
   },
   "alwaysThinkingEnabled": false,
-  "effortLevel": "high",
+  "effortLevel": "xhigh",
   "verbose": true,
   "preferredNotifChannel": "terminal_bell",
   "remoteControlAtStartup": false,
+  "skipAutoPermissionPrompt": true,
   "voiceEnabled": false,
   "feedbackSurveyState": {
     "lastShownTime": 1754731026912
-  },
-  "skipAutoPermissionPrompt": true
+  }
 }

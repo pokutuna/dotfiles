@@ -166,7 +166,6 @@ fi
 
 # Coding Agents
 export CLAUDE_CONFIG_DIR=$HOME/.claude
-alias codex="op run --no-masking --env-file=/Users/pokutuna/.codex/env -- codex"
 export PATH="/Users/pokutuna/.antigravity/antigravity/bin:$PATH"
 
 # stopwatch_off zshenv
