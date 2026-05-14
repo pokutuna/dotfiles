@@ -1,0 +1,145 @@
+#!/usr/bin/env bash
+# pushover — Pushover 通知を送る CLI ラッパー
+#
+# 環境変数:
+#   PUSHOVER_TOKEN   API Token (必須)
+#   PUSHOVER_USER    User Key  (必須)
+
+set -euo pipefail
+
+API_URL="https://api.pushover.net/1/messages.json"
+
+usage() {
+  cat <<'EOF'
+Usage: pushover [OPTIONS] [MESSAGE]
+
+Options:
+  -t, --title TITLE         通知タイトル
+  -p, --priority LEVEL      lowest | low | normal | high | emergency
+                            または -2, -1, 0, 1, 2
+  -s, --sound NAME          pushover, magic, siren, spacealarm, none, ほか
+  -a, --attach FILE         画像ファイルを添付
+  -u, --url URL             補助 URL (タップで開く)
+  -U, --url-title TITLE     補助 URL のラベル
+  -q, --quiet               レスポンスを表示しない
+  -h, --help                このヘルプを表示
+
+Presets:
+      --done MESSAGE        ✅ Done (priority=normal, sound=magic)
+      --error MESSAGE       ⚠️ Error (priority=high, sound=siren)
+      --emergency MESSAGE   🚨 Emergency (acknowledge するまで鳴り続ける)
+
+Stdin:
+  メッセージ引数を省略すると stdin から読む。
+
+Examples:
+  pushover "終わった"
+  pushover -t "ビルド" -p high "失敗しました"
+  python train.py && pushover --done "学習完了" || pushover --error "学習失敗"
+  pushover -a loss.png "Loss curve"
+  echo "$RESULT" | pushover -t "結果"
+EOF
+}
+
+parse_priority() {
+  case "$1" in
+    lowest|-2)    echo "-2" ;;
+    low|-1)       echo "-1" ;;
+    normal|0)     echo "0" ;;
+    high|1)       echo "1" ;;
+    emergency|2)  echo "2" ;;
+    *)            echo "$1" ;;
+  esac
+}
+
+TITLE=""
+PRIORITY=""
+SOUND=""
+ATTACH=""
+URL=""
+URL_TITLE=""
+MESSAGE=""
+PRESET=""
+RETRY=""
+EXPIRE=""
+QUIET=0
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -t|--title)       TITLE="$2"; shift 2 ;;
+    -p|--priority)    PRIORITY="$(parse_priority "$2")"; shift 2 ;;
+    -s|--sound)       SOUND="$2"; shift 2 ;;
+    -a|--attach)      ATTACH="$2"; shift 2 ;;
+    -u|--url)         URL="$2"; shift 2 ;;
+    -U|--url-title)   URL_TITLE="$2"; shift 2 ;;
+    -q|--quiet)       QUIET=1; shift ;;
+    --done)           PRESET="done"; MESSAGE="${2:-}"; shift 2 || shift ;;
+    --error)          PRESET="error"; MESSAGE="${2:-}"; shift 2 || shift ;;
+    --emergency)      PRESET="emergency"; MESSAGE="${2:-}"; shift 2 || shift ;;
+    -h|--help)        usage; exit 0 ;;
+    --)               shift; MESSAGE="$*"; break ;;
+    -*)               echo "Unknown option: $1" >&2; usage >&2; exit 1 ;;
+    *)                MESSAGE="$1"; shift ;;
+  esac
+done
+
+case "$PRESET" in
+  done)
+    : "${TITLE:=✅ Done}"
+    : "${PRIORITY:=0}"
+    : "${SOUND:=magic}"
+    ;;
+  error)
+    : "${TITLE:=⚠️ Error}"
+    : "${PRIORITY:=1}"
+    : "${SOUND:=siren}"
+    ;;
+  emergency)
+    : "${TITLE:=🚨 Emergency}"
+    PRIORITY="2"
+    : "${SOUND:=persistent}"
+    RETRY="60"
+    EXPIRE="3600"
+    ;;
+esac
+
+if [[ -z "$MESSAGE" ]]; then
+  if [[ ! -t 0 ]]; then
+    MESSAGE="$(cat)"
+  else
+    echo "Error: no message given" >&2
+    usage >&2
+    exit 1
+  fi
+fi
+
+if [[ -z "${PUSHOVER_TOKEN:-}" || -z "${PUSHOVER_USER:-}" ]]; then
+  echo "Error: PUSHOVER_TOKEN and PUSHOVER_USER must be set" >&2
+  exit 1
+fi
+
+ARGS=(
+  --form-string "token=$PUSHOVER_TOKEN"
+  --form-string "user=$PUSHOVER_USER"
+  --form-string "message=$MESSAGE"
+)
+
+[[ -n "$TITLE" ]]     && ARGS+=(--form-string "title=$TITLE")
+[[ -n "$PRIORITY" ]]  && ARGS+=(--form-string "priority=$PRIORITY")
+[[ -n "$SOUND" ]]     && ARGS+=(--form-string "sound=$SOUND")
+[[ -n "$URL" ]]       && ARGS+=(--form-string "url=$URL")
+[[ -n "$URL_TITLE" ]] && ARGS+=(--form-string "url_title=$URL_TITLE")
+[[ -n "$RETRY" ]]     && ARGS+=(--form-string "retry=$RETRY")
+[[ -n "$EXPIRE" ]]    && ARGS+=(--form-string "expire=$EXPIRE")
+
+if [[ -n "$ATTACH" ]]; then
+  if [[ ! -f "$ATTACH" ]]; then
+    echo "Error: attachment file not found: $ATTACH" >&2
+    exit 1
+  fi
+  ARGS+=(-F "attachment=@$ATTACH")
+fi
+
+RESPONSE=$(curl -s "${ARGS[@]}" "$API_URL")
+[[ $QUIET -eq 0 ]] && echo "$RESPONSE"
+echo "$RESPONSE" | grep -q '"status":1'
