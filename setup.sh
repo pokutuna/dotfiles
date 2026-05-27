@@ -33,13 +33,12 @@ do
 done
 
 ## .claude ##
-mkdir -p ${HOME_PATH}/.claude
-for file in $(ls ${DOTFILES_PATH}/claude)
-do
-    echo "claude/${file}"
-    mv ${HOME_PATH}/.claude/${file} ${HOME_PATH}/.old_dotfiles/claude.${file}
-    ln -s ${DOTFILES_PATH}/claude/${file} ${HOME_PATH}/.claude/${file}
-done
+sh "${DOTFILES_PATH}/claude/setup.sh" "${HOME_PATH}" "${DOTFILES_PATH}"
+
+## .agents ##
+echo "agents"
+mv ${HOME_PATH}/.agents ${HOME_PATH}/.old_dotfiles/.agents 2>/dev/null
+ln -s ${DOTFILES_PATH}/agents ${HOME_PATH}/.agents
 
 ## .bunfig.toml ##
 echo "bunfig.toml"
