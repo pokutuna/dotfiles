@@ -21,10 +21,10 @@ Analyze the staged changes below and create a conventional commit.
 **Note:** The diff above may be truncated. If you need more detail to understand the changes, run `git diff --cached` or `git diff --cached -- <file>` to inspect specific files.
 
 ### Recent commits
-!`git log -5 --pretty=format:"%s (%ar)"`
+!`git log -5 --pretty=format:"%s (%ar)" 2>/dev/null || echo "(no commits yet — new repository)"`
 
 ### Your recent commits (for style reference)
-!`git log -5 --author=pokutuna --pretty=format:"%s (%ar)"`
+!`git log -5 --author=pokutuna --pretty=format:"%s (%ar)" 2>/dev/null || echo "(no commits yet — new repository)"`
 
 **Note:** If "Your recent commits" are all very old (e.g., years ago), they may not reflect your current style — weigh them less and rely more on "Recent commits".
 
