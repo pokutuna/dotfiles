@@ -184,7 +184,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "~/.claude/statusline.ts",
+    "command": "/Users/pokutuna/.claude/plugins/data/limit-usage-pokutuna-plugins/statusline-wrapper.sh '~/.claude/statusline.ts'",
     "padding": 0
   },
   "enabledPlugins": {
@@ -213,7 +213,8 @@
     "andrej-karpathy-skills@karpathy-skills": true,
     "pushover-notify@pokutuna-plugins": true,
     "figma@claude-plugins-official": false,
-    "difit@pokutuna-plugins": true
+    "difit@pokutuna-plugins": true,
+    "limit-usage@pokutuna-plugins": true
   },
   "extraKnownMarketplaces": {
     "pokutuna-plugins": {
