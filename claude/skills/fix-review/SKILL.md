@@ -59,7 +59,7 @@ $SCRIPTS/pr-context.py OWNER REPO <number>
 - 未 resolve のスレッドのみ
 - 自分 (PR 作成者) がまだ返信していないコメントのみ (スレッド末尾のコメントが自分でないもの、と解釈する)
 
-各コメントの `comment_id` (REST の数値 ID) と `threadId` (GraphQL の `PRRT_...`) を控えておく。
+各コメントの `comment_id` (REST の数値 ID)、`threadId` (GraphQL の `PRRT_...`)、`author` (投稿者の login) を控えておく。
 
 **対象が 0 件の場合はここで終了する**: 未 resolve スレッドが 0 件、またはフィルタ後に対象が残らない場合、Phase 2 以降はスキップし、状況 (未 resolve スレッド数 / 自分返信済みで待機中の件数など) をユーザーに報告して完了する。
 
@@ -77,7 +77,7 @@ $SCRIPTS/pr-context.py OWNER REPO <number>
 
 スレッドごとに AskUserQuestion で方針を確定する。1 回の AskUserQuestion に最大 4 スレッド分の question を束ねる (残数が 4 未満ならあるだけ)。
 
-各 question で対象スレッドを引用 (Path:line + 元コメント冒頭) し、Claude の推奨方針を 1 行で提示してから選択肢を出す:
+各 question で対象スレッドを引用 (投稿者 + Path:line + 元コメント冒頭) し、誰の指摘か分かるようにする。Claude の推奨方針を 1 行で提示してから選択肢を出す:
 
 - 第一選択肢: Claude の推奨分類 + "(推奨)" ラベル
 - 以下の 3 分類から提示:
@@ -114,6 +114,7 @@ Other の自由入力は方針メモとして採用する。
 
 - threadId: `PRRT_xxx`
 - commentId: `<数値>`
+- author: `@<login>`
 - Path: `<file>:<line>`
 - URL: <コメント URL>
 - 元コメント:
@@ -139,7 +140,7 @@ Other の自由入力は方針メモとして採用する。
 - 「別途 TODO で対応します」
 
 「議論先行」「対応しない」に分類したコメントについて、返信文を作成する。
-4 件ずつまとめて AskUserQuestion で確認する。各 question で対象コメントと返信文を引用し、選択肢を提示:
+4 件ずつまとめて AskUserQuestion で確認する。各 question で対象コメント (投稿者 + 本文) と返信文を引用し、選択肢を提示:
 
 - "投稿する (推奨)"
 - "編集する" (Other で書き直す)
@@ -185,7 +186,7 @@ AskUserQuestion で確認:
 ## Phase 6: 修正分の返信投稿と resolve
 
 「修正」分類のエントリについて返信文を確定し、投稿する。
-4 件ずつまとめて AskUserQuestion で確認する。各 question で対象コメント・返信案を引用し、選択肢を提示:
+4 件ずつまとめて AskUserQuestion で確認する。各 question で対象コメント (投稿者 + 本文) と返信案を引用し、選択肢を提示:
 
 - "投稿する (推奨)"
 - "編集する" (Other で返信文を書き直す)
