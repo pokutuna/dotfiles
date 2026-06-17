@@ -42,7 +42,13 @@ Staging is done by the caller, who has the conversation context to judge which f
 
 ### Commit Message
 
-Create a commit message in `type(scope): subject` format with optional body. Scope is optional — include it only when a clear, natural scope exists (e.g., `feat(auth):`). If no suitable scope fits, omit it entirely; do NOT fall back to filler like `(all)`, `(misc)`, or `(update)`.
+Create a commit message in `type(scope): subject` format with optional body.
+
+**Scope (optional) — default is to OMIT it.** A bare `type: subject` is the norm; only add a scope when one clearly belongs, and never invent or force one. When a scope *does* belong, it names an *area* of the repo — a region that holds many distinct features or concerns, not the one feature this commit touches. The test: does this name contain several different things (→ an area, a valid scope), or is it itself one single feature (→ it belongs in the subject, never the scope)?
+- Good — areas that hold multiple features: a monorepo package (one package directory holds many features), a broad module or namespace the codebase is divided into, or infrastructure like `ci` / `terraform`.
+- Bad — a single feature, not an area: the one thing this commit is about, even if it has its own directory (e.g. one specific skill, command, or component). Naming it as scope just repeats the subject. The area it lives *in* may be a valid scope, but the feature itself is not.
+
+Let the commit history above set the baseline: if past commits carry no scope, follow suit and omit it; if they scope by area, match that spelling. But history only confirms a valid area scope — never copy a feature-name scope, even if past commits used one. Never pad with filler like `(all)`, `(misc)`, `(update)`.
 
 **Types (use ONLY these exact values — do NOT invent new types like `style`, `ci`, `build`):**
 - `feat`: New feature or significant addition
