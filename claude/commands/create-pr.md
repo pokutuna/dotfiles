@@ -46,3 +46,6 @@ $ARGUMENTS
 - リポジトリの owner が `hatena` の場合、Copilot レビューを依頼してください
   - ただし `<EXTRA_CONTEXT>` に「レビュー不要」「no review」等の指示があれば依頼しない
 - `gh pr edit <pr_number> --add-reviewer @copilot` で Copilot レビューを依頼する
+  - コマンドがエラーを返さなければ成功とみなし、付与結果の確認は省略する
+  - Copilot は User ではなく Bot のため、`gh pr view --json reviewRequests` (GraphQL) には現れず空に見える。これを「失敗」と誤認して再依頼しない
+  - どうしても確認する場合は REST を使う: `gh api repos/{owner}/{repo}/pulls/{pr_number}/requested_reviewers`
