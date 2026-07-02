@@ -25,6 +25,14 @@ git() {
                     echo "Error: failed to resolve PR #${pr_num}" >&2
                     return 1
                 fi
+                if ! command git show-ref --verify --quiet "refs/heads/${branch}"; then
+                    if ! command git fetch origin "${branch}" 2>/dev/null; then
+                        if ! command git fetch origin "refs/pull/${pr_num}/head:${branch}"; then
+                            echo "Error: failed to fetch branch for PR #${pr_num}" >&2
+                            return 1
+                        fi
+                    fi
+                fi
                 args+=("$branch")
             else
                 args+=("$arg")
