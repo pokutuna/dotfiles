@@ -23,6 +23,12 @@ type HookInput = {
   output_style?: {
     name?: string;
   };
+  effort?: {
+    level?: string;
+  };
+  thinking?: {
+    enabled?: boolean;
+  };
   cost?: {
     total_cost_usd?: number;
     total_duration_ms?: number;
@@ -58,6 +64,16 @@ type HookInput = {
 const input: HookInput = JSON.parse(await Bun.stdin.text());
 
 const model = (input.model?.display_name ?? "Unknown").replace(/\s*\(.*\)/, "");
+const effortGauge: Record<string, string> = {
+  low: "○",
+  medium: "◔",
+  high: "◑",
+  xhigh: "◕",
+  max: "●",
+};
+const effortLevel = input.effort?.level;
+const effortIcon = effortLevel ? effortGauge[effortLevel] : undefined;
+const modelDisplay = effortIcon ? `${effortIcon} ${model}` : model;
 const cost = input.cost?.total_cost_usd ?? 0;
 const durationMs = input.cost?.total_duration_ms ?? 0;
 const apiDurationMs = input.cost?.total_api_duration_ms ?? 0;
@@ -190,5 +206,5 @@ const pathInfo = await (async () => {
 const contextColor =
   gaugePercent >= 100 ? red : gaugePercent >= 80 ? yellow : (s: string) => s;
 console.log(
-  `${model} | ${contextK}/${contextGaugeMaxK}${contextGaugeMax !== contextSize ? "*" : ""} ${contextColor(progressBar)}  ${gaugePercent}%${rateLimitInfo} | ${costFmt}・↥ ${totalIn} ↧ ${totalOut}・◷ ${durationFmt} ⧖ ${apiDurationFmt}${pathInfo}`,
+  `${modelDisplay} | ${contextK}/${contextGaugeMaxK}${contextGaugeMax !== contextSize ? "*" : ""} ${contextColor(progressBar)}  ${gaugePercent}%${rateLimitInfo} | ${costFmt}・↥ ${totalIn} ↧ ${totalOut}・◷ ${durationFmt} ⧖ ${apiDurationFmt}${pathInfo}`,
 );

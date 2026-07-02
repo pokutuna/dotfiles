@@ -76,3 +76,5 @@ syntax-theme = "Dracula"
 # color-only = true
 [merge]
 conflictStyle = zdiff3
+[wt]
+	basedir = ../{gitroot}-wt

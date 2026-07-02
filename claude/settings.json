@@ -214,7 +214,8 @@
     "pushover-notify@pokutuna-plugins": true,
     "figma@claude-plugins-official": false,
     "difit@pokutuna-plugins": true,
-    "limit-usage@pokutuna-plugins": true
+    "limit-usage@pokutuna-plugins": true,
+    "clangd-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "pokutuna-plugins": {
@@ -239,6 +240,8 @@
   },
   "alwaysThinkingEnabled": false,
   "effortLevel": "xhigh",
+  "tui": "fullscreen",
+  "skipWorkflowUsageWarning": true,
   "verbose": true,
   "preferredNotifChannel": "terminal_bell",
   "remoteControlAtStartup": false,

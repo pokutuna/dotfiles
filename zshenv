@@ -164,6 +164,10 @@ if [ -e $POSTGRESDIR ]; then
   export PATH="$POSTGRESDIR/bin:$PATH"
 fi
 
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
 # Coding Agents
 export CLAUDE_CONFIG_DIR=$HOME/.claude
 export PATH="/Users/pokutuna/.antigravity/antigravity/bin:$PATH"
