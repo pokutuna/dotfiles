@@ -1,0 +1,11 @@
+(tls_localhost_pokutuna) {
+	tls /Users/pokutuna/Dropbox/certbot/config/live/localhost.pokutuna.com/fullchain.pem \
+ /Users/pokutuna/Dropbox/certbot/config/live/localhost.pokutuna.com/privkey.pem
+}
+
+# https://{port}.localhost.pokutuna.com -> localhost:{port}
+# サブドメインの先頭ラベルをそのままポート番号として使う
+*.localhost.pokutuna.com {
+	import tls_localhost_pokutuna
+	reverse_proxy localhost:{labels.3}
+}
