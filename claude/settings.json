@@ -160,7 +160,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "gojq -r '.tool_input.file_path | select(test(\"[.](?:js|ts|tsx)$\"))' | xargs -r npx prettier --write"
+            "command": "~/.claude/hooks/format-js.sh"
           },
           {
             "type": "command",
@@ -220,7 +220,8 @@
   "extraKnownMarketplaces": {
     "pokutuna-plugins": {
       "source": {
-        "source": "directory",
+        "source": "git",
+        "url": "https://github.com/pokutuna/claude-plugins.git",
         "path": "/Users/pokutuna/ghq/github.com/pokutuna/claude-plugins"
       }
     }
