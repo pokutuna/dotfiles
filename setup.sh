@@ -35,6 +35,12 @@ done
 ## .claude ##
 sh "${DOTFILES_PATH}/claude/setup.sh" "${HOME_PATH}" "${DOTFILES_PATH}"
 
+## .codex ##
+sh "${DOTFILES_PATH}/codex/setup.sh" "${HOME_PATH}" "${DOTFILES_PATH}"
+
+## .pi ##
+sh "${DOTFILES_PATH}/pi/setup.sh" "${HOME_PATH}" "${DOTFILES_PATH}"
+
 ## .agents ##
 echo "agents"
 mv ${HOME_PATH}/.agents ${HOME_PATH}/.old_dotfiles/.agents 2>/dev/null
