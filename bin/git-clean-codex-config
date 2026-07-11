@@ -1,0 +1,10 @@
+#!/bin/sh
+
+awk '
+    /^# --- local codex state below; do not commit ---$/ {
+        exit
+    }
+    {
+        print
+    }
+'

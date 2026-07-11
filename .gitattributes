@@ -1,1 +1,2 @@
 emacs.d/elpa/ -diff
+codex/config.toml filter=codex-config

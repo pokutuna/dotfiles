@@ -1,6 +1,29 @@
 # .claude
 settings.local.json
 .worktrees
+
+# .codex
+auth.json
+history.jsonl
+version.json
+installation_id
+models_cache.json
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+cache/
+plugins/cache/
+sessions/
+shell_snapshots/
+tmp/
+.tmp/
+log/
+logs/
+env/
+memories/
+goals/
+.personality_migration
+
 #*#
 \#*
 .*~
