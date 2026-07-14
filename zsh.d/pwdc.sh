@@ -8,7 +8,7 @@ pwdc() {
     *)
       if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
         p=$(git rev-parse --show-prefix | sed 's:/$::')
-        echo "${p:-.}"
+        [ -n "$p" ] && echo "$p" || pwd | sed "s|^$HOME|~|"
       else
         pwd | sed "s|^$HOME|~|"
       fi
