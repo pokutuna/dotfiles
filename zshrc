@@ -125,6 +125,8 @@ bindkey "\e[Z" reverse-menu-complete # reverse menu complete
 # ghostty
 [ -f ~/.zsh.d/ghostty.sh ] && source ~/.zsh.d/ghostty.sh
 
+[ -f ~/.zsh.d/pwdc.sh ] && source ~/.zsh.d/pwdc.sh
+
 # 単語区切り設定
 autoload -Uz select-word-style
 select-word-style default
