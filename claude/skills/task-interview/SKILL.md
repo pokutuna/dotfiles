@@ -1,5 +1,7 @@
 ---
+name: task-interview
 description: Interview to clarify task details and ambiguities
+disable-model-invocation: true
 allowed-tools:
   - Write
   - Edit

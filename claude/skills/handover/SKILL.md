@@ -1,5 +1,7 @@
 ---
+name: handover
 description: 次のセッションへの引き継ぎドキュメントを生成する
+disable-model-invocation: true
 allowed-tools:
   - Bash(date *)
   - Write(*)

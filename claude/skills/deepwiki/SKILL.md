@@ -1,4 +1,5 @@
 ---
+name: deepwiki
 description: MCP DeepWiki を利用してリポジトリについて調査する
 allowed-tools:
   - mcp__deepwiki__ask_question

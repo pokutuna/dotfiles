@@ -8,6 +8,7 @@ description: |
   assistant: I'll use github-issue-pr-writer to draft the Issue description
   </example>
 model: sonnet
+disable-model-invocation: true
 context: fork
 agent: general-purpose
 ---

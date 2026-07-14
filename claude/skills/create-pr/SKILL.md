@@ -1,4 +1,5 @@
 ---
+name: create-pr
 description: 現在のブランチの内容で PullRequest を作成する
 allowed-tools:
   - Bash(git diff:*)

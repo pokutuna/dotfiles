@@ -1,4 +1,5 @@
 ---
+name: offload-subagent
 description: 実装をサブエージェントにオフロードし、この Fable のセッションは設計・監査・レビューに専念する方針に切り替える
 disable-model-invocation: true
 ---

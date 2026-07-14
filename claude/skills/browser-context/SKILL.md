@@ -1,5 +1,7 @@
 ---
+name: browser-context
 description: 現在のブラウザタブを参照して情報を集め、文脈に取り込む
+disable-model-invocation: true
 allowed-tools:
   - Task
   - mcp__chrome-tabs__list_tabs

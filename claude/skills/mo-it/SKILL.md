@@ -1,4 +1,5 @@
 ---
+name: mo-it
 description: 指定または文脈中の Markdown を mo (ローカル Markdown ビューア) で開く
 disable-model-invocation: true
 ---

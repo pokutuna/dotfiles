@@ -1,4 +1,5 @@
 ---
+name: fix-ci
 description: GitHub PullRequest に対応する CI (GitHub Actions / Google Cloud Build) の実行を確認し、失敗を分析・修正する
 allowed-tools:
   - Bash(gh pr checks:*)

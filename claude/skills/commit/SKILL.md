@@ -1,4 +1,5 @@
 ---
+name: commit
 description: 変更をコミットする Sub Agent を起動する
 ---
 Stage the files modified in this conversation using `git add`, then invoke the git-commit-agent skill.

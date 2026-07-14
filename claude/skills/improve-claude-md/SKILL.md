@@ -1,5 +1,7 @@
 ---
+name: improve-claude-md
 description: CLAUDE.md をベストプラクティスに基づいて改善する
+disable-model-invocation: true
 ---
 # Improve CLAUDE.md
 

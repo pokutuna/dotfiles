@@ -1,5 +1,7 @@
 ---
+name: remove-slops
 description: AI が生成した冗長なコードを削除する
+disable-model-invocation: true
 allowed-tools:
   - Bash(git diff:*)
 ---

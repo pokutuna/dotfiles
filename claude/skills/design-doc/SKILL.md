@@ -2,6 +2,7 @@
 name: design-doc
 description: ソフトウェア設計ドキュメント (Design Doc) を記述する。仕様検討後に Design Doc としてまとめる、仕様を書き下す際に漏れや観点を洗い出す、ユーザーの指示に基づいて設計する、といった用途で使う。/design-doc で起動。出力は日本語。
 reference: https://refactoringenglish.com/excerpts/write-an-effective-design-doc/
+disable-model-invocation: true
 ---
 
 # Design Doc

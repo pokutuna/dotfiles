@@ -2,6 +2,7 @@
 name: teach-me
 description: 直前のセッション（実装・調査・変更）の内容を、ユーザーが深く理解できるまで対話的に教える教師スキル。問題・解決策・広い文脈の3点を Socratic に掘り下げ、チェックリストとクイズ（AskUserQuestion）で理解を検証する。コードは書けたが中身を理解しきれていないとき、ペアプロ/レビュー後の理解定着、学習目的で「教えて」「解説して理解させて」と言われたときに使う。
 source: https://gist.github.com/ThariqS/1389dcdff9eba4789887a2211370f06b
+disable-model-invocation: true
 ---
 
 # Teach Me
