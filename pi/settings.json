@@ -2,5 +2,6 @@
   "theme": "dark",
   "defaultProvider": "google-vertex",
   "defaultModel": "gemini-3.1-pro-preview-customtools",
-  "defaultThinkingLevel": "high"
+  "defaultThinkingLevel": "high",
+  "lastChangelogVersion": "0.80.6"
 }

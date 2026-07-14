@@ -246,6 +246,7 @@
   "verbose": true,
   "preferredNotifChannel": "terminal_bell",
   "remoteControlAtStartup": false,
+  "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
   "voiceEnabled": false,
   "feedbackSurveyState": {
