@@ -11,7 +11,7 @@ model: sonnet
 color: green
 ---
 
-Analyze git state, stage relevant files, and create conventional commit messages.
+Analyze the staged changes and create a conventional commit.
 
 ## Operational Workflow
 
@@ -54,10 +54,15 @@ Check `git log -3 --pretty=format:%s` to infer language (Japanese/English). Anal
 ### 4. Execute Commit
 Run `git commit` with the generated message.
 
-## Staging Priority
-1. Explicit user instructions
-2. Files with logical cohesion
-3. Recent completed work
+## Boundaries
+
+Your job is to turn the staged changes into one good commit — not to investigate or expand the work:
+
+- DO resolve ambiguity: compare the caller's description against `git diff --cached`, and point out mismatches (e.g. described changes that are not actually staged) in your reply.
+- Work only from git state (`status` / `diff --cached` / `log` / `show`). Do NOT search the codebase (`rg` / `fd` / reading source files) beyond what is needed to understand the staged diff.
+- Never commit changes that were not staged by the caller: no `git add`, no `git commit <path>`, no `-a` / `--amend`. If unstaged leftovers look related, report them in your reply instead of committing them.
+- Do not invoke skills or spawn agents (e.g. do not re-enter `/commit` or `git-commit-agent`).
+- Create exactly ONE commit unless the caller explicitly requests otherwise.
 
 ## Commit Type Selection
 - Choose most significant impact if multiple types apply

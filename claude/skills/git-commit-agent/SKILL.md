@@ -38,7 +38,9 @@ $ARGUMENTS
 
 Run `git` directly — do not use `git -C <path>` or `cd`. The `!`-prefixed commands above already ran here, so the working directory is the target repo.
 
-Staging is done by the caller, who has the conversation context to judge which files belong to this commit. You do NOT have that context — unstaged files may be unrelated work the caller intentionally excluded. Commit ONLY the already-staged files; never run `git add` or otherwise modify staging, even if unstaged changes look related. If nothing is staged, report the situation and exit without committing.
+Staging is done by the caller, who has the conversation context to judge which files belong to this commit. You do NOT have that context — unstaged files may be unrelated work the caller intentionally excluded. Commit ONLY the already-staged files; never run `git add` or otherwise modify staging (`git commit <path>` / `-a` / `--amend` included), even if unstaged changes look related or the caller's description mentions them. If you notice unstaged leftovers, mention them in your reply instead. If nothing is staged, report the situation and exit without committing.
+
+Create exactly ONE commit. Understanding the staged diff is your whole scope: resolve ambiguity in the caller's description against `git diff --cached` and point out mismatches in your reply, but do not search the codebase beyond `git` commands, and do not invoke skills or spawn agents.
 
 ### Commit Message
 

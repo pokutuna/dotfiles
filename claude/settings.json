@@ -153,7 +153,19 @@
       "/Users/pokutuna/ghq/github.com/pokutuna/coding-instructions"
     ]
   },
+  "model": "sonnet",
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/block-find-root.sh"
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "Write|Edit|MultiEdit",
@@ -215,7 +227,8 @@
     "figma@claude-plugins-official": false,
     "difit@pokutuna-plugins": true,
     "limit-usage@pokutuna-plugins": true,
-    "clangd-lsp@claude-plugins-official": true
+    "clangd-lsp@claude-plugins-official": true,
+    "codex@pokutuna-plugins": true
   },
   "extraKnownMarketplaces": {
     "pokutuna-plugins": {
