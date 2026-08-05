@@ -1,0 +1,25 @@
+#!/bin/sh
+# git-wt の wt.deletehook から呼ばれ、worktree の docker compose リソースを片付ける。
+# deletehook は削除対象の worktree を cwd として実行される (git-wt v0.22.0+)。
+# compose はディレクトリ名をプロジェクト名にするため、worktree を消すと
+# イメージ・volume・network が名前ごと孤児になる。削除前にここで回収する。
+#
+# 非ゼロで exit すると worktree の削除自体が中止されるので、常に exit 0 する。
+
+# compose ファイルのない worktree では何もしない
+found=""
+for f in compose.yaml compose.yml docker-compose.yaml docker-compose.yml; do
+    [ -f "$f" ] && found=1 && break
+done
+[ -n "$found" ] || exit 0
+
+# docker が入っていない/デーモンが止まっていても worktree 削除は妨げない
+docker info >/dev/null 2>&1 || exit 0
+
+# --rmi local: compose がビルドした無名イメージのみ削除する。
+# --rmi all は redis 等の pull した共有イメージまで消すので使わない。
+echo "wt-compose-cleanup: docker compose down --rmi local --volumes --remove-orphans" >&2
+docker compose down --rmi local --volumes --remove-orphans ||
+    echo "wt-compose-cleanup: compose down failed. 残りは docker images --filter 'label=com.docker.compose.project=<name>' で確認できる" >&2
+
+exit 0

@@ -79,3 +79,5 @@ syntax-theme = "Dracula"
 conflictStyle = zdiff3
 [wt]
 	basedir = ../{gitroot}-wt
+	# worktree 削除前に compose のイメージ/volume/network を回収する (~/bin)
+	deletehook = wt-compose-cleanup

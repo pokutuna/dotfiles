@@ -3,7 +3,7 @@
 #
 # Usage:
 #   wt                    fzf で worktree 選択して移動
-#   wt -d / -D            fzf で worktree 選択して削除
+#   wt -d / -D            fzf で worktree 選択して削除 (TAB で複数選択)
 #   wt -d <name> / -D <name>
 #                          worktree/branch を指定して削除 (fzf を経由しない)
 #   wt <name>              name が既存ブランチ/worktree なら選択せずそのまま移動
@@ -38,8 +38,9 @@ wt() {
             git wt "${flags[@]}" "${positional[@]}"
             return
         fi
-        local selected=$(git wt | tail -n +2 | ${FILTER:-fzf} | awk '{print $(NF-1)}')
-        [[ -n "$selected" ]] && git wt "${flags[@]}" "$selected"
+        # git wt -d/-D は複数名を受けられるので、fzf の複数選択をそのまま渡す
+        local -a selected=("${(@f)$(git wt | tail -n +2 | ${FILTER:-fzf} --multi | awk '{print $(NF-1)}')}")
+        [[ -n "${selected[1]}" ]] && git wt "${flags[@]}" "${selected[@]}"
         return
     fi
 
