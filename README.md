@@ -15,3 +15,5 @@ setup.sh するたび etc_emacs に中身をls -lしておぼえがき
 別のgitリポジトリの内容を使いたい時は submodule でやることにした
 elisp関連は emacs.d/co 以下に submodule を置く
 setup.sh で init & update & checkout master するはず
+
+[emacs.d](./emacs.d/)
