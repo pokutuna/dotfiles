@@ -208,7 +208,7 @@
     "gopls-lsp@claude-plugins-official": false,
     "hydra-experiment@pokutuna-plugins": false,
     "plugin-dev@claude-plugins-official": false,
-    "pyright-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": false,
     "runpod@pokutuna-plugins": false,
     "rust-analyzer-lsp@claude-plugins-official": false,
     "swift-lsp@claude-plugins-official": false,
@@ -222,13 +222,13 @@
     "octave-notification@pokutuna-plugins": true,
     "github-copilot@pokutuna-plugins": true,
     "zoom@pokutuna-plugins": false,
-    "andrej-karpathy-skills@karpathy-skills": true,
     "pushover-notify@pokutuna-plugins": true,
     "figma@claude-plugins-official": false,
     "difit@pokutuna-plugins": true,
     "limit-usage@pokutuna-plugins": true,
-    "clangd-lsp@claude-plugins-official": true,
-    "codex@pokutuna-plugins": true
+    "clangd-lsp@claude-plugins-official": false,
+    "codex@pokutuna-plugins": true,
+    "jupyter@pokutuna-plugins": false
   },
   "extraKnownMarketplaces": {
     "pokutuna-plugins": {
@@ -260,7 +260,6 @@
   "preferredNotifChannel": "terminal_bell",
   "remoteControlAtStartup": false,
   "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true,
   "voiceEnabled": false,
   "feedbackSurveyState": {
     "lastShownTime": 1754731026912

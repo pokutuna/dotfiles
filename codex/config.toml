@@ -5,7 +5,7 @@ model_reasoning_effort = "xhigh"
 personality = "pragmatic"
 approval_policy = "on-request"
 approvals_reviewer = "auto_review"
-service_tier = "fast"
+service_tier = "default"
 
 
 notify = [
