@@ -148,12 +148,12 @@
       "mcp__ide__executeCode",
       "mcp__serena__execute_shell_command"
     ],
-    "defaultMode": "acceptEdits",
+    "defaultMode": "auto",
     "additionalDirectories": [
       "/Users/pokutuna/ghq/github.com/pokutuna/coding-instructions"
     ]
   },
-  "model": "sonnet",
+  "model": "opus[1m]",
   "hooks": {
     "PreToolUse": [
       {
@@ -228,14 +228,14 @@
     "limit-usage@pokutuna-plugins": true,
     "clangd-lsp@claude-plugins-official": false,
     "codex@pokutuna-plugins": true,
-    "jupyter@pokutuna-plugins": false
+    "jupyter@pokutuna-plugins": false,
+    "google-style-guide@pokutuna-plugins": true
   },
   "extraKnownMarketplaces": {
     "pokutuna-plugins": {
       "source": {
         "source": "git",
-        "url": "https://github.com/pokutuna/claude-plugins.git",
-        "path": "/Users/pokutuna/ghq/github.com/pokutuna/claude-plugins"
+        "url": "https://github.com/pokutuna/claude-plugins.git"
       }
     }
   },
