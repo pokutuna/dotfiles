@@ -36,7 +36,6 @@
       "Bash(gh run list *)",
       "Bash(gh run view *)",
       "Bash(gh search *)",
-      "Bash(git -C * add *)",
       "Bash(git add *)",
       "Bash(git branch *)",
       "Bash(git checkout *)",
@@ -199,6 +198,17 @@
     "command": "/Users/pokutuna/.claude/plugins/data/limit-usage-pokutuna-plugins/statusline-wrapper.sh '~/.claude/statusline.ts'",
     "padding": 0
   },
+  "skillOverrides": {
+    "claude-api": "user-invocable-only",
+    "code-review": "user-invocable-only",
+    "dataviz": "user-invocable-only",
+    "design": "user-invocable-only",
+    "fewer-permission-prompts": "user-invocable-only",
+    "keybindings-help": "user-invocable-only",
+    "security-review": "user-invocable-only",
+    "simplify": "user-invocable-only",
+    "update-config": "user-invocable-only"
+  },
   "enabledPlugins": {
     "actions-ubuntu-slim-migration@pokutuna-plugins": false,
     "allow-until@pokutuna-plugins": true,
@@ -218,9 +228,9 @@
     "side-fork@pokutuna-plugins": true,
     "kaggle-helper@pokutuna-plugins": false,
     "things-app@pokutuna-plugins": true,
-    "toggle-plugin@pokutuna-plugins": true,
+    "toggle-plugin@pokutuna-plugins": false,
     "octave-notification@pokutuna-plugins": true,
-    "github-copilot@pokutuna-plugins": true,
+    "github-copilot@pokutuna-plugins": false,
     "zoom@pokutuna-plugins": false,
     "pushover-notify@pokutuna-plugins": true,
     "figma@claude-plugins-official": false,
@@ -229,7 +239,10 @@
     "clangd-lsp@claude-plugins-official": false,
     "codex@pokutuna-plugins": true,
     "jupyter@pokutuna-plugins": false,
-    "google-style-guide@pokutuna-plugins": true
+    "google-style-guide@pokutuna-plugins": true,
+    "runbook@pokutuna-plugins": true,
+    "docgen@pokutuna-plugins": true,
+    "x-research@pokutuna-plugins": false
   },
   "extraKnownMarketplaces": {
     "pokutuna-plugins": {
@@ -253,13 +266,52 @@
     ]
   },
   "alwaysThinkingEnabled": false,
-  "effortLevel": "xhigh",
+  "effortLevel": "medium",
+  "modelSettings": {
+    "claude-fable-5": {
+      "effortLevel": "medium"
+    },
+    "claude-sonnet-5": {
+      "effortLevel": "xhigh"
+    },
+    "claude-opus-5": {
+      "effortLevel": "high"
+    },
+    "claude-fable-5-1": {
+      "effortLevel": "medium"
+    }
+  },
   "tui": "fullscreen",
   "skipWorkflowUsageWarning": true,
   "verbose": true,
   "preferredNotifChannel": "terminal_bell",
   "remoteControlAtStartup": false,
   "agentPushNotifEnabled": true,
+  "autoMode": {
+    "allow": [
+      "$defaults",
+      "Bash(duckdb:*) read-only queries over local CSV/JSON/Parquet inside the working tree"
+    ],
+    "soft_deny": [
+      "$defaults"
+    ],
+    "environment": [
+      "### Org-wide",
+      "**Organization**: None configured (personal GitHub account `pokutuna`)",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: None configured",
+      "**Internal package registry**: None configured — public registries only (PyPI via `uv`, npm)",
+      "**Sensitive data locations & audiences**: any file or store holding personal data, confidential business data, credentials, regulated data, or similarly sensitive material; preserve exact handles when known and share only with audiences cleared at the [named+specifics] bar",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment (hyphen/underscore/dot-delimited — e.g. matches `prod-db`, not `producer`)",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development",
+      "**Trusted repo**: the repo of the current working directory and its remote(s), under `~/ghq/github.com/pokutuna/`",
+      "**Org-specific CLIs**: `uv` (Python deps/run), `gh`, `gcloud` / `gsutil`, `duckdb`, `fd`, `rg`, `jq` / `gojq`, `mise`, `difit`",
+      "Project-specific auto mode entries belong in that project's `.claude/settings.json`, not here — this file is the global `~/.claude/settings.json`."
+    ]
+  },
   "voiceEnabled": false,
   "feedbackSurveyState": {
     "lastShownTime": 1754731026912

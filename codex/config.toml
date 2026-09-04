@@ -26,6 +26,15 @@ url = "http://localhost:7683/deepwiki/mcp"
 [mcp_servers.chrome-tabs]
 url = "http://localhost:7683/chrome-tabs/mcp"
 
+[mcp_servers.chrome-tabs.tools.list_tabs]
+approval_mode = "approve"
+
+[mcp_servers.chrome-tabs.tools.read_tab_content]
+approval_mode = "approve"
+
+[mcp_servers.chrome-tabs.tools.open_in_new_tab]
+approval_mode = "approve"
+
 [mcp_servers.google-search]
 url = "http://localhost:7683/google-search/mcp"
 
