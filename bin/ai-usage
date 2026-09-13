@@ -1,0 +1,174 @@
+#!/usr/bin/env bash
+# Claude Code / Codex CLI の残り usage limit (5h window, weekly window) を表示する
+#
+# claude: 非公式 API `/api/oauth/usage` は 429 で使えないため、limit-usage
+# プラグイン (statusline-wrapper.sh) が Claude Code 実行のたびに statusline
+# hook 経由で書き出しているキャッシュを読む。そのため値は直近の Claude Code
+# 実行時点のスナップショットであり、プラグイン未導入の環境では claude 側の
+# 表示はスキップされる。
+# codex: 非公式 API を直叩きして取得するため、上記の制約とは無関係に動く。
+set -euo pipefail
+
+CC_LIMIT_STATE="${XDG_STATE_HOME:-$HOME/.local/state}/cc-limit-usage.conf"
+
+now=$(date +%s)
+
+red=$'\033[31m'; yellow=$'\033[33m'; green=$'\033[32m'; reset=$'\033[0m'; dim=$'\033[2m'
+
+fmt_remain() {
+  local resets_at="$1" # unix seconds
+  [[ -z "$resets_at" ]] && { echo "?"; return; }
+  local diff=$((resets_at - now))
+  if ((diff <= 0)); then
+    echo "reset待ち"
+    return
+  fi
+  local d=$((diff / 86400))
+  local h=$((diff % 86400 / 3600))
+  local m=$((diff % 3600 / 60))
+  # d は値がある時だけ付け、h/m は常に0埋め2桁で統一する (例: "7h05m", "3d07h05m")
+  if ((d > 0)); then
+    printf '%dd%02dh%02dm' "$d" "$h" "$m"
+  else
+    printf '%dh%02dm' "$h" "$m"
+  fi
+}
+
+fmt_at() {
+  local resets_at="$1" # unix seconds
+  [[ -z "$resets_at" ]] && { echo "?"; return; }
+  TZ=Asia/Tokyo date -d "@$resets_at" '+%m/%d(%a) %H:%M' 2>/dev/null ||
+    TZ=Asia/Tokyo date -r "$resets_at" '+%m/%d(%a) %H:%M' 2>/dev/null || echo '?'
+}
+
+bar() {
+  # 実際の使用率(pct)を濃い塗り█、経過時間の割合(elapsed_pct)を薄塗り░で表す。
+  # 同じマスでは█が░より優先して見える(実使用が経過時間を追い越している=ペースが速い)。
+  # █が░の範囲より短ければ、その分░だけが右に残る(=余裕がある)。
+  local pct="$1" elapsed_pct="$2" width=10
+  local filled=$((pct * width / 100))
+  local elapsed=$((elapsed_pct * width / 100))
+  ((filled > width)) && filled=$width; ((filled < 0)) && filled=0
+  ((elapsed > width)) && elapsed=$width; ((elapsed < 0)) && elapsed=0
+
+  local i out=""
+  for ((i = 0; i < width; i++)); do
+    if ((i < filled)); then
+      out+="█"
+    elif ((i < elapsed)); then
+      out+="░"
+    else
+      out+=" "
+    fi
+  done
+  printf '%s' "$out"
+}
+
+print_line() {
+  local label="$1" pct="$2" resets_at="$3" window_secs="$4"
+  pct=$(printf '%.0f' "$pct" 2>/dev/null || echo "$pct")
+
+  local elapsed_pct=""
+  if [[ -n "$resets_at" && -n "$window_secs" ]]; then
+    local remain=$((resets_at - now))
+    ((remain < 0)) && remain=0
+    ((remain > window_secs)) && remain=$window_secs
+    elapsed_pct=$(((window_secs - remain) * 100 / window_secs))
+  fi
+
+  # 色判定は使用率の絶対値ではなく、このペースを維持した場合の予測着地率で決める
+  # 予測着地率 = 使用率 ÷ 経過割合 × 100 (このペースのままリセットまで使い続けたら何%に達するか)
+  # <90%: 余裕(緑) / 90〜100%: オンペース(黄) / 100%超: このままだと枯渇する(赤)
+  # ウィンドウ開始直後(経過5%未満)は少し使っただけで予測が暴れるため判定を保留する
+  local color=$green elapsed_disp="  -"
+  if [[ -n "$elapsed_pct" ]]; then
+    elapsed_disp=$(printf '%3s%%' "$elapsed_pct")
+    if ((elapsed_pct >= 5)); then
+      local projected=$((pct * 100 / elapsed_pct))
+      if ((projected > 100)); then
+        color=$red
+      elif ((projected >= 90)); then
+        color=$yellow
+      else
+        color=$green
+      fi
+    fi
+  fi
+
+  printf '  %-6s [%s%s%s] %s%3s%%%s / %s%s%s  %sreset %s in %s%s\n' \
+    "$label" "$color" "$(bar "$pct" "${elapsed_pct:-0}")" "$reset" \
+    "$color" "$pct" "$reset" \
+    "$dim" "$elapsed_disp" "$reset" \
+    "$dim" "$(fmt_at "$resets_at")" "$(fmt_remain "$resets_at")" "$reset"
+}
+
+claude_usage() {
+  if [[ ! -f "$CC_LIMIT_STATE" ]]; then
+    echo "claude: $CC_LIMIT_STATE not found (limit-usage plugin 未導入?)" >&2
+    return
+  fi
+
+  local five seven five_reset seven_reset epoch
+  five=$(git config -f "$CC_LIMIT_STATE" global.used-5h 2>/dev/null) || true
+  seven=$(git config -f "$CC_LIMIT_STATE" global.used-7d 2>/dev/null) || true
+  five_reset=$(git config -f "$CC_LIMIT_STATE" global.reset-5h 2>/dev/null) || true
+  seven_reset=$(git config -f "$CC_LIMIT_STATE" global.reset-7d 2>/dev/null) || true
+  epoch=$(git config -f "$CC_LIMIT_STATE" global.epoch 2>/dev/null) || true
+
+  if [[ -z "$five" && -z "$seven" ]]; then
+    echo "claude: no snapshot yet (Claude Code を一度実行してください)" >&2
+    return
+  fi
+
+  local snapshot_at
+  snapshot_at=$(fmt_at "$epoch")
+  echo "${dim}claude${reset}  ${dim}(snapshot: $snapshot_at)${reset}"
+  [[ -n "$five" ]] && print_line "5h" "$five" "$five_reset" 18000
+  [[ -n "$seven" ]] && print_line "weekly" "$seven" "$seven_reset" 604800
+}
+
+codex_usage() {
+  local auth_file="$HOME/.codex/auth.json"
+  if [[ ! -f "$auth_file" ]]; then
+    echo "codex: $auth_file not found" >&2
+    return
+  fi
+
+  local token account_id
+  token=$(jq -r '.tokens.access_token // empty' "$auth_file")
+  account_id=$(jq -r '.tokens.account_id // empty' "$auth_file")
+
+  if [[ -z "$token" ]]; then
+    echo "codex: token not found" >&2
+    return
+  fi
+
+  local res status
+  res=$(curl -s -w '\n%{http_code}' https://chatgpt.com/backend-api/wham/usage \
+    -H "Authorization: Bearer $token" \
+    -H "ChatGPT-Account-Id: $account_id")
+  status="${res##*$'\n'}"
+  res="${res%$'\n'*}"
+
+  if [[ "$status" == "429" ]]; then
+    echo "codex: rate limited (429), しばらく待って再実行してください" >&2
+    return
+  elif [[ "$status" != "200" ]]; then
+    echo "codex: request failed (HTTP $status)" >&2
+    return
+  fi
+
+  echo "${dim}codex${reset}"
+  print_line "5h" \
+    "$(jq -r '.rate_limit.primary_window.used_percent' <<<"$res")" \
+    "$(jq -r '.rate_limit.primary_window.reset_at' <<<"$res")" \
+    "$(jq -r '.rate_limit.primary_window.limit_window_seconds' <<<"$res")"
+  print_line "weekly" \
+    "$(jq -r '.rate_limit.secondary_window.used_percent' <<<"$res")" \
+    "$(jq -r '.rate_limit.secondary_window.reset_at' <<<"$res")" \
+    "$(jq -r '.rate_limit.secondary_window.limit_window_seconds' <<<"$res")"
+}
+
+claude_usage
+echo
+codex_usage
