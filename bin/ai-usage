@@ -26,11 +26,13 @@ fmt_remain() {
   local d=$((diff / 86400))
   local h=$((diff % 86400 / 3600))
   local m=$((diff % 3600 / 60))
-  # d は値がある時だけ付け、h/m は常に0埋め2桁で統一する (例: "7h05m", "3d07h05m")
+  # 最大2単位までに絞って簡潔にする: 日以上は d+h、時間未満は h+m、分未満は m のみ
   if ((d > 0)); then
-    printf '%dd%02dh%02dm' "$d" "$h" "$m"
-  else
+    printf '%dd%02dh' "$d" "$h"
+  elif ((h > 0)); then
     printf '%dh%02dm' "$h" "$m"
+  else
+    printf '%dm' "$m"
   fi
 }
 
@@ -95,11 +97,14 @@ print_line() {
     fi
   fi
 
-  printf '  %-6s [%s%s%s] %s%3s%%%s / %s%s%s  %sreset %s in %s%s\n' \
+  printf '  %-6s [%s%s%s] %sused%s %s%3s%%%s / %s %selapsed \xc2\xb7%s reset at %s %sin %s%s\n' \
     "$label" "$color" "$(bar "$pct" "${elapsed_pct:-0}")" "$reset" \
+    "$dim" "$reset" \
     "$color" "$pct" "$reset" \
-    "$dim" "$elapsed_disp" "$reset" \
-    "$dim" "$(fmt_at "$resets_at")" "$(fmt_remain "$resets_at")" "$reset"
+    "$elapsed_disp" \
+    "$dim" "$reset" \
+    "$(fmt_at "$resets_at")" \
+    "$dim" "$(fmt_remain "$resets_at")" "$reset"
 }
 
 claude_usage() {
