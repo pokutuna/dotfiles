@@ -1,0 +1,110 @@
+# Git
+prefix_rule(
+    pattern=["git", ["add", "commit"]],
+    decision="allow",
+)
+prefix_rule(
+    pattern=["git", ["fetch", "pull"]],
+    decision="allow",
+)
+prefix_rule(
+    pattern=["git", ["rebase"]],
+    decision="allow",
+)
+
+# GitHub
+prefix_rule(
+    pattern=["gh", "issue", ["list", "view"]],
+    decision="allow",
+)
+prefix_rule(
+    pattern=["gh", "pr", ["diff", "list", "view"]],
+    decision="allow",
+)
+prefix_rule(
+    pattern=["gh", "release", ["list", "view"]],
+    decision="allow",
+)
+prefix_rule(
+    pattern=["gh", "repo", ["view"]],
+    decision="allow",
+)
+prefix_rule(
+    pattern=["gh", "run", ["list", "view"]],
+    decision="allow",
+)
+prefix_rule(
+    pattern=["gh", "search"],
+    decision="allow",
+)
+
+# Google Cloud / BigQuery
+prefix_rule(
+    pattern=["bq", ["ls", "show"]],
+    decision="allow",
+)
+prefix_rule(
+    pattern=["gcloud", "builds", "log"],
+    decision="allow",
+)
+prefix_rule(
+    pattern=["gcloud", "logging", "read"],
+    decision="allow",
+)
+
+# Python / Node.js
+prefix_rule(
+    pattern=[["npm", "pnpm"], "install"],
+    decision="allow",
+)
+prefix_rule(
+    pattern=[["npm", "pnpm"], "run", ["build", "dev", "format", "lint", "test", "tsc"]],
+    decision="allow",
+)
+prefix_rule(
+    pattern=["uv", "add"],
+    decision="allow",
+)
+prefix_rule(
+    pattern=["uv", "run", ["pytest", "ruff"]],
+    decision="allow",
+)
+prefix_rule(
+    pattern=["uv", "sync"],
+    decision="allow",
+)
+
+# Docker / HTTP
+prefix_rule(
+    pattern=[["docker"]],
+    decision="allow",
+)
+prefix_rule(
+    pattern=["curl"],
+    decision="allow",
+)
+
+# Other tools
+prefix_rule(
+    pattern=["docgen/skills/html/scripts/screenshot.sh"],
+    decision="allow",
+)
+prefix_rule(
+    pattern=["python3", "docgen/skills/html/scripts/bundle.py"],
+    decision="allow",
+)
+prefix_rule(
+    pattern=["mo"],
+    decision="allow",
+)
+prefix_rule(
+    pattern=["ssh", "-i", "/Users/pokutuna/.runpod/ssh/RunPod-Key-Go"],
+    decision="allow",
+)
+prefix_rule(
+    pattern=[
+        "python3",
+        "/Users/pokutuna/.claude/skills/fix-review/scripts/pr-context.py",
+    ],
+    decision="allow",
+)
