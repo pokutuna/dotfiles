@@ -55,6 +55,7 @@ dotfilesの `setup.sh` が `config/` 配下を自動で `~/.config/` にシン�
 
 取得し直したら、Caddyは古い証明書を読み込んだままなので **`caddy reload`（上記コマンド）または
 `brew services restart caddy` を忘れずに実行する**。
+`caddy reload` では反映されないことがあったため、反映されない場合は `brew services restart caddy` を使う。
 
 ## 動作確認
 
