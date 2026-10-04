@@ -534,72 +534,54 @@
                         "description": "Ghostty: Swap left_command and left_option (except Cmd+Tab)",
                         "manipulators": [
                             {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "com.mitchellh.ghostty"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
+                                "type": "basic",
                                 "from": {
                                     "key_code": "tab",
                                     "modifiers": { "mandatory": ["left_option"] }
                                 },
-                                "to": [
-                                    {
-                                        "key_code": "tab",
-                                        "modifiers": ["left_command"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
+                                "to": [{ "key_code": "tab", "modifiers": ["left_command"] }],
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": [
-                                            "com.mitchellh.ghostty"
-                                        ],
-                                        "type": "frontmost_application_if"
+                                        "type": "frontmost_application_if",
+                                        "bundle_identifiers": ["com.mitchellh.ghostty"]
                                     }
-                                ],
+                                ]
+                            },
+                            {
+                                "type": "basic",
                                 "from": {
                                     "key_code": "grave_accent_and_tilde",
                                     "modifiers": { "mandatory": ["left_option"] }
                                 },
-                                "to": [
-                                    {
-                                        "key_code": "grave_accent_and_tilde",
-                                        "modifiers": ["left_command"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
+                                "to": [{ "key_code": "grave_accent_and_tilde", "modifiers": ["left_command"] }],
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": [
-                                            "com.mitchellh.ghostty"
-                                        ],
-                                        "type": "frontmost_application_if"
+                                        "type": "frontmost_application_if",
+                                        "bundle_identifiers": ["com.mitchellh.ghostty"]
                                     }
-                                ],
+                                ]
+                            },
+                            {
+                                "type": "basic",
                                 "from": { "key_code": "left_command" },
                                 "to": [{ "key_code": "left_option" }],
-                                "type": "basic"
-                            },
-                            {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": [
-                                            "com.mitchellh.ghostty"
-                                        ],
-                                        "type": "frontmost_application_if"
+                                        "type": "frontmost_application_if",
+                                        "bundle_identifiers": ["com.mitchellh.ghostty"]
                                     }
-                                ],
+                                ]
+                            },
+                            {
+                                "type": "basic",
                                 "from": { "key_code": "left_option" },
                                 "to": [{ "key_code": "left_command" }],
-                                "type": "basic"
+                                "conditions": [
+                                    {
+                                        "type": "frontmost_application_if",
+                                        "bundle_identifiers": ["com.mitchellh.ghostty"]
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -659,23 +641,6 @@
                         "is_keyboard": true,
                         "product_id": 33,
                         "vendor_id": 1278
-                    },
-                    "simple_modifications": [
-                        {
-                            "from": { "key_code": "caps_lock" },
-                            "to": [{ "key_code": "left_control" }]
-                        },
-                        {
-                            "from": { "key_code": "left_control" },
-                            "to": [{ "key_code": "caps_lock" }]
-                        }
-                    ]
-                },
-                {
-                    "identifiers": {
-                        "is_keyboard": true,
-                        "product_id": 834,
-                        "vendor_id": 1452
                     },
                     "simple_modifications": [
                         {
