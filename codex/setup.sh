@@ -22,10 +22,8 @@ if command -v git >/dev/null 2>&1 && [ -d "${DOTFILES_PATH}/.git" ]; then
 fi
 
 ## .codex 直下の管理対象を個別 symlink ##
-## skills だけは別扱い (Codex の system skills と共存させるため下で個別 symlink)
 for file in $(ls "${CODEX_SRC}")
 do
-    [ "${file}" = "skills" ] && continue
     [ "${file}" = "setup.sh" ] && continue
     echo "codex/${file}"
     dst="${HOME_PATH}/.codex/${file}"
@@ -41,31 +39,37 @@ do
     ln -s "${CODEX_SRC}/${file}" "${dst}"
 done
 
-## .codex/skills は実体ディレクトリにして配下を個別 symlink ##
-## ~/.codex/skills/.system や plugin 由来の skill を温存する。
-SKILLS_DST="${HOME_PATH}/.codex/skills"
+## Codex の skill 置き場 ~/.agents/skills を用意する ##
+## Codex がユーザーレベルで読むのは ~/.agents/skills だけ (~/.codex/skills は旧配置)。
+## 実体ディレクトリにする: npx skills add -g が他人の skill をここに実体で置くので、
+## 丸ごと symlink にすると dotfiles リポジトリに紛れ込む。
+## 自前 skill の symlink は codex/sync-own-skills.sh が allowlist に沿って張る。
+AGENTS_DST="${HOME_PATH}/.agents"
 
-if [ -L "${SKILLS_DST}" ]; then
-    mv "${SKILLS_DST}" "${HOME_PATH}/.old_dotfiles/codex.skills"
+## 旧構成 (~/.agents を dotfiles/agents へ丸ごと symlink) なら外す。
+## リンク先が生きていれば退避し、dangling なら消す。
+if [ -L "${AGENTS_DST}" ]; then
+    if [ -e "${AGENTS_DST}" ]; then
+        mv "${AGENTS_DST}" "${HOME_PATH}/.old_dotfiles/.agents"
+    else
+        echo "remove dangling symlink ${AGENTS_DST}"
+        rm -f "${AGENTS_DST}"
+    fi
 fi
-mkdir -p "${SKILLS_DST}"
+mkdir -p "${AGENTS_DST}/skills"
 
-for skill in "${CODEX_SRC}"/skills/*/
-do
-    [ -d "${skill}" ] || continue
-    name=$(basename "${skill}")
-    echo "codex/skills/${name}"
-    rm -f "${SKILLS_DST}/${name}"
-    ln -s "${CODEX_SRC}/skills/${name}" "${SKILLS_DST}/${name}"
-done
+## 旧配置 ~/.codex/skills に残る claude/skills 向け symlink を掃除する。
+## ~/.agents/skills と二重に見えるため。Codex の .system や plugin 由来のものは残す。
+OLD_SKILLS_DST="${HOME_PATH}/.codex/skills"
+if [ -d "${OLD_SKILLS_DST}" ]; then
+    for link in "${OLD_SKILLS_DST}"/*
+    do
+        [ -L "${link}" ] || continue
+        case "$(readlink "${link}")" in
+            "${DOTFILES_PATH}/claude/skills/"*|"${CODEX_SRC}/skills/"*)
+                echo "remove legacy ${link}"; rm -f "${link}" ;;
+        esac
+    done
+fi
 
-## dotfiles 側から消えた自前 skill の古い symlink を掃除する。
-## Codex の .system や plugin 由来の symlink は残す。
-for link in "${SKILLS_DST}"/*
-do
-    [ -L "${link}" ] || continue
-    case "$(readlink "${link}")" in
-        "${CODEX_SRC}/skills/"*)
-            [ -e "${link}" ] || { echo "remove stale ${link}"; rm -f "${link}"; } ;;
-    esac
-done
+sh "${CODEX_SRC}/sync-own-skills.sh" "${HOME_PATH}" "${DOTFILES_PATH}"

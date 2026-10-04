@@ -10,13 +10,16 @@ service_tier = "default"
 
 [tui]
 notifications = true
-notification_method = "auto"
+notification_method = "bel"
 notification_condition = "always"
 
-notify = [
-  "/Users/pokutuna/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient",
-  "turn-ended",
-]
+screen_reader_detection_done = true
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+"gpt-5.6-sol" = 4
+gpt-6-astra = 4
+"gpt-6.1-sol" = 4
 
 [model_providers.litellm]
 name = "LiteLLM"
@@ -123,6 +126,9 @@ enabled = true
 [plugins."computer-use@openai-bundled"]
 enabled = true
 
+[plugins."code-review@openai-bundled"]
+enabled = true
+
 [plugins."cloud-logging@pokutuna-plugins"]
 enabled = true
 
@@ -142,6 +148,9 @@ enabled = true
 enabled = true
 
 [plugins."test-quality@pokutuna-plugins"]
+enabled = true
+
+[plugins."bunch@pokutuna-plugins"]
 enabled = true
 
 [marketplaces.openai-bundled]

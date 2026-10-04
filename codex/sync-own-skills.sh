@@ -1,8 +1,14 @@
 #!/bin/sh
 #
 # dotfiles 自前の skill (dotfiles/claude/skills/*) のうち、下の SKILLS に
-# 列挙したものだけを ~/.codex/skills/ に symlink する。
+# 列挙したものだけを ~/.agents/skills/ に symlink する。
 # symlink 先の実体をそのまま参照するので、dotfiles には symlink 自体を置かない。
+#
+# Codex がユーザーレベルで読む skill の置き場は ~/.agents/skills (~/.codex/skills
+# は旧配置)。Claude Code は ~/.agents/skills を読まないので、Claude 向けは
+# claude/setup.sh が別に ~/.claude/skills へ symlink する。
+# ~/.agents/skills には npx skills add -g が他人の skill を実体で置くので、
+# ここでは自前 skill 向けの symlink だけを触る。
 #
 # 有効にする skill を増減させたいときは SKILLS の行をコメントアウト/追記して
 # 再実行する。コメントアウトしたものの symlink は次回実行時に削除される。
@@ -52,7 +58,7 @@ HOME_PATH=${1:-$HOME}
 DOTFILES_PATH=${2:-$(dirname -- "${SCRIPT_DIR}")}
 
 OWN_SKILLS_DIR="${DOTFILES_PATH}/claude/skills"
-SKILLS_DST="${HOME_PATH}/.codex/skills"
+SKILLS_DST="${HOME_PATH}/.agents/skills"
 
 WANTED=$(echo "${SKILLS}" | sed 's/#.*//' | tr -d ' \t' | grep -v '^$' || true)
 

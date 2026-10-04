@@ -24,6 +24,9 @@ difit
 google-style-guide
 things-app
 uv-features
+docgen
+test-quality
+bunch
 # actions-ubuntu-slim-migration
 # codex                 # Codex から Codex CLI を呼んでもセカンドオピニオンにならない
 # github-copilot
