@@ -152,7 +152,18 @@
       "/Users/pokutuna/ghq/github.com/pokutuna/coding-instructions"
     ]
   },
-  "model": "opus[1m]",
+  "model": "opus",
+  "skillOverrides": {
+    "claude-api": "user-invocable-only",
+    "code-review": "user-invocable-only",
+    "dataviz": "user-invocable-only",
+    "design": "user-invocable-only",
+    "fewer-permission-prompts": "user-invocable-only",
+    "keybindings-help": "user-invocable-only",
+    "security-review": "user-invocable-only",
+    "simplify": "user-invocable-only",
+    "update-config": "user-invocable-only"
+  },
   "hooks": {
     "PreToolUse": [
       {
@@ -198,17 +209,6 @@
     "command": "/Users/pokutuna/.claude/plugins/data/limit-usage-pokutuna-plugins/statusline-wrapper.sh '~/.claude/statusline.ts'",
     "padding": 0
   },
-  "skillOverrides": {
-    "claude-api": "user-invocable-only",
-    "code-review": "user-invocable-only",
-    "dataviz": "user-invocable-only",
-    "design": "user-invocable-only",
-    "fewer-permission-prompts": "user-invocable-only",
-    "keybindings-help": "user-invocable-only",
-    "security-review": "user-invocable-only",
-    "simplify": "user-invocable-only",
-    "update-config": "user-invocable-only"
-  },
   "enabledPlugins": {
     "actions-ubuntu-slim-migration@pokutuna-plugins": false,
     "allow-until@pokutuna-plugins": true,
@@ -230,7 +230,6 @@
     "things-app@pokutuna-plugins": true,
     "toggle-plugin@pokutuna-plugins": false,
     "octave-notification@pokutuna-plugins": true,
-    "github-copilot@pokutuna-plugins": false,
     "zoom@pokutuna-plugins": false,
     "pushover-notify@pokutuna-plugins": true,
     "figma@claude-plugins-official": false,
@@ -242,7 +241,10 @@
     "google-style-guide@pokutuna-plugins": true,
     "runbook@pokutuna-plugins": true,
     "docgen@pokutuna-plugins": true,
-    "x-research@pokutuna-plugins": false
+    "x-research@pokutuna-plugins": false,
+    "progressive-outlining@pokutuna-plugins": true,
+    "test-quality@pokutuna-plugins": true,
+    "bunch@pokutuna-plugins": true
   },
   "extraKnownMarketplaces": {
     "pokutuna-plugins": {
@@ -279,9 +281,23 @@
     },
     "claude-fable-5-1": {
       "effortLevel": "medium"
+    },
+    "claude-sonnet-5-5": {
+      "effortLevel": "xhigh"
+    },
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  },
+  "pluginConfigs": {
+    "agents-md@builtin": {
+      "options": {
+        "instructionFiles": "claude-md-and-agents-md"
+      }
     }
   },
   "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true,
   "skipWorkflowUsageWarning": true,
   "verbose": true,
   "preferredNotifChannel": "terminal_bell",
