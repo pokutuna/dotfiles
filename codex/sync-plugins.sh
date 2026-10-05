@@ -27,6 +27,7 @@ uv-features
 docgen
 test-quality
 bunch
+polish
 # actions-ubuntu-slim-migration
 # codex                 # Codex から Codex CLI を呼んでもセカンドオピニオンにならない
 # github-copilot

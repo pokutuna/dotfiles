@@ -39,8 +39,6 @@ handover
 # memory-cleaner
 mo-it
 offload-subagent
-remove-artifact-noise
-remove-slops
 task-interview
 # teach-me
 LIST

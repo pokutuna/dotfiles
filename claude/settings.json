@@ -244,7 +244,8 @@
     "x-research@pokutuna-plugins": false,
     "progressive-outlining@pokutuna-plugins": true,
     "test-quality@pokutuna-plugins": true,
-    "bunch@pokutuna-plugins": true
+    "bunch@pokutuna-plugins": true,
+    "polish@pokutuna-plugins": true
   },
   "extraKnownMarketplaces": {
     "pokutuna-plugins": {
