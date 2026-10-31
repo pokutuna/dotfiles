@@ -1,3 +1,12 @@
 {
-  "tui.editor.deleteCharBackward": ["backspace", "ctrl+h"]
+  "$schema": "https://pi.dev/schemas/keybindings.schema.json",
+  "tui.editor.deleteCharBackward": ["backspace", "ctrl+h"],
+  "tui.editor.cursorUp": ["up", "ctrl+p"],
+  "tui.editor.cursorDown": ["down", "ctrl+n"],
+  "tui.editor.undo": ["ctrl+-", "ctrl+_"],
+  "tui.input.newLine": ["shift+enter", "alt+enter", "ctrl+j"],
+  "app.model.cycleForward": [],
+  "app.model.cycleBackward": [],
+  "app.model.select": ["ctrl+l", "alt+p"],
+  "app.message.followUp": "ctrl+q"
 }
