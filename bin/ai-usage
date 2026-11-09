@@ -2,14 +2,14 @@
 # Claude Code / Codex CLI の残り usage limit (5h window, weekly window) を表示する
 #
 # claude: 非公式 API `/api/oauth/usage` は 429 で使えないため、limit-usage
-# プラグイン (statusline-wrapper.sh) が Claude Code 実行のたびに statusline
-# hook 経由で書き出しているキャッシュを読む。そのため値は直近の Claude Code
-# 実行時点のスナップショットであり、プラグイン未導入の環境では claude 側の
-# 表示はスキップされる。
+# プラグインが使用率の変わるたびに書き出すスナップショット (JSON) を読む。
+# そのため値は直近の Claude Code 実行時点のものであり、プラグイン未導入の
+# 環境では claude 側の表示はスキップされる。
 # codex: 非公式 API を直叩きして取得するため、上記の制約とは無関係に動く。
 set -euo pipefail
 
-CC_LIMIT_STATE="${XDG_STATE_HOME:-$HOME/.local/state}/cc-limit-usage.conf"
+CC_LIMIT_STATE="${XDG_STATE_HOME:-$HOME/.local/state}/cc-limit-usage.json"
+CC_LIMIT_SCHEMA=1
 
 now=$(date +%s)
 
@@ -113,12 +113,18 @@ claude_usage() {
     return
   fi
 
-  local five seven five_reset seven_reset epoch
-  five=$(git config -f "$CC_LIMIT_STATE" global.used-5h 2>/dev/null) || true
-  seven=$(git config -f "$CC_LIMIT_STATE" global.used-7d 2>/dev/null) || true
-  five_reset=$(git config -f "$CC_LIMIT_STATE" global.reset-5h 2>/dev/null) || true
-  seven_reset=$(git config -f "$CC_LIMIT_STATE" global.reset-7d 2>/dev/null) || true
-  epoch=$(git config -f "$CC_LIMIT_STATE" global.epoch 2>/dev/null) || true
+  # 読めない内容や未知の schema は値なしとして扱う
+  local five="" seven="" five_reset="" seven_reset="" epoch="" fields
+  fields=$(jq -r --argjson schema "$CC_LIMIT_SCHEMA" '
+    select(.schema == $schema) |
+    def window($k): (.rateLimits[]? | select(.kind == $k)) // {};
+    def secs: if type == "string" then (sub("\\.[0-9]+"; "") | fromdateiso8601) else "" end;
+    [ (window("five_hour").percentUsed // ""), (window("five_hour").resetsAt | secs),
+      (window("seven_day").percentUsed // ""), (window("seven_day").resetsAt | secs),
+      (.epoch // "") ] | map(tostring) | join("|")
+  ' "$CC_LIMIT_STATE" 2>/dev/null) || true
+  # TAB は空白扱いで空欄が詰められるため、空白でない区切りを使う
+  [[ -n "$fields" ]] && IFS='|' read -r five five_reset seven seven_reset epoch <<<"$fields"
 
   if [[ -z "$five" && -z "$seven" ]]; then
     echo "claude: no snapshot yet (Claude Code を一度実行してください)" >&2

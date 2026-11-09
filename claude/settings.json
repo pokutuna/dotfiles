@@ -206,7 +206,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "/Users/pokutuna/.claude/plugins/data/limit-usage-pokutuna-plugins/statusline-wrapper.sh '~/.claude/statusline.ts'",
+    "command": "~/.claude/statusline.ts",
     "padding": 0
   },
   "enabledPlugins": {
