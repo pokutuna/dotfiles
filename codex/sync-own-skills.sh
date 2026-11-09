@@ -25,7 +25,6 @@ SKILLS=$(cat <<'LIST'
 browser-context
 commit
 create-pr
-deepwiki
 design-doc
 # disk-cleanup
 # empirical-prompt-tuning
@@ -40,7 +39,6 @@ handover
 mo-it
 offload-subagent
 task-interview
-# teach-me
 LIST
 )
 
