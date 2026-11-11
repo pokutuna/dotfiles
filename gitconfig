@@ -81,3 +81,6 @@ conflictStyle = zdiff3
 	basedir = ../{gitroot}-wt
 	# worktree 削除前に compose のイメージ/volume/network を回収する (~/bin)
 	deletehook = wt-compose-cleanup
+	copy = **/.claude/settings.local.json
+	copy = **/.claude/hooks/
+	copy = **/.claude/skills/

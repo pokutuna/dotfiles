@@ -54,7 +54,7 @@ prefix_rule(
 
 # Python / Node.js
 prefix_rule(
-    pattern=[["npm", "pnpm"], "install"],
+    pattern=[["npm", "pnpm"], ["install", "audit"]],
     decision="allow",
 )
 prefix_rule(
@@ -108,3 +108,4 @@ prefix_rule(
     ],
     decision="allow",
 )
+prefix_rule(pattern=["playwright-cli"], decision="allow")

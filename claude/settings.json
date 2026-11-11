@@ -245,14 +245,16 @@
     "progressive-outlining@pokutuna-plugins": true,
     "test-quality@pokutuna-plugins": true,
     "bunch@pokutuna-plugins": true,
-    "polish@pokutuna-plugins": true
+    "polish@pokutuna-plugins": true,
+    "ui-writing@pokutuna-plugins": true
   },
   "extraKnownMarketplaces": {
     "pokutuna-plugins": {
       "source": {
         "source": "git",
         "url": "https://github.com/pokutuna/claude-plugins.git"
-      }
+      },
+      "autoUpdate": true
     }
   },
   "sandbox": {
@@ -288,6 +290,9 @@
     },
     "claude-opus-5-5": {
       "effortLevel": "high"
+    },
+    "claude-fable-5-2": {
+      "effortLevel": "medium"
     }
   },
   "pluginConfigs": {

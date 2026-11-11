@@ -41,10 +41,12 @@ sh "${DOTFILES_PATH}/codex/setup.sh" "${HOME_PATH}" "${DOTFILES_PATH}"
 ## .pi ##
 sh "${DOTFILES_PATH}/pi/setup.sh" "${HOME_PATH}" "${DOTFILES_PATH}"
 
-## .agents ##
-echo "agents"
-mv ${HOME_PATH}/.agents ${HOME_PATH}/.old_dotfiles/.agents 2>/dev/null
-ln -s ${DOTFILES_PATH}/agents ${HOME_PATH}/.agents
+## .config/herdr ##
+## ログ・ソケット・session.json が同居するのでディレクトリごとは張らない。
+## (config/ 配下に置くと上のループがディレクトリごと symlink してしまうため直下に置く)
+echo "herdr/config.toml"
+mv ${HOME_PATH}/.config/herdr/config.toml ${HOME_PATH}/.old_dotfiles/herdr.config.toml 2>/dev/null
+ln -s ${DOTFILES_PATH}/herdr/config.toml ${HOME_PATH}/.config/herdr/config.toml
 
 ## .bunfig.toml ##
 echo "bunfig.toml"

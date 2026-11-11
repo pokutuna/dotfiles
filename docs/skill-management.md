@@ -1,4 +1,4 @@
-# Claude Code Skill 管理方針
+# Claude Code / Codex Skill 管理方針
 
 ## 運用
 
