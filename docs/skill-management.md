@@ -5,10 +5,13 @@
 | 使う範囲 | 置き場 | 有効/無効 |
 |---|---|---|
 | 特定のプロジェクトだけ | そのプロジェクト内 (dotfiles では管理しない) | — |
-| ほぼ全プロジェクト (commit, PR 作成など) | global | 常に有効 |
-| 一部のプロジェクト (runpod, hydra など) | global | 既定で無効、使うリポジトリの `.claude/settings.json` で有効に上書き |
+| ほぼ全プロジェクト | global | 常に有効 |
+| 一部のプロジェクト | global | 既定で無効、使うリポジトリの `.claude/settings.json` で有効に上書き |
+| 共有リポジトリで自分だけ | global | 既定で無効、`.claude/settings.local.json` で有効に上書き |
 
-リポジトリ側の上書きはコミットする `.claude/settings.json` に書く (例: PARC2026-pre)。
+- リポジトリ側の上書きはコミットする `.claude/settings.json` に書く。
+- 自分だけの上書きはコミットしない `.claude/settings.local.json` に書く。
+- local は `.claude/settings.json` より優先されるので、共有の設定で有効になっている skill や plugin を自分だけ無効にするのにも使える。skill は `skillOverrides` で `"off"`、plugin は `enabledPlugins` で `false` (`claude plugin disable <id> -s local` でも書ける)。
 
 ## エージェントごとの違い
 
@@ -22,6 +25,7 @@ Codex と pi は `~/.agents/skills` を読む仲間で、置き場は共通。Cl
 | `npx skills -a` | `claude-code` | `codex` | `pi` |
 | skill 単位の無効化 | `skillOverrides` に `"off"` | `codex/config.toml` の `[[skills.config]]` に `name` と `enabled = false` | settings の `skills` に `-<path>` か `!<pattern>`、または `pi config` |
 | プロジェクトでの上書き | `.claude/settings.json` (確認済み) | `.codex/config.toml` (未確認) | `pi config --local` (未確認) |
+| 自分だけの上書き | `.claude/settings.local.json` | 未確認 | 未確認 |
 | plugin / package | `enabledPlugins` で true/false | `codex/sync-plugins.sh` で Codex plugin として入れる | settings の `packages` (今は使っていない) |
 
 ## 種類ごとのやり方
