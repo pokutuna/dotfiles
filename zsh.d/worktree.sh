@@ -33,19 +33,30 @@ wt() {
         [[ "$arg" == "-d" || "$arg" == "-D" || "$arg" == --delete* ]] && is_delete=1
     done
 
+    # 選択モード (名前指定なし) では、現在の worktree (行頭 *) にカーソルを合わせて fzf を開く
+    local list
+    local -a opts=()
+    if (( ${#positional[@]} == 0 )); then
+        list=$(git wt | tail -n +2)
+        if [[ "${FILTER:-fzf}" == fzf ]]; then
+            local pos=$(awk '/^\*/ {print NR; exit}' <<<"$list")
+            [[ -n "$pos" ]] && opts=(--bind "load:pos($pos)")
+        fi
+    fi
+
     if (( is_delete )); then
         if (( ${#positional[@]} > 0 )); then
             git wt "${flags[@]}" "${positional[@]}"
             return
         fi
         # git wt -d/-D は複数名を受けられるので、fzf の複数選択をそのまま渡す
-        local -a selected=("${(@f)$(git wt | tail -n +2 | ${FILTER:-fzf} --multi | awk '{print $(NF-1)}')}")
+        local -a selected=("${(@f)$(print -r -- "$list" | ${FILTER:-fzf} --multi "${opts[@]}" | awk '{print $(NF-1)}')}")
         [[ -n "${selected[1]}" ]] && git wt "${flags[@]}" "${selected[@]}"
         return
     fi
 
     if (( ${#positional[@]} == 0 )); then
-        local selected=$(git wt | tail -n +2 | ${FILTER:-fzf} | awk '{print $(NF-1)}')
+        local selected=$(print -r -- "$list" | ${FILTER:-fzf} "${opts[@]}" | awk '{print $(NF-1)}')
         [[ -n "$selected" ]] && git wt "${flags[@]}" "$selected"
         return
     fi
