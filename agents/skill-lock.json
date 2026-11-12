@@ -1,0 +1,35 @@
+{
+  "version": 3,
+  "skills": {
+    "modern-web-guidance": {
+      "source": "GoogleChrome/modern-web-guidance",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/GoogleChrome/modern-web-guidance.git",
+      "ref": "next",
+      "skillPath": "skills/modern-web-guidance/SKILL.md",
+      "skillFolderHash": "a0138a5697207e165602a896bdd6cd82535b1c24",
+      "installedAt": "2026-11-11T22:45:10.581Z",
+      "updatedAt": "2026-11-11T22:45:10.581Z"
+    }
+  },
+  "dismissed": {
+    "findSkillsPrompt": true
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "cline",
+    "codex",
+    "cursor",
+    "droid",
+    "fx",
+    "gemini-cli",
+    "github-copilot",
+    "kilo",
+    "kimi-code-cli",
+    "opencode",
+    "pi",
+    "warp",
+    "zed",
+    "claude-code"
+  ]
+}

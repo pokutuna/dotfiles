@@ -38,6 +38,9 @@ sh "${DOTFILES_PATH}/claude/setup.sh" "${HOME_PATH}" "${DOTFILES_PATH}"
 ## .codex ##
 sh "${DOTFILES_PATH}/codex/setup.sh" "${HOME_PATH}" "${DOTFILES_PATH}"
 
+## .agents (npx skills の lock) ##
+sh "${DOTFILES_PATH}/agents/setup.sh" "${HOME_PATH}" "${DOTFILES_PATH}"
+
 ## .pi ##
 sh "${DOTFILES_PATH}/pi/setup.sh" "${HOME_PATH}" "${DOTFILES_PATH}"
 
