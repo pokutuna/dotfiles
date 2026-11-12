@@ -2,16 +2,13 @@
 
 ## 使う範囲で扱いを分ける
 
-| 使う範囲 | 置き場 | 有効/無効 |
-|---|---|---|
-| 特定のプロジェクトだけ | そのプロジェクト内 (dotfiles では管理しない) | — |
-| ほぼ全プロジェクト | global | 常に有効 |
-| 一部のプロジェクト | global | 既定で無効、使うリポジトリの `.claude/settings.json` で有効に上書き |
-| 共有リポジトリで自分だけ | global | 既定で無効、`.claude/settings.local.json` で有効に上書き |
+| 使う範囲 | 置き場 | 有効/無効 | 例 |
+|---|---|---|---|
+| ほぼ全プロジェクト | global | 常に有効 | `/commit`, `/create-pr` |
+| 一部のプロジェクト | global | global で無効<br>使うリポジトリの `.claude/settings.json` で有効 | `runpod`, `hydra-experiment` |
+| 特定のプロジェクトだけ | project | dotfiles では管理しない | `plugin-dev` |
+| 共有リポジトリで自分だけ | local | `.claude/settings.local.json` で有効/無効 | `jupyter` |
 
-- リポジトリ側の上書きはコミットする `.claude/settings.json` に書く。
-- 自分だけの上書きはコミットしない `.claude/settings.local.json` に書く。
-- local は `.claude/settings.json` より優先されるので、共有の設定で有効になっている skill や plugin を自分だけ無効にするのにも使える。skill は `skillOverrides` で `"off"`、plugin は `enabledPlugins` で `false` (`claude plugin disable <id> -s local` でも書ける)。
 
 ## エージェントごとの違い
 
