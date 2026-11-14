@@ -134,7 +134,11 @@
       "WebSearch"
     ],
     "deny": [
-      "Bash(rm -rf *)",
+      "Bash(rm *.ssh*)",
+      "Bash(rm *.gnupg*)",
+      "Bash(rm *.git)",
+      "Bash(rm *.git/*)",
+      "Bash(rm *.git *)",
       "Edit(//etc/**)",
       "Edit(~/.ssh/**)"
     ],
@@ -143,7 +147,6 @@
       "Bash(gh issue comment *)",
       "Bash(gh issue create *)",
       "Bash(gh pr comment *)",
-      "Bash(rm *)",
       "mcp__ide__executeCode",
       "mcp__serena__execute_shell_command"
     ],
@@ -172,6 +175,10 @@
           {
             "type": "command",
             "command": "~/.claude/hooks/block-find-root.sh"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/rm-guard.sh || printf '%s\\n' '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"permissionDecision\":\"ask\",\"permissionDecisionReason\":\"rm-guard で判定できない (エラーまたは 5 秒超過) ため確認する\"}}'"
           }
         ]
       }
