@@ -1,15 +1,11 @@
 #!/usr/bin/env bash
 # Claude Code / Codex CLI の残り usage limit (5h window, weekly window) を表示する
 #
-# claude: 非公式 API `/api/oauth/usage` は 429 で使えないため、limit-usage
-# プラグインが使用率の変わるたびに書き出すスナップショット (JSON) を読む。
-# そのため値は直近の Claude Code 実行時点のものであり、プラグイン未導入の
-# 環境では claude 側の表示はスキップされる。
-# codex: 非公式 API を直叩きして取得するため、上記の制約とは無関係に動く。
+# claude: `claude -p /usage --output-format json` の usage_report を読む。
+# /usage は CLI 内で完結しモデルへのリクエストは発生しないため、usage を消費しない。
+# 値は CLI でログインしているアカウントの、呼んだ時点のもの。
+# codex: 非公式 API を直叩きして取得する。
 set -euo pipefail
-
-CC_LIMIT_STATE="${XDG_STATE_HOME:-$HOME/.local/state}/cc-limit-usage.json"
-CC_LIMIT_SCHEMA=1
 
 now=$(date +%s)
 
@@ -97,7 +93,7 @@ print_line() {
     fi
   fi
 
-  printf '  %-6s [%s%s%s] %sused%s %s%3s%%%s / %s %selapsed \xc2\xb7%s reset at %s %sin %s%s\n' \
+  printf '  %-12s [%s%s%s] %sused%s %s%3s%%%s / %s %selapsed \xc2\xb7%s reset at %s %sin %s%s\n' \
     "$label" "$color" "$(bar "$pct" "${elapsed_pct:-0}")" "$reset" \
     "$dim" "$reset" \
     "$color" "$pct" "$reset" \
@@ -108,34 +104,41 @@ print_line() {
 }
 
 claude_usage() {
-  if [[ ! -f "$CC_LIMIT_STATE" ]]; then
-    echo "claude: $CC_LIMIT_STATE not found (limit-usage plugin 未導入?)" >&2
+  if ! command -v claude >/dev/null; then
+    echo "claude: claude command not found" >&2
     return
   fi
 
-  # 読めない内容や未知の schema は値なしとして扱う
-  local five="" seven="" five_reset="" seven_reset="" epoch="" fields
-  fields=$(jq -r --argjson schema "$CC_LIMIT_SCHEMA" '
-    select(.schema == $schema) |
-    def window($k): (.rateLimits[]? | select(.kind == $k)) // {};
-    def secs: if type == "string" then (sub("\\.[0-9]+"; "") | fromdateiso8601) else "" end;
-    [ (window("five_hour").percentUsed // ""), (window("five_hour").resetsAt | secs),
-      (window("seven_day").percentUsed // ""), (window("seven_day").resetsAt | secs),
-      (.epoch // "") ] | map(tostring) | join("|")
-  ' "$CC_LIMIT_STATE" 2>/dev/null) || true
+  # usage_report は公開されていない形式のため、読めなければ値なしとして扱う
+  # 起動を軽くするため、会話ログを残さず、MCP サーバーにも接続せず、settings (plugin, hook) も読まない
+  # --bare は keychain を読まずログインできず、--disable-slash-commands は /usage ごと無効になるため使えない
+  # CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC も、usage_report の rate_limits が空になるため使えない
+  local json rows
+  json=$(claude -p /usage --output-format json --no-session-persistence --strict-mcp-config --setting-sources= </dev/null 2>/dev/null) || true
+  # resets_at は "2026-11-16T10:59:59.591255+00:00" の形で、fromdateiso8601 は小数秒と +00:00 を読めない
+  rows=$(jq -r '
+    def secs: try (sub("\\.[0-9]+"; "") | sub("\\+00:00$"; "Z") | fromdateiso8601) catch "";
+    ([.[]? | .usage_report?.rate_limits?.limits? // empty] | first // []) | .[] |
+    ( if .kind == "session" then ["5h", 18000]
+      elif .kind == "weekly_all" then ["weekly", 604800]
+      elif .kind == "weekly_scoped" then ["weekly/" + (.scope.model.display_name // "?"), 604800]
+      else empty end ) as [$name, $window] |
+    [$name, (.percent // ""), (.resets_at | secs), $window] | map(tostring) | join("|")
+  ' <<<"$json" 2>/dev/null) || true
+
+  if [[ -z "$rows" ]]; then
+    echo "claude: usage を取得できませんでした (claude -p /usage の出力形式が変わった?)" >&2
+    return
+  fi
+
+  echo "${dim}claude${reset}"
   # TAB は空白扱いで空欄が詰められるため、空白でない区切りを使う
-  [[ -n "$fields" ]] && IFS='|' read -r five five_reset seven seven_reset epoch <<<"$fields"
-
-  if [[ -z "$five" && -z "$seven" ]]; then
-    echo "claude: no snapshot yet (Claude Code を一度実行してください)" >&2
-    return
-  fi
-
-  local snapshot_at
-  snapshot_at=$(fmt_at "$epoch")
-  echo "${dim}claude${reset}  ${dim}(snapshot: $snapshot_at)${reset}"
-  [[ -n "$five" ]] && print_line "5h" "$five" "$five_reset" 18000
-  [[ -n "$seven" ]] && print_line "weekly" "$seven" "$seven_reset" 604800
+  local label pct resets_at window
+  while IFS='|' read -r label pct resets_at window; do
+    if [[ -n "$pct" ]]; then
+      print_line "$label" "$pct" "$resets_at" "$window"
+    fi
+  done <<<"$rows"
 }
 
 codex_usage() {
@@ -180,8 +183,15 @@ codex_usage() {
     "$(jq -r '.rate_limit.secondary_window.limit_window_seconds' <<<"$res")"
 }
 
+# claude の取得は数秒かかるため、両方を並列に取得してから順に表示する
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+claude_usage >"$tmp/claude.out" 2>"$tmp/claude.err" &
+codex_usage >"$tmp/codex.out" 2>"$tmp/codex.err" &
+wait
+
 echo "${dim}$(TZ=Asia/Tokyo date '+%Y-%m-%d(%a) %H:%M:%S')${reset}"
 echo
-claude_usage
+cat "$tmp/claude.out"; cat "$tmp/claude.err" >&2
 echo
-codex_usage
+cat "$tmp/codex.out"; cat "$tmp/codex.err" >&2
