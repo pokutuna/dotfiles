@@ -5,8 +5,30 @@
 #       -f: フルパス, -h: 明示的にホーム相対
 # 複数のパスは改行区切りでコピーする
 pwdc() {
-  local -a o_full o_home o_select targets outs preview
-  zparseopts -D -E f=o_full h=o_home s=o_select || return 1
+  local -a o_full o_home o_select o_help targets outs preview
+  zparseopts -D -E f=o_full h=o_home s=o_select -help=o_help || return 1
+
+  if (( $#o_help )); then
+    cat <<'EOF'
+Usage: pwdc [-f | -h] [-s] [path...]
+
+パスをクリップボードにコピーする。複数のパスは改行区切りでコピーする。
+
+対象:
+  (なし)    カレントディレクトリ
+  path...   指定したパス
+  -s        fd + fzf でファイルを選択 (TAB で複数選択)
+            path を指定するとそのディレクトリ以下から探す
+            $FILTER で fzf 以外のフィルタを使える
+
+書式:
+  (なし)    git リポジトリ内はリポジトリルートからの相対、それ以外は ~ 表記
+  -f        フルパス
+  -h        ~ 表記のホーム相対
+  --help    このヘルプを表示
+EOF
+    return 0
+  fi
 
   if (( $#o_select )); then
     command -v bat > /dev/null && preview=(--preview 'bat --color=always --style=plain {}')
