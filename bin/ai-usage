@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Claude Code / Codex CLI の残り usage limit (5h window, weekly window) を表示する
 #
-# claude: `claude -p /usage --output-format json` の usage_report を読む。
-# /usage は CLI 内で完結しモデルへのリクエストは発生しないため、usage を消費しない。
+# claude: `claude -p` に stream-json で get_usage control request を送り、応答の rate_limits を読む。
+# CLI 内で完結しモデルへのリクエストは発生しないため、usage を消費しない。
 # 値は CLI でログインしているアカウントの、呼んだ時点のもの。
 # codex: 非公式 API を直叩きして取得する。
 set -euo pipefail
@@ -109,16 +109,21 @@ claude_usage() {
     return
   fi
 
-  # usage_report は公開されていない形式のため、読めなければ値なしとして扱う
+  # SDK 用の control request `get_usage` を stream-json で送る。ユーザーメッセージは送らない。
+  # `claude -p /usage` は過去の会話ログを走査して使用傾向も集計するため数秒余計にかかる。
+  # skip_behaviors でその集計を飛ばし、plan の rate limits だけを取得する。
+  # 応答は公開されていない形式のため、読めなければ値なしとして扱う
   # 起動を軽くするため、会話ログを残さず、MCP サーバーにも接続せず、settings (plugin, hook) も読まない
-  # --bare は keychain を読まずログインできず、--disable-slash-commands は /usage ごと無効になるため使えない
-  # CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC も、usage_report の rate_limits が空になるため使えない
+  # --bare は keychain を読まずログインできないため使えない
+  # CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC も、rate_limits が空になるため使えない
   local json rows
-  json=$(claude -p /usage --output-format json --no-session-persistence --strict-mcp-config --setting-sources= </dev/null 2>/dev/null) || true
+  json=$(echo '{"type":"control_request","request_id":"ai-usage","request":{"subtype":"get_usage","skip_behaviors":true}}' |
+    claude -p --input-format stream-json --output-format stream-json --verbose \
+      --no-session-persistence --strict-mcp-config --setting-sources= 2>/dev/null) || true
   # resets_at は "2026-11-16T10:59:59.591255+00:00" の形で、fromdateiso8601 は小数秒と +00:00 を読めない
-  rows=$(jq -r '
+  rows=$(jq -rn '
     def secs: try (sub("\\.[0-9]+"; "") | sub("\\+00:00$"; "Z") | fromdateiso8601) catch "";
-    ([.[]? | .usage_report?.rate_limits?.limits? // empty] | first // []) | .[] |
+    ([inputs | select(.type? == "control_response") | .response?.response?.rate_limits?.limits? // empty] | first // []) | .[] |
     ( if .kind == "session" then ["5h", 18000]
       elif .kind == "weekly_all" then ["weekly", 604800]
       elif .kind == "weekly_scoped" then ["weekly/" + (.scope.model.display_name // "?"), 604800]
@@ -127,7 +132,7 @@ claude_usage() {
   ' <<<"$json" 2>/dev/null) || true
 
   if [[ -z "$rows" ]]; then
-    echo "claude: usage を取得できませんでした (claude -p /usage の出力形式が変わった?)" >&2
+    echo "claude: usage を取得できませんでした (get_usage の応答形式が変わった?)" >&2
     return
   fi
 
