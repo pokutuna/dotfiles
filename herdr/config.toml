@@ -1,0 +1,26 @@
+# herdr configuration
+# 全項目は `herdr --default-config` で確認する。ここには既定値から変えたいものだけ書く。
+
+# 初回のオンボーディングは済ませたので出さない。
+onboarding = false
+
+[keys]
+# prefix は ctrl+q。
+# ctrl+b は backward-char、tmux は C-t を使っているのでどちらも避ける。
+# zshrc の `stty -ixon -ixoff` で flow control を切ってあるので ^Q が端末に届く。
+prefix = "ctrl+q"
+
+[ui]
+# エージェントを space ごとではなく、手を入れる必要がある順に並べる。
+agent_panel_sort = "priority"
+
+[experimental]
+# prefix 中だけ ASCII 入力に切り替える。
+# Google 日本語入力がオンのまま prefix キーを押すと取りこぼす問題を回避する。
+switch_ascii_input_source_in_prefix = true
+
+# TUI が自前でカーソルを描くと Google 日本語入力の候補ウィンドウが追従しなくなるので、
+# フォーカス中のペインのカーソルを外側のターミナルに見せる。
+# 副作用として vim の normal mode などカーソルを隠すアプリで余分なカーソルが見える。
+reveal_hidden_cursor_for_cjk_ime = true
+cjk_ime_agents = ["claude", "codex", "pi"]
