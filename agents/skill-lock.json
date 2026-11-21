@@ -10,6 +10,34 @@
       "skillFolderHash": "a0138a5697207e165602a896bdd6cd82535b1c24",
       "installedAt": "2026-11-11T22:45:10.581Z",
       "updatedAt": "2026-11-11T22:45:10.581Z"
+    },
+    "playwright-cli": {
+      "source": "microsoft/playwright-cli",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/microsoft/playwright-cli.git",
+      "skillPath": "skills/playwright-cli/SKILL.md",
+      "skillFolderHash": "cc70f6e5f0cf42b82d3f72f6f1c3a4134694d518",
+      "installedAt": "2026-11-12T16:42:44.734Z",
+      "updatedAt": "2026-11-12T16:42:44.734Z"
+    },
+    "colab-operator": {
+      "source": "googlecolab/google-colab-cli",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/googlecolab/google-colab-cli.git",
+      "skillPath": "skills/colab-operator/SKILL.md",
+      "skillFolderHash": "47b7cc47f72e597bef392b2a292e7ba6b330c057",
+      "installedAt": "2026-11-18T13:53:53.376Z",
+      "updatedAt": "2026-11-18T13:53:53.376Z"
+    },
+    "herdr": {
+      "source": "herdrdev/herdr",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/herdrdev/herdr.git",
+      "commit": "e8d7d9705a7a2c89cef4dd42079379f05685af87",
+      "skillPath": "skills/herdr/SKILL.md",
+      "skillFolderHash": "2be0d86d481d1bb29c62e11ef37b78d27d01b478",
+      "installedAt": "2026-11-21T16:22:39.369Z",
+      "updatedAt": "2026-11-21T16:22:39.369Z"
     }
   },
   "dismissed": {
