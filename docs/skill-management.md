@@ -85,3 +85,26 @@ true/false で切り替えられるのは plugin 単位の `enabledPlugins` だ�
 - 入れ先エージェントは lock に残らないので、復元時に `AGENTS` で指定する (既定 `claude-code`)。
 - 固定できるのは ref まで。`skillFolderHash` は中身のハッシュで commit ではない。中身まで固定したいときは `#<tag>` で入れる。
 - lock が壊れていると CLI は空とみなし、次の書き込みで全項目を消す。git で戻す。
+
+## herdr
+
+herdr の skill は他人の skill として `npx skills add -g herdrdev/herdr -s herdr` で入れる。lock には残るが、実体は `~/.agents/skills/herdr` にあり dotfiles には入らない。
+
+### 設定 (`herdr/config.toml`)
+
+`setup.sh` が `~/.config/herdr/config.toml` へ symlink する。`~/.config/herdr` にはログ・ソケット・`session.json` が同居するので、ディレクトリごとは張らない。
+
+### 連携ファイル
+
+`herdr integration install` が、各エージェントにセッション ID を知らせるフックを入れる。スクリプトの先頭に `managed by herdr` とあり、install や update で上書きされる。
+
+| エージェント | 連携ファイル | dotfiles での扱い |
+|---|---|---|
+| Claude Code | `~/.claude/hooks/herdr-agent-state.sh`<br>`~/.claude/settings.json` の SessionStart | 管理する。`claude/hooks` と `claude/settings.json` の symlink 経由で入る |
+| Codex | `~/.codex/herdr-agent-state.sh`<br>`~/.codex/hooks.json` | 管理する。`codex/` に置き、`codex/setup.sh` が symlink する |
+| pi | `~/.pi/agent/extensions/herdr-agent-state.ts` | 管理しない |
+
+- pi を外したのは、`pi/setup.sh` が直下のエントリ単位でしか symlink を張れないため。`pi/extensions/` をディレクトリごと symlink にすると、今後入れる拡張まで dotfiles に入る。
+- herdr の update で `HERDR_INTEGRATION_VERSION` が上がると差分に出る。そのままコミットする。
+- 新しいマシンでは `setup.sh` の後に、pi の分だけ `herdr integration install pi` を実行する。`herdr integration status` で `current` になっていれば揃っている。
+- update 後も symlink が保たれるかは Codex で未確認。Claude の `settings.json` は symlink のまま書き込みが反映された。`ls -l ~/.codex/hooks.json` で実ファイルに戻っていたら、`codex/` 側の最新版に張り直す。
