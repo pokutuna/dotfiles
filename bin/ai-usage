@@ -121,22 +121,46 @@ claude_usage() {
     claude -p --input-format stream-json --output-format stream-json --verbose \
       --no-session-persistence --strict-mcp-config --setting-sources= 2>/dev/null) || true
   # resets_at は "2026-11-16T10:59:59.591255+00:00" の形で、fromdateiso8601 は小数秒と +00:00 を読めない
+  # rate_limits は 2 通りの形で返る
+  # - 通常: limits[] (kind = session / weekly_all / weekly_scoped, percent, resets_at)
+  # - usage API が 429 などで失敗したとき: claude が保持している値に切り替わり、limits[] が落ちて
+  #   five_hour / seven_day (5h と weekly 全体) と model_scoped[] (モデル別の weekly) だけになる。
+  #   この場合は古い値の可能性があるため、先頭行に "fallback" を出して警告する
+  local fallback=""
   rows=$(jq -rn '
     def secs: try (sub("\\.[0-9]+"; "") | sub("\\+00:00$"; "Z") | fromdateiso8601) catch "";
-    ([inputs | select(.type? == "control_response") | .response?.response?.rate_limits?.limits? // empty] | first // []) | .[] |
-    ( if .kind == "session" then ["5h", 18000]
-      elif .kind == "weekly_all" then ["weekly", 604800]
-      elif .kind == "weekly_scoped" then ["weekly/" + (.scope.model.display_name // "?"), 604800]
-      else empty end ) as [$name, $window] |
-    [$name, (.percent // ""), (.resets_at | secs), $window] | map(tostring) | join("|")
+    def row($name; $pct; $at; $window): [$name, ($pct // ""), (($at // "") | secs), $window] | map(tostring) | join("|");
+    ([inputs | select(.type? == "control_response") | .response?.response?.rate_limits? // empty] | first // {}) as $rl |
+    if (($rl.limits // []) | length) > 0 then
+      $rl.limits[] |
+      ( if .kind == "session" then ["5h", 18000]
+        elif .kind == "weekly_all" then ["weekly", 604800]
+        elif .kind == "weekly_scoped" then ["weekly/" + (.scope.model.display_name // "?"), 604800]
+        else empty end ) as [$name, $window] |
+      row($name; .percent; .resets_at; $window)
+    else
+      "fallback",
+      (if $rl.five_hour then row("5h"; $rl.five_hour.utilization; $rl.five_hour.resets_at; 18000) else empty end),
+      (if $rl.seven_day then row("weekly"; $rl.seven_day.utilization; $rl.seven_day.resets_at; 604800) else empty end),
+      (($rl.model_scoped // [])[] | row("weekly/" + (.display_name // "?"); .utilization; .resets_at; 604800))
+    end
   ' <<<"$json" 2>/dev/null) || true
 
+  if [[ "$rows" == fallback* ]]; then
+    fallback=1
+    rows="${rows#fallback}"
+    rows="${rows#$'\n'}"
+  fi
+
   if [[ -z "$rows" ]]; then
-    echo "claude: usage を取得できませんでした (get_usage の応答形式が変わった?)" >&2
+    echo "claude: usage を取得できませんでした (get_usage の応答を読めない)" >&2
     return
   fi
 
   echo "${dim}claude${reset}"
+  if [[ -n "$fallback" ]]; then
+    echo "  ${yellow}usage API から取得できず、保持している値を表示中 (429 の可能性。古い値かも)${reset}"
+  fi
   # TAB は空白扱いで空欄が詰められるため、空白でない区切りを使う
   local label pct resets_at window
   while IFS='|' read -r label pct resets_at window; do
