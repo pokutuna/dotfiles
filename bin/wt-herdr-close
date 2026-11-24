@@ -1,18 +1,23 @@
 #!/bin/sh
 # git-wt の wt.deletehook から呼ばれ、削除する worktree を開いている herdr の workspace を閉じる。
 # deletehook は削除の前に worktree を cwd として動く。その workspace の中で git wt -d を実行していると、
-# すぐに閉じたときに git wt も止まるので、切り離して動かし、ディレクトリが消えてから閉じる。
-# 削除が中止されたときは閉じないように、待つのは 60 秒まで。
+# 閉じたときに git wt も止まる。git wt -d A B のように複数を消すときは、A が消えても B の削除が続く。
+# そのため切り離して動かし、git-wt が終わってから閉じる。ディレクトリが残っていれば、削除が中止されたとみなして閉じない。
 
 dir=$(pwd -P)
 ids=$(herdr workspace list 2>/dev/null |
     jq -r --arg d "$dir" '.result.workspaces[] | select(.worktree.checkout_path == $d) | .workspace_id')
 [ -n "$ids" ] || exit 0
 
+# この hook を実行している git-wt のプロセスを探す
+pid=$PPID
+while [ "${pid:-1}" -gt 1 ] && [ "$(basename "$(ps -o comm= -p "$pid")")" != git-wt ]; do
+    pid=$(ps -o ppid= -p "$pid" | tr -d ' ')
+done
+
 nohup sh -c '
-    dir=$1; shift
-    for _ in $(seq 60); do [ -d "$dir" ] && sleep 1; done
+    pid=$1 dir=$2; shift 2
+    while kill -0 "$pid" 2>/dev/null; do sleep 0.5; done
     [ -d "$dir" ] && exit
-    sleep 1
     for id; do herdr workspace close "$id"; done
-' sh "$dir" $ids >/dev/null 2>&1 &
+' sh "${pid:-1}" "$dir" $ids >/dev/null 2>&1 &
