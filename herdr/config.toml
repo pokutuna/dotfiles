@@ -5,14 +5,60 @@
 onboarding = false
 
 [keys]
-# prefix は ctrl+q。
-# ctrl+b は backward-char、tmux は C-t を使っているのでどちらも避ける。
+# prefix は tmux と同じ ctrl+t と ctrl+q の 2 つ。
+# tmux の中で herdr を動かすと ctrl+t は tmux に取られるので、そのときは ctrl+q を使う。
+# ctrl+b は backward-char と衝突するので使わない。
 # zshrc の `stty -ixon -ixoff` で flow control を切ってあるので ^Q が端末に届く。
-prefix = "ctrl+q"
+prefix = ["ctrl+t", "ctrl+q"]
+
+# prefix の ctrl を押したまま次のキーを押せるように、移動系は ctrl 付きにそろえる。
+# prefix+h/j/k/l は pane のフォーカス移動、prefix+shift+h/j/k/l は pane の入れ替えに既定で使われている。
+# workspace は ctrl+n/p で移る。tmux の C-n / C-p は window 移動だが、
+# herdr ではプロジェクト単位の workspace を切り替えることが多いのでこちらに当てる。
+# prefix+w の一覧でも n/p で上下に動ける (navigate_workspace_*)。
+next_workspace = "prefix+ctrl+n"
+previous_workspace = "prefix+ctrl+p"
+# tmux の C-c (new-window) と同じく ctrl を押したままでも tab を作れるようにする。
+new_tab = ["prefix+c", "prefix+ctrl+c"]
+# tab は横に並ぶので、左右の向きの ctrl+f/b で移る。既定の prefix+n/p も残す。
+next_tab = ["prefix+n", "prefix+ctrl+f"]
+previous_tab = ["prefix+p", "prefix+ctrl+b"]
+# agent はサイドバーの並びに合わせて、j で下 (次)、k で上 (前) へ移る。
+next_agent = "prefix+ctrl+j"
+previous_agent = "prefix+ctrl+k"
+# agent_panel_sort = "priority" の並びで上から N 番目の agent にフォーカスする。
+# prefix+1..9 は tab 切り替えなので ctrl を付ける。
+# ctrl+数字 が届かない端末では prefix+alt+1..9 に戻す (Ghostty は左 option を alt として送る)。
+focus_agent = "prefix+ctrl+1..9"
+
+# prefix+w の一覧 (navigate mode) で、矢印キーに加えて p/n でも上下に移る。
+navigate_workspace_up = ["up", "p"]
+navigate_workspace_down = ["down", "n"]
+
+# 直前に focus していた pane に戻る。workspace や tab をまたいでも戻れる。
+# prefix+o や prefix+ctrl+1..9 で agent に飛んだあと、元の場所に戻るのに使う。
+# tmux の既定で last-pane に使われている ; に当てる。
+last_pane = "prefix+semicolon"
+
+# ghq 管理のリポジトリを fzf で選び、そのディレクトリで workspace を作る。
+[[keys.command]]
+key = "prefix+ctrl+o"
+type = "popup"
+command = 'd=$(ghq list -p | fzf) && herdr workspace create --cwd "$d" --focus'
+width = "80%"
+height = "60%"
 
 [ui]
 # エージェントを space ごとではなく、手を入れる必要がある順に並べる。
 agent_panel_sort = "priority"
+
+# tab は名前を聞かずにすぐ作る。名前が必要になったら prefix+shift+t で付ける。
+prompt_new_tab_name = false
+
+[ui.toast]
+# 裏の agent が終わったときや入力を待っているときに herdr の中で通知を出す。
+# 通知が出ている間は prefix+o でその agent に飛べる。
+delivery = "herdr"
 
 [experimental]
 # prefix 中だけ ASCII 入力に切り替える。
