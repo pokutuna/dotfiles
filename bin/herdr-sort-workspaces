@@ -1,0 +1,32 @@
+#!/bin/bash
+# Sort herdr workspaces by their pane's current directory path
+# (herdr version of tmux-sort-windows)
+
+set -euo pipefail
+
+socket="${HERDR_SOCKET_PATH:-$HOME/.config/herdr/herdr.sock}"
+
+# herdr CLI has no command to reorder workspaces, so call workspace.move on the socket API
+call() {
+  local method=$1 params=$2 res
+  res=$(jq -nc --arg m "$method" --argjson p "$params" '{id: "sort", method: $m, params: $p}' \
+    | nc -U -w 1 "$socket")
+  if jq -e '.error' <<<"$res" >/dev/null; then
+    echo "herdr-sort-workspaces: $method failed: $res" >&2
+    return 1
+  fi
+}
+
+# A workspace's panes may be in different directories; use the smallest path as its key
+sorted=$(herdr pane list | jq -r '
+  .result.panes
+  | group_by(.workspace_id)
+  | map({id: .[0].workspace_id, key: (map(.cwd // "") | min | ascii_downcase)})
+  | sort_by(.key)
+  | .[].id')
+
+i=0
+while read -r ws; do
+  call workspace.move "$(jq -nc --arg w "$ws" --argjson i "$i" '{workspace_id: $w, insert_index: $i}')"
+  i=$((i + 1))
+done <<<"$sorted"

@@ -48,6 +48,26 @@ command = 'd=$(ghq list -p | fzf) && herdr workspace create --cwd "$d" --focus'
 width = "80%"
 height = "60%"
 
+# tmux の paste-buffer と同じく prefix+] でクリップボードの中身をフォーカス中の pane に送る。
+# herdr に独自のバッファはないので macOS のクリップボード (pbpaste) を使う。
+[[keys.command]]
+key = "prefix+]"
+type = "shell"
+command = 'herdr pane send-text "$HERDR_ACTIVE_PANE_ID" "$(pbpaste)"'
+
+# tmux の S (tmux-sort-windows) と同じく、workspace を pane のディレクトリのパス順に並べる。
+[[keys.command]]
+key = "prefix+shift+s"
+type = "shell"
+command = "~/bin/herdr-sort-workspaces"
+
+# tmux の break-pane と同じく、フォーカス中の pane を新しい tab に切り出す。
+# tmux.conf で割り当てていた 0 と、tmux の既定の ! の両方で使える。
+[[keys.command]]
+key = ["prefix+0", "prefix+!"]
+type = "shell"
+command = 'herdr pane move "$HERDR_ACTIVE_PANE_ID" --new-tab'
+
 [ui]
 # エージェントを space ごとではなく、手を入れる必要がある順に並べる。
 agent_panel_sort = "priority"
