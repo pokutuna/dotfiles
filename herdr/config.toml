@@ -80,6 +80,11 @@ prompt_new_tab_name = false
 # 通知が出ている間は prefix+o でその agent に飛べる。
 delivery = "herdr"
 
+[ui.sound.agents]
+# Claude Code は octave-notification プラグインが tab ごとに違う高さの音を鳴らすので、
+# herdr の音は止めて二重に鳴らないようにする。Codex や pi は herdr の音を使う。
+claude = "off"
+
 [experimental]
 # prefix 中だけ ASCII 入力に切り替える。
 # Google 日本語入力がオンのまま prefix キーを押すと取りこぼす問題を回避する。
