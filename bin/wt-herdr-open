@@ -1,0 +1,12 @@
+#!/bin/sh
+# git-wt の wt.hook から呼ばれ、作った worktree を herdr の workspace として開く。
+# hook は新しい worktree を cwd として動く。herdr worktree open は元のリポジトリから開く必要があるので、
+# --cwd に元のリポジトリを渡す。herdr の中でなければ何もしない。
+# 非ゼロで exit すると残りの hook が飛ばされるので、常に exit 0 する。
+
+[ "${HERDR_ENV:-}" = 1 ] || exit 0
+
+dir=$(pwd -P)
+repo=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")
+herdr worktree open --cwd "$repo" --path "$dir" --focus >/dev/null 2>&1
+exit 0

@@ -38,7 +38,14 @@ git() {
                 args+=("$arg")
             fi
         done
-        _git_wt_original "${args[@]}"
+        # herdr の中では、作った worktree を wt.hook (wt-herdr-open) が workspace として開くので、
+        # 今の tab では cd しない。作ってあった worktree に切り替えるときは今までどおり cd する。
+        if [[ "${HERDR_ENV:-}" == 1 ]]; then
+            GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=wt.nocd GIT_CONFIG_VALUE_0=create \
+                _git_wt_original "${args[@]}"
+        else
+            _git_wt_original "${args[@]}"
+        fi
     else
         _git_wt_original "$@"
     fi
