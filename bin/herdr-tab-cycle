@@ -1,0 +1,33 @@
+#!/bin/bash
+# Move to the next / previous herdr tab across workspace boundaries
+# (like tmux next-window / previous-window over all windows in a session)
+# Usage: herdr-tab-cycle next|prev
+
+set -euo pipefail
+
+step=1
+[ "${1:-next}" = prev ] && step=-1
+
+# herdr has no API for the sidebar order, so rebuild it from the snapshot:
+# workspaces by number, with each linked worktree placed right after its source repo.
+# Tabs within a workspace are listed in on-screen order (a tab's `number` is not its position).
+target=$(herdr api snapshot | jq -r --argjson step "$step" '
+  .result.snapshot as $s
+  | ($s.workspaces | sort_by(.number)) as $ws
+  | ($ws
+     | map(select(.worktree != null and .worktree.checkout_path == .worktree.repo_root)
+           | {key: .worktree.repo_root, value: .number})
+     | from_entries) as $source
+  | ($ws
+     | map({id: .workspace_id,
+            key: (if .worktree != null and .worktree.checkout_path != .worktree.repo_root
+                     and $source[.worktree.repo_root] != null
+                  then [$source[.worktree.repo_root], 1, .number]
+                  else [.number, 0, 0] end)})
+     | sort_by(.key) | map(.id)) as $order
+  | [$order[] as $id | $s.tabs[] | select(.workspace_id == $id) | .tab_id] as $tabs
+  | ($tabs | length) as $n
+  | ($tabs | index($s.focused_tab_id)) as $i
+  | if $i == null then empty else $tabs[(($i + $step) % $n + $n) % $n] end')
+
+[ -n "$target" ] && herdr tab focus "$target" >/dev/null

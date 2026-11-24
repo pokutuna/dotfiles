@@ -9,7 +9,8 @@
 - キーの向きを、画面上の並びに合わせる。
   - agent はサイドバーに縦に並ぶので、上下の `j` / `k` を使う。
   - tab は横に並ぶので、左右の `f` / `b` を使う。
-  - workspace は次 / 前の `n` / `p` を使う。tmux の `C-n` / `C-p` は window 移動だが、herdr ではプロジェクト単位の workspace を切り替えることが多いので、こちらに当てる。
+  - tab を workspace をまたいで順に移るのは、tmux の `C-n` / `C-p` (window 移動) と同じく ctrl 付きの `n` / `p` にする。
+  - workspace は ctrl を離して `n` / `p` で移る。
 - 既定の `prefix+h/j/k/l` (pane のフォーカス移動) と `prefix+shift+h/j/k/l` (pane の入れ替え) は残す。
 
 ## 一覧
@@ -20,7 +21,7 @@
 
 | キー | 動作 | 既定 |
 |---|---|---|
-| `prefix+ctrl+n` / `prefix+ctrl+p` | 次 / 前の workspace へ | |
+| `prefix+n` / `prefix+p` | 次 / 前の workspace へ | |
 | `prefix+w` | 一覧を出して選ぶ。一覧の中では `n` / `p` (または ↓ / ↑) で上下に移る | ○ (`n` / `p` は追加) |
 | `prefix+g` | workspace・tab・pane のツリーを検索して移動する | ○ |
 | `prefix+ctrl+o` | ghq のリポジトリを fzf で選び、そこで workspace を作る | |
@@ -43,8 +44,8 @@
 
 | キー | 動作 | 既定 |
 |---|---|---|
-| `prefix+ctrl+f` / `prefix+ctrl+b` | 次 / 前の tab へ | |
-| `prefix+n` / `prefix+p` | 次 / 前の tab へ | ○ |
+| `prefix+ctrl+n` / `prefix+ctrl+p` | 次 / 前の tab へ。workspace の端では、サイドバーで隣の workspace の tab に移る (`bin/herdr-tab-cycle`) | |
+| `prefix+ctrl+f` / `prefix+ctrl+b` | 今の workspace の中で、次 / 前の tab へ | |
 | `prefix+1..9` | N 番目の tab へ | ○ |
 | `prefix+c` / `prefix+ctrl+c` | tab を作る。名前は聞かない (`prompt_new_tab_name = false`) | `prefix+c` のみ |
 | `prefix+shift+t` | tab の名前を変える | ○ |

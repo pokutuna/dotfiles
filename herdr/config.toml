@@ -13,16 +13,15 @@ prefix = ["ctrl+t", "ctrl+q"]
 
 # prefix の ctrl を押したまま次のキーを押せるように、移動系は ctrl 付きにそろえる。
 # prefix+h/j/k/l は pane のフォーカス移動、prefix+shift+h/j/k/l は pane の入れ替えに既定で使われている。
-# workspace は ctrl+n/p で移る。tmux の C-n / C-p は window 移動だが、
-# herdr ではプロジェクト単位の workspace を切り替えることが多いのでこちらに当てる。
+# workspace は n/p で移る。ctrl+n/p は、workspace をまたいで tab を移るほうに使う (下の keys.command)。
 # prefix+w の一覧でも n/p で上下に動ける (navigate_workspace_*)。
-next_workspace = "prefix+ctrl+n"
-previous_workspace = "prefix+ctrl+p"
+next_workspace = "prefix+n"
+previous_workspace = "prefix+p"
 # tmux の C-c (new-window) と同じく ctrl を押したままでも tab を作れるようにする。
 new_tab = ["prefix+c", "prefix+ctrl+c"]
-# tab は横に並ぶので、左右の向きの ctrl+f/b で移る。既定の prefix+n/p も残す。
-next_tab = ["prefix+n", "prefix+ctrl+f"]
-previous_tab = ["prefix+p", "prefix+ctrl+b"]
+# 今の workspace の中で tab を移るのは、横に並ぶ向きに合わせて ctrl+f/b にする。
+next_tab = "prefix+ctrl+f"
+previous_tab = "prefix+ctrl+b"
 # agent はサイドバーの並びに合わせて、j で下 (次)、k で上 (前) へ移る。
 next_agent = "prefix+ctrl+j"
 previous_agent = "prefix+ctrl+k"
@@ -60,6 +59,18 @@ command = 'herdr pane send-text "$HERDR_ACTIVE_PANE_ID" "$(pbpaste)"'
 key = "prefix+shift+s"
 type = "shell"
 command = "~/bin/herdr-sort-workspaces"
+
+# tmux の C-n / C-p で window を移るのと同じく、workspace をまたいで tab を移る。
+# workspace の最後の tab で次に進むと、サイドバーで次の workspace の最初の tab に移る。
+[[keys.command]]
+key = "prefix+ctrl+n"
+type = "shell"
+command = "~/bin/herdr-tab-cycle next"
+
+[[keys.command]]
+key = "prefix+ctrl+p"
+type = "shell"
+command = "~/bin/herdr-tab-cycle prev"
 
 # tmux の break-pane と同じく、フォーカス中の pane を新しい tab に切り出す。
 # tmux.conf で割り当てていた 0 と、tmux の既定の ! の両方で使える。
