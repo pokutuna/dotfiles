@@ -24,6 +24,8 @@
       "Bash(find *)",
       "Bash(gcloud builds log *)",
       "Bash(gcloud logging read *)",
+      "Bash(gh issue comment *)",
+      "Bash(gh issue create *)",
       "Bash(gh issue list *)",
       "Bash(gh issue view *)",
       "Bash(gh pr diff *)",
@@ -144,8 +146,6 @@
     ],
     "ask": [
       "Bash(find * -exec rm)",
-      "Bash(gh issue comment *)",
-      "Bash(gh issue create *)",
       "Bash(gh pr comment *)",
       "Bash(terraform *apply*)",
       "Bash(terraform *destroy*)",
@@ -177,6 +177,10 @@
           {
             "type": "command",
             "command": "~/.claude/hooks/block-find-root.sh"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/gh-issue-guard.sh"
           },
           {
             "type": "command",
