@@ -3,10 +3,42 @@
 # hook は新しい worktree を cwd として動く。herdr worktree open は元のリポジトリから開く必要があるので、
 # --cwd に元のリポジトリを渡す。herdr の中でなければ何もしない。
 # 非ゼロで exit すると残りの hook が飛ばされるので、常に exit 0 する。
+#
+# WT_HERDR_PANE があれば (zsh.d/git-wt-pr.sh が対話シェルから渡す)、git wt を打った pane を
+# 新しい workspace に移し、herdr が作った空の pane を閉じる。移したら WT_HERDR_MOVED のファイルに
+# worktree のパスを書き、呼び出し元のシェルに cd させる。
+# 元の workspace の最後の pane を移すと、その workspace ごと閉じてしまう。そのときは移さない。
 
 [ "${HERDR_ENV:-}" = 1 ] || exit 0
 
 dir=$(pwd -P)
 repo=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")
-herdr worktree open --cwd "$repo" --path "$dir" --focus >/dev/null 2>&1
+
+open_focused() {
+    herdr worktree open --cwd "$repo" --path "$dir" --focus >/dev/null 2>&1
+    exit 0
+}
+
+pane=${WT_HERDR_PANE:-}
+[ -n "$pane" ] || open_focused
+
+# pane を移すと ID が変わる。環境変数に残る古い ID でも引けるので、今の workspace を引き直す
+src=$(herdr pane get "$pane" 2>/dev/null | jq -r '.result.pane.workspace_id // empty')
+[ -n "$src" ] || open_focused
+count=$(herdr pane list 2>/dev/null |
+    jq --arg w "$src" '[.result.panes[] | select(.workspace_id == $w)] | length')
+[ "${count:-0}" -gt 1 ] || open_focused
+
+res=$(herdr worktree open --cwd "$repo" --path "$dir" --no-focus 2>/dev/null)
+ws=$(printf '%s' "$res" | jq -r '.result.workspace.workspace_id // empty')
+[ -n "$ws" ] || exit 0
+# すでに開いていた workspace の pane は閉じない
+first=$(printf '%s' "$res" | jq -r 'if .result.already_open then empty else .result.root_pane.pane_id // empty end')
+
+if herdr pane move "$pane" --new-tab --workspace "$ws" --focus >/dev/null 2>&1; then
+    [ -n "$first" ] && herdr pane close "$first" >/dev/null 2>&1
+    [ -n "${WT_HERDR_MOVED:-}" ] && printf '%s' "$dir" >"$WT_HERDR_MOVED"
+else
+    herdr worktree open --cwd "$repo" --path "$dir" --focus >/dev/null 2>&1
+fi
 exit 0

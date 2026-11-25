@@ -39,8 +39,20 @@ git() {
             fi
         done
         # herdr の中では、作った worktree を wt.hook (wt-herdr-open) が workspace として開くので、
-        # 今の tab では cd しない。作ってあった worktree に切り替えるときは今までどおり cd する。
-        if [[ "${HERDR_ENV:-}" == 1 ]]; then
+        # git-wt には cd させない。作ってあった worktree に切り替えるときは今までどおり cd する。
+        # 対話シェルでは、hook がこの pane を新しい workspace に移す。移したら hook が
+        # WT_HERDR_MOVED のファイルに worktree のパスを書くので、そこへ cd する。
+        if [[ "${HERDR_ENV:-}" == 1 && -o interactive && -n "${HERDR_PANE_ID:-}" ]]; then
+            local moved rc
+            moved=$(mktemp)
+            WT_HERDR_PANE=$HERDR_PANE_ID WT_HERDR_MOVED=$moved \
+                GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=wt.nocd GIT_CONFIG_VALUE_0=create \
+                _git_wt_original "${args[@]}"
+            rc=$?
+            [[ -s "$moved" ]] && cd "$(<"$moved")"
+            command rm -f "$moved"
+            return $rc
+        elif [[ "${HERDR_ENV:-}" == 1 ]]; then
             GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=wt.nocd GIT_CONFIG_VALUE_0=create \
                 _git_wt_original "${args[@]}"
         else
