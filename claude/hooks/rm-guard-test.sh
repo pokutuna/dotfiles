@@ -79,7 +79,7 @@ check deny 'find . -name x -exec rm {} +'
 check deny 'rm -r .trash/old'
 check deny "rm 'app/[id]/page.tsx'" '\.trash/[0-9-]+/app/'
 check deny 'rm "app/[id]/page.tsx"' '\.trash/'
-check deny 'rm app/[id]/page.tsx' '引用符'
+check deny 'rm app/[id]/page.tsx' '[Qq]uote'
 check deny 'rm "app/[id]/$x"'
 check deny $'cat >/tmp/x.sh <<\'EOF\'\nrm -rf "$workdir"\nEOF' 'Write'
 

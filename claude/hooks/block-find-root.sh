@@ -39,7 +39,7 @@ if [ "$blocked" -eq 1 ]; then
 		hookSpecificOutput: {
 			hookEventName: "PreToolUse",
 			permissionDecision: "deny",
-			permissionDecisionReason: "find の起点が / または $HOME になっています。スキャン範囲を絞って再実行してください。"
+			permissionDecisionReason: "find starts from / or $HOME. Narrow the search path and retry."
 		}
 	}'
 fi

@@ -211,7 +211,7 @@
           },
           {
             "type": "command",
-            "command": "~/.claude/hooks/rm-guard.sh || printf '%s\\n' '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"permissionDecision\":\"ask\",\"permissionDecisionReason\":\"rm-guard で判定できない (エラーまたは 5 秒超過) ため確認する\"}}'"
+            "command": "~/.claude/hooks/rm-guard.sh || printf '%s\\n' '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"permissionDecision\":\"ask\",\"permissionDecisionReason\":\"rm-guard could not decide (error or 5s timeout), so asking for confirmation\"}}'"
           }
         ]
       }

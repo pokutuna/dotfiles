@@ -154,22 +154,22 @@ glob_in_temp() {
 # 判定の分類。番号は judge_target の終了コードと problems の添字を兼ねる。
 # 7 以降は Claude では対処できないので ask にする
 labels=(
-	[1]="対象を確定できない (グロブ・変数・引用符など)"
-	[2]="cd 先が不明で、相対パスの位置が分からない"
-	[3]="対象の後に - で始まる語がある"
-	[4]="別のコマンド経由の rm"
-	[5]="git から復元できない"
-	[6]=".trash/ の中身"
-	[7]="git から復元できず、退避先もない (リポジトリ外・リポジトリそのもの・.git)"
-	[8]="sudo / doas 経由"
-	[9]="リダイレクトとつながった語や引用符つきの空白を含み、判定できない"
+	[1]="cannot determine targets (glob, variable, quotes, etc.)"
+	[2]="cd destination unknown, so relative paths cannot be resolved"
+	[3]="word starting with - after targets"
+	[4]="rm run via another command"
+	[5]="not recoverable from git"
+	[6]="contents of .trash/"
+	[7]="not recoverable from git and nowhere to move it (outside a repo, the repo itself, or .git)"
+	[8]="via sudo / doas"
+	[9]="cannot parse: word joined with a redirect, or quoted whitespace"
 )
 hints=(
-	[1]="展開済みのパスを並べて書き直す。記号を含む名前は引用符で囲む。文字列やヒアドキュメント中の rm なら Write ツールで書く"
-	[2]="絶対パスで書く"
-	[3]="オプションは対象の前に置く。- で始まる名前は ./-x と書く"
-	[4]="パスを並べた単独の rm にする"
-	[6]="消さずに続ける。中身は人が消す"
+	[1]="Rewrite with expanded paths listed explicitly. Quote names containing special characters. If rm is inside a string or heredoc, write the file with the Write tool"
+	[2]="Use absolute paths"
+	[3]="Put options before targets. Write names starting with - as ./-x"
+	[4]="Use a plain rm with the paths listed"
+	[6]="Continue without deleting. A human will clean it up"
 )
 first_ask=7
 problems=()
@@ -386,16 +386,16 @@ for i in "${!problems[@]}"; do
 	if [ "$i" -ge $first_ask ]; then
 		ask_msg+=$line
 	elif [ "$i" -eq 5 ]; then
-		deny_msg+="$line"$'\n'"  → 代わりに .trash/ へ退避する:$(trash_commands)"
+		deny_msg+="$line"$'\n'"  → Move to .trash/ instead:$(trash_commands)"
 	else
 		deny_msg+="$line"$'\n'"  → ${hints[i]}"
 	fi
 done
 
 if [ -n "$deny_msg" ]; then
-	msg="削除を止めた。$deny_msg"
-	[ -n "$ask_msg" ] && msg+=$'\n'"書き直しても人の確認が要る:$ask_msg"
+	msg="Deletion blocked.$deny_msg"
+	[ -n "$ask_msg" ] && msg+=$'\n'"Even after rewriting, human confirmation is needed:$ask_msg"
 	decide deny "$msg"
 fi
-[ -n "$ask_msg" ] && decide ask "確認が必要な削除:$ask_msg"
+[ -n "$ask_msg" ] && decide ask "Deletion needs confirmation:$ask_msg"
 exit 0
