@@ -1,0 +1,5 @@
+{
+  "name": "usage-record",
+  "version": "0.1.0",
+  "description": "Records the 5h/7d rate-limit readings of CLI and Claude.app sessions in separate files, so bin/ai-usage can show the usage of each login"
+}

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Claude Code / Codex CLI の残り usage limit (5h window, weekly window) を表示する
 #
-# claude: `claude -p` に stream-json で get_usage control request を送り、応答の rate_limits を読む。
-# CLI 内で完結しモデルへのリクエストは発生しないため、usage を消費しない。
-# 値は CLI でログインしているアカウントの、呼んだ時点のもの。
+# claude (cli): `claude -p` に get_usage control request を送って取得する。モデルを呼ばないので usage を消費しない。
+#   usage API が 429 で取れないときは usage-record mod (claude/skills/usage-record) の記録を出す。
+# claude (app): Claude.app のログインの値は claude -p で取れないため、usage-record mod の記録を出す。
 # codex: 非公式 API を直叩きして取得する。
 set -euo pipefail
 
@@ -19,6 +19,12 @@ fmt_remain() {
     echo "reset待ち"
     return
   fi
+  fmt_duration "$diff"
+}
+
+fmt_duration() {
+  local diff="$1" # seconds
+  ((diff < 0)) && diff=0
   local d=$((diff / 86400))
   local h=$((diff % 86400 / 3600))
   local m=$((diff % 3600 / 60))
@@ -103,35 +109,85 @@ print_line() {
     "$dim" "$(fmt_remain "$resets_at")" "$reset"
 }
 
-claude_usage() {
+claude_recorded_rows() {
+  # usage-record mod の記録 ($1 = cli | desktop) を print_line に渡す行の形で出す
+  # 1 行目は記録した時刻 (unix 秒)。リセット済みの枠は出さない
+  local file="$HOME/.cache/claude-usage-record/$1.json"
+  [[ -f "$file" ]] || return
+  jq -r --argjson now "$now" '
+    def secs: try (sub("\\.[0-9]+"; "") | sub("\\+00:00$"; "Z") | fromdateiso8601) catch null;
+    (.recordedAt | secs) as $at |
+    select($at != null) |
+    ($at | tostring),
+    (.rateLimits[] |
+      ( if .kind == "five_hour" then ["5h", 18000]
+        elif .kind == "seven_day" then ["weekly", 604800]
+        else empty end ) as [$name, $window] |
+      (.resetsAt | secs) as $reset |
+      select($reset != null and $reset > $now) |
+      [$name, .percentUsed, $reset, $window] | map(tostring) | join("|"))
+  ' "$file" 2>/dev/null
+}
+
+print_rows() {
+  # TAB は空白扱いで空欄が詰められるため、空白でない区切りを使う
+  local label pct resets_at window
+  while IFS='|' read -r label pct resets_at window; do
+    if [[ -n "$pct" ]]; then
+      print_line "$label" "$pct" "$resets_at" "$window"
+    fi
+  done <<<"$1"
+}
+
+claude_recorded_usage() {
+  local session="$1" name="$2" rows recorded_at
+  rows=$(claude_recorded_rows "$session") || true
+  if [[ -z "$rows" ]]; then
+    echo "$name: usage-record mod の記録がありません" >&2
+    return
+  fi
+  recorded_at="${rows%%$'\n'*}"
+  if [[ "$rows" != *$'\n'* ]]; then
+    echo "$name: updated at $(fmt_at "$recorded_at"), どの枠もリセット済み" >&2
+    return
+  fi
+  rows="${rows#*$'\n'}"
+
+  echo "${dim}${name} · updated at $(fmt_at "$recorded_at") ($(fmt_duration $((now - recorded_at))) ago)${reset}"
+  print_rows "$rows"
+}
+
+claude_cli_usage() {
   if ! command -v claude >/dev/null; then
-    echo "claude: claude command not found" >&2
+    echo "claude (cli): claude command not found" >&2
     return
   fi
 
-  # SDK 用の control request `get_usage` を stream-json で送る。ユーザーメッセージは送らない。
-  # `claude -p /usage` は過去の会話ログを走査して使用傾向も集計するため数秒余計にかかる。
-  # skip_behaviors でその集計を飛ばし、plan の rate limits だけを取得する。
-  # 応答は公開されていない形式のため、読めなければ値なしとして扱う
-  # 起動を軽くするため、会話ログを残さず、MCP サーバーにも接続せず、settings (plugin, hook) も読まない
-  # --bare は keychain を読まずログインできないため使えない
-  # CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC も、rate_limits が空になるため使えない
-  local json rows
+  # skip_behaviors で /usage の使用傾向の集計を飛ばし、rate limits だけを取る
+  # 起動を軽くするため、会話ログ・MCP・settings を読まない (--bare はログインできないので使えない)
+  # 429 の解除時刻は応答にないため、debug ログの "not asking again for Ns" から読む
+  local json rows debug_log
+  debug_log=$(mktemp)
   json=$(echo '{"type":"control_request","request_id":"ai-usage","request":{"subtype":"get_usage","skip_behaviors":true}}' |
     claude -p --input-format stream-json --output-format stream-json --verbose \
-      --no-session-persistence --strict-mcp-config --setting-sources= 2>/dev/null) || true
-  # resets_at は "2026-11-16T10:59:59.591255+00:00" の形で、fromdateiso8601 は小数秒と +00:00 を読めない
-  # rate_limits は 2 通りの形で返る
-  # - 通常: limits[] (kind = session / weekly_all / weekly_scoped, percent, resets_at)
-  # - usage API が 429 などで失敗したとき: claude が保持している値に切り替わり、limits[] が落ちて
-  #   five_hour / seven_day (5h と weekly 全体) と model_scoped[] (モデル別の weekly) だけになる。
-  #   この場合は古い値の可能性があるため、先頭行に "fallback" を出して警告する
+      --no-session-persistence --strict-mcp-config --setting-sources= \
+      --debug-file "$debug_log" 2>/dev/null) || true
+  # rate_limits の形
+  # - 通常: limits[] (session / weekly_all / weekly_scoped)
+  # - usage API が失敗: claude が保持している値 (five_hour / seven_day / model_scoped)。古いかもしれないので "fallback" を付ける
+  # - usage API が失敗し、保持している値もない: null
+  # - API key などで plan の rate limit がない: rate_limits_available が false
+  # fromdateiso8601 は resets_at の小数秒と +00:00 を読めないため取り除く
   local fallback=""
   rows=$(jq -rn '
     def secs: try (sub("\\.[0-9]+"; "") | sub("\\+00:00$"; "Z") | fromdateiso8601) catch "";
     def row($name; $pct; $at; $window): [$name, ($pct // ""), (($at // "") | secs), $window] | map(tostring) | join("|");
-    ([inputs | select(.type? == "control_response") | .response?.response?.rate_limits? // empty] | first // {}) as $rl |
-    if (($rl.limits // []) | length) > 0 then
+    ([inputs | select(.type? == "control_response") | .response?.response? // empty] | first) as $res |
+    ($res.rate_limits? // {}) as $rl |
+    if $res == null then empty
+    elif $res.rate_limits_available? == false then "unavailable"
+    elif $res.rate_limits? == null then "null"
+    elif (($rl.limits // []) | length) > 0 then
       $rl.limits[] |
       ( if .kind == "session" then ["5h", 18000]
         elif .kind == "weekly_all" then ["weekly", 604800]
@@ -146,6 +202,28 @@ claude_usage() {
     end
   ' <<<"$json" 2>/dev/null) || true
 
+  local hold_secs
+  hold_secs=$(sed -n 's/.*remembered for this bearer; not asking again for \([0-9][0-9]*\)s.*/\1/p' "$debug_log" | tail -n 1)
+  rm -f "$debug_log"
+
+  if [[ "$rows" == "unavailable" ]]; then
+    echo "claude (cli): plan の rate limit がないログイン方法です (API key / Bedrock / Vertex など)" >&2
+    return
+  fi
+  # usage API から取れなければ mod の記録を出す
+  if [[ "$rows" == "null" ]]; then
+    if [[ -z "$(claude_recorded_rows cli)" ]]; then
+      local reason="usage API から取得できず、保持している値もありません"
+      if [[ -n "$hold_secs" ]]; then
+        reason="usage API が 429 を返したため取得できません。解除は $(fmt_at $((now + hold_secs))) (in $(fmt_remain $((now + hold_secs)))) の見込みです"
+      fi
+      echo "claude (cli): $reason" >&2
+      return
+    fi
+    claude_recorded_usage cli "claude (cli)"
+    return
+  fi
+
   if [[ "$rows" == fallback* ]]; then
     fallback=1
     rows="${rows#fallback}"
@@ -153,21 +231,15 @@ claude_usage() {
   fi
 
   if [[ -z "$rows" ]]; then
-    echo "claude: usage を取得できませんでした (get_usage の応答を読めない)" >&2
+    echo "claude (cli): usage を取得できませんでした (get_usage の応答を読めない)" >&2
     return
   fi
 
-  echo "${dim}claude${reset}"
+  echo "${dim}claude (cli)${reset}"
   if [[ -n "$fallback" ]]; then
     echo "  ${yellow}usage API から取得できず、保持している値を表示中 (429 の可能性。古い値かも)${reset}"
   fi
-  # TAB は空白扱いで空欄が詰められるため、空白でない区切りを使う
-  local label pct resets_at window
-  while IFS='|' read -r label pct resets_at window; do
-    if [[ -n "$pct" ]]; then
-      print_line "$label" "$pct" "$resets_at" "$window"
-    fi
-  done <<<"$rows"
+  print_rows "$rows"
 }
 
 codex_usage() {
@@ -212,15 +284,17 @@ codex_usage() {
     "$(jq -r '.rate_limit.secondary_window.limit_window_seconds' <<<"$res")"
 }
 
-# claude の取得は数秒かかるため、両方を並列に取得してから順に表示する
+# claude (cli) の取得は数秒かかるため、codex と並列に取得してから順に表示する
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
-claude_usage >"$tmp/claude.out" 2>"$tmp/claude.err" &
+claude_cli_usage >"$tmp/claude.out" 2>"$tmp/claude.err" &
 codex_usage >"$tmp/codex.out" 2>"$tmp/codex.err" &
 wait
 
 echo "${dim}$(TZ=Asia/Tokyo date '+%Y-%m-%d(%a) %H:%M:%S')${reset}"
 echo
 cat "$tmp/claude.out"; cat "$tmp/claude.err" >&2
+echo
+claude_recorded_usage desktop "claude (app)"
 echo
 cat "$tmp/codex.out"; cat "$tmp/codex.err" >&2

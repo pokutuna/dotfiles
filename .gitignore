@@ -6,3 +6,6 @@ emacs.d/recentf
 
 claude/skills/playwright-cli/
 .codex/
+
+# claude mod の型定義 (Claude Code が mod を読み込むときに生成する)
+claude/skills/*/.claude-plugin/types/
