@@ -1,300 +1,199 @@
-#!/usr/bin/env bash
-# Claude Code / Codex CLI の残り usage limit (5h window, weekly window) を表示する
-#
-# claude (cli): `claude -p` に get_usage control request を送って取得する。モデルを呼ばないので usage を消費しない。
-#   usage API が 429 で取れないときは usage-record mod (claude/skills/usage-record) の記録を出す。
-# claude (app): Claude.app のログインの値は claude -p で取れないため、usage-record mod の記録を出す。
-# codex: 非公式 API を直叩きして取得する。
-set -euo pipefail
+#!/usr/bin/env node
+// Claude Code / Codex CLI の残り usage limit (5h window, weekly window) を表示する
+//
+// claude (cli): `claude -p` に get_usage control request を送って取得する。モデルを呼ばないので usage を消費しない。
+//   usage API が 429 などで取れないときは usage-record mod (claude/skills/usage-record) の記録を出す。
+// claude (app): Claude.app のログインの値は claude -p で取れないため、usage-record mod の記録を出す。
+// codex: 非公式 API を直叩きして取得する。
+const { execFile } = require("node:child_process");
+const { readFile } = require("node:fs/promises");
+const { homedir } = require("node:os");
 
-now=$(date +%s)
+const HOUR = 3600;
+const DAY = 24 * HOUR;
+const now = Date.now() / 1000;
+const home = homedir();
+const [red, yellow, green, dim, reset] = ["\x1b[31m", "\x1b[33m", "\x1b[32m", "\x1b[2m", "\x1b[0m"];
 
-red=$'\033[31m'; yellow=$'\033[33m'; green=$'\033[32m'; reset=$'\033[0m'; dim=$'\033[2m'
+// 各取得元は { heading, rows } か { error } を返す
+// row は { label, pct, resetsAt (unix 秒), window (秒) }
 
-fmt_remain() {
-  local resets_at="$1" # unix seconds
-  [[ -z "$resets_at" ]] && { echo "?"; return; }
-  local diff=$((resets_at - now))
-  if ((diff <= 0)); then
-    echo "reset待ち"
-    return
-  fi
-  fmt_duration "$diff"
+async function claudeCli() {
+  // skip_behaviors で /usage の使用傾向の集計を飛ばし、rate limits だけを取る
+  // 起動を軽くするため、会話ログ・MCP・settings を読まない (--bare はログインできないので使えない)
+  const request = { type: "control_request", request_id: "ai-usage", request: { subtype: "get_usage", skip_behaviors: true } };
+  const out = await run(
+    "claude",
+    ["-p", "--input-format", "stream-json", "--output-format", "stream-json", "--verbose",
+      "--no-session-persistence", "--strict-mcp-config", "--setting-sources="],
+    `${JSON.stringify(request)}\n`,
+  );
+  const response = out.split("\n").map(parseJson).find((message) => message?.type === "control_response");
+  const kinds = {
+    session: () => ["5h", 5 * HOUR],
+    weekly_all: () => ["weekly", 7 * DAY],
+    weekly_scoped: (limit) => [`weekly/${limit.scope?.model?.display_name ?? "?"}`, 7 * DAY],
+  };
+  const rows = (response?.response?.response?.rate_limits?.limits ?? []).flatMap((limit) => {
+    if (!kinds[limit.kind]) return [];
+    const [label, window] = kinds[limit.kind](limit);
+    return [{ label, pct: limit.percent, resetsAt: secs(limit.resets_at), window }];
+  });
+
+  // usage API が 429 などで取れないときは mod の記録を出す
+  if (rows.length === 0) return claudeRecorded("cli", "claude (cli)");
+  return { heading: "claude (cli)", rows };
 }
 
-fmt_duration() {
-  local diff="$1" # seconds
-  ((diff < 0)) && diff=0
-  local d=$((diff / 86400))
-  local h=$((diff % 86400 / 3600))
-  local m=$((diff % 3600 / 60))
-  # 最大2単位までに絞って簡潔にする: 日以上は d+h、時間未満は h+m、分未満は m のみ
-  if ((d > 0)); then
-    printf '%dd%02dh' "$d" "$h"
-  elif ((h > 0)); then
-    printf '%dh%02dm' "$h" "$m"
-  else
-    printf '%dm' "$m"
-  fi
+// usage-record mod の記録 (session = cli | desktop) を出す
+async function claudeRecorded(session, name) {
+  const record = await readJson(`${home}/.cache/claude-usage-record/${session}.json`);
+  if (record === undefined) return { error: `${name}: usage-record mod の記録がありません` };
+
+  const kinds = { five_hour: ["5h", 5 * HOUR], seven_day: ["weekly", 7 * DAY] };
+  const recordedAt = secs(record.recordedAt);
+  return {
+    heading: `${name} · updated at ${fmtAt(recordedAt)} (${fmtDuration(now - recordedAt)} ago)`,
+    rows: record.rateLimits.flatMap((limit) => {
+      if (!kinds[limit.kind]) return [];
+      const [label, window] = kinds[limit.kind];
+      return [{ label, pct: limit.percentUsed, resetsAt: secs(limit.resetsAt), window }];
+    }),
+  };
 }
 
-fmt_at() {
-  local resets_at="$1" # unix seconds
-  [[ -z "$resets_at" ]] && { echo "?"; return; }
-  TZ=Asia/Tokyo date -d "@$resets_at" '+%m/%d(%a) %H:%M' 2>/dev/null ||
-    TZ=Asia/Tokyo date -r "$resets_at" '+%m/%d(%a) %H:%M' 2>/dev/null || echo '?'
+async function codex() {
+  const authFile = `${home}/.codex/auth.json`;
+  const auth = await readJson(authFile);
+  if (auth === undefined) return { error: `codex: ${authFile} not found` };
+  if (!auth.tokens?.access_token) return { error: "codex: token not found" };
+
+  let res;
+  try {
+    res = await fetch("https://chatgpt.com/backend-api/wham/usage", {
+      headers: {
+        Authorization: `Bearer ${auth.tokens.access_token}`,
+        "ChatGPT-Account-Id": auth.tokens.account_id ?? "",
+      },
+    });
+  } catch (error) {
+    return { error: `codex: request failed (${error.cause?.code ?? error.message})` };
+  }
+  if (res.status === 429) return { error: "codex: rate limited (429), しばらく待って再実行してください" };
+  if (!res.ok) return { error: `codex: request failed (HTTP ${res.status})` };
+
+  const { primary_window, secondary_window } = (await res.json()).rate_limit;
+  const row = (label, w) => ({ label, pct: w.used_percent, resetsAt: w.reset_at, window: w.limit_window_seconds });
+  return { heading: "codex", rows: [row("5h", primary_window), row("weekly", secondary_window)] };
 }
 
-bar() {
-  # 実際の使用率(pct)を濃い塗り█、経過時間の割合(elapsed_pct)を薄塗り░で表す。
-  # 同じマスでは█が░より優先して見える(実使用が経過時間を追い越している=ペースが速い)。
-  # █が░の範囲より短ければ、その分░だけが右に残る(=余裕がある)。
-  local pct="$1" elapsed_pct="$2" width=10
-  local filled=$((pct * width / 100))
-  local elapsed=$((elapsed_pct * width / 100))
-  ((filled > width)) && filled=$width; ((filled < 0)) && filled=0
-  ((elapsed > width)) && elapsed=$width; ((elapsed < 0)) && elapsed=0
+function formatRow({ label, pct, resetsAt, window }) {
+  let elapsedPct;
+  if (resetsAt !== undefined) {
+    const remain = Math.min(window, Math.max(0, resetsAt - now));
+    elapsedPct = ((window - remain) * 100) / window;
+  }
 
-  local i out=""
-  for ((i = 0; i < width; i++)); do
-    if ((i < filled)); then
-      out+="█"
-    elif ((i < elapsed)); then
-      out+="░"
-    else
-      out+=" "
-    fi
-  done
-  printf '%s' "$out"
+  // 色判定は使用率の絶対値ではなく、このペースを維持した場合の予測着地率で決める
+  // 予測着地率 = 使用率 ÷ 経過割合 × 100 (このペースのままリセットまで使い続けたら何%に達するか)
+  // <90%: 余裕(緑) / 90〜100%: オンペース(黄) / 100%超: このままだと枯渇する(赤)
+  // ウィンドウ開始直後(経過5%未満)は少し使っただけで予測が暴れるため判定を保留する
+  let color = green;
+  if (elapsedPct >= 5) {
+    const projected = (pct * 100) / elapsedPct;
+    color = projected > 100 ? red : projected >= 90 ? yellow : green;
+  }
+  const percent = (p) => `${String(Math.round(p)).padStart(3)}%`;
+  const elapsed = elapsedPct === undefined ? "  -" : percent(elapsedPct);
+
+  return `  ${label.padEnd(12)} [${color}${bar(pct, elapsedPct ?? 0)}${reset}] ${dim}used${reset} ` +
+    `${color}${percent(pct)}${reset} / ${elapsed} ${dim}elapsed ·${reset} ` +
+    `reset at ${fmtAt(resetsAt)} ${dim}in ${fmtRemain(resetsAt)}${reset}`;
 }
 
-print_line() {
-  local label="$1" pct="$2" resets_at="$3" window_secs="$4"
-  pct=$(printf '%.0f' "$pct" 2>/dev/null || echo "$pct")
-
-  local elapsed_pct=""
-  if [[ -n "$resets_at" && -n "$window_secs" ]]; then
-    local remain=$((resets_at - now))
-    ((remain < 0)) && remain=0
-    ((remain > window_secs)) && remain=$window_secs
-    elapsed_pct=$(((window_secs - remain) * 100 / window_secs))
-  fi
-
-  # 色判定は使用率の絶対値ではなく、このペースを維持した場合の予測着地率で決める
-  # 予測着地率 = 使用率 ÷ 経過割合 × 100 (このペースのままリセットまで使い続けたら何%に達するか)
-  # <90%: 余裕(緑) / 90〜100%: オンペース(黄) / 100%超: このままだと枯渇する(赤)
-  # ウィンドウ開始直後(経過5%未満)は少し使っただけで予測が暴れるため判定を保留する
-  local color=$green elapsed_disp="  -"
-  if [[ -n "$elapsed_pct" ]]; then
-    elapsed_disp=$(printf '%3s%%' "$elapsed_pct")
-    if ((elapsed_pct >= 5)); then
-      local projected=$((pct * 100 / elapsed_pct))
-      if ((projected > 100)); then
-        color=$red
-      elif ((projected >= 90)); then
-        color=$yellow
-      else
-        color=$green
-      fi
-    fi
-  fi
-
-  printf '  %-12s [%s%s%s] %sused%s %s%3s%%%s / %s %selapsed \xc2\xb7%s reset at %s %sin %s%s\n' \
-    "$label" "$color" "$(bar "$pct" "${elapsed_pct:-0}")" "$reset" \
-    "$dim" "$reset" \
-    "$color" "$pct" "$reset" \
-    "$elapsed_disp" \
-    "$dim" "$reset" \
-    "$(fmt_at "$resets_at")" \
-    "$dim" "$(fmt_remain "$resets_at")" "$reset"
+function bar(pct, elapsedPct) {
+  // 実際の使用率(pct)を濃い塗り█、経過時間の割合(elapsedPct)を薄塗り░で表す。
+  // 同じマスでは█が░より優先して見える(実使用が経過時間を追い越している=ペースが速い)。
+  // █が░の範囲より短ければ、その分░だけが右に残る(=余裕がある)。
+  const width = 10;
+  const cells = (p) => Math.min(width, Math.max(0, Math.floor((p * width) / 100)));
+  const filled = cells(pct);
+  const elapsed = cells(elapsedPct);
+  return Array.from({ length: width }, (_, i) => (i < filled ? "█" : i < elapsed ? "░" : " ")).join("");
 }
 
-claude_recorded_rows() {
-  # usage-record mod の記録 ($1 = cli | desktop) を print_line に渡す行の形で出す
-  # 1 行目は記録した時刻 (unix 秒)。リセット済みの枠は出さない
-  local file="$HOME/.cache/claude-usage-record/$1.json"
-  [[ -f "$file" ]] || return
-  jq -r --argjson now "$now" '
-    def secs: try (sub("\\.[0-9]+"; "") | sub("\\+00:00$"; "Z") | fromdateiso8601) catch null;
-    (.recordedAt | secs) as $at |
-    select($at != null) |
-    ($at | tostring),
-    (.rateLimits[] |
-      ( if .kind == "five_hour" then ["5h", 18000]
-        elif .kind == "seven_day" then ["weekly", 604800]
-        else empty end ) as [$name, $window] |
-      (.resetsAt | secs) as $reset |
-      select($reset != null and $reset > $now) |
-      [$name, .percentUsed, $reset, $window] | map(tostring) | join("|"))
-  ' "$file" 2>/dev/null
+function fmtRemain(resetsAt) {
+  if (resetsAt === undefined) return "?";
+  return resetsAt <= now ? "reset待ち" : fmtDuration(resetsAt - now);
 }
 
-print_rows() {
-  # TAB は空白扱いで空欄が詰められるため、空白でない区切りを使う
-  local label pct resets_at window
-  while IFS='|' read -r label pct resets_at window; do
-    if [[ -n "$pct" ]]; then
-      print_line "$label" "$pct" "$resets_at" "$window"
-    fi
-  done <<<"$1"
+function fmtDuration(seconds) {
+  seconds = Math.max(0, Math.floor(seconds));
+  const d = Math.floor(seconds / DAY);
+  const h = Math.floor((seconds % DAY) / HOUR);
+  const m = Math.floor((seconds % HOUR) / 60);
+  const pad = (n) => String(n).padStart(2, "0");
+  // 最大2単位までに絞って簡潔にする: 日以上は d+h、時間未満は h+m、分未満は m のみ
+  if (d > 0) return `${d}d${pad(h)}h`;
+  if (h > 0) return `${h}h${pad(m)}m`;
+  return `${m}m`;
 }
 
-claude_recorded_usage() {
-  local session="$1" name="$2" rows recorded_at
-  rows=$(claude_recorded_rows "$session") || true
-  if [[ -z "$rows" ]]; then
-    echo "$name: usage-record mod の記録がありません" >&2
-    return
-  fi
-  recorded_at="${rows%%$'\n'*}"
-  if [[ "$rows" != *$'\n'* ]]; then
-    echo "$name: updated at $(fmt_at "$recorded_at"), どの枠もリセット済み" >&2
-    return
-  fi
-  rows="${rows#*$'\n'}"
-
-  echo "${dim}${name} · updated at $(fmt_at "$recorded_at") ($(fmt_duration $((now - recorded_at))) ago)${reset}"
-  print_rows "$rows"
+function fmtAt(unixSecs) {
+  if (unixSecs === undefined) return "?";
+  const t = tokyo(unixSecs);
+  return `${t.month}/${t.day}(${t.weekday}) ${t.hour}:${t.minute}`;
 }
 
-claude_cli_usage() {
-  if ! command -v claude >/dev/null; then
-    echo "claude (cli): claude command not found" >&2
-    return
-  fi
+const tokyoFormat = new Intl.DateTimeFormat("ja-JP", {
+  timeZone: "Asia/Tokyo", year: "numeric", month: "2-digit", day: "2-digit", weekday: "short",
+  hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23",
+});
 
-  # skip_behaviors で /usage の使用傾向の集計を飛ばし、rate limits だけを取る
-  # 起動を軽くするため、会話ログ・MCP・settings を読まない (--bare はログインできないので使えない)
-  # 429 の解除時刻は応答にないため、debug ログの "not asking again for Ns" から読む
-  local json rows debug_log
-  debug_log=$(mktemp)
-  json=$(echo '{"type":"control_request","request_id":"ai-usage","request":{"subtype":"get_usage","skip_behaviors":true}}' |
-    claude -p --input-format stream-json --output-format stream-json --verbose \
-      --no-session-persistence --strict-mcp-config --setting-sources= \
-      --debug-file "$debug_log" 2>/dev/null) || true
-  # rate_limits の形
-  # - 通常: limits[] (session / weekly_all / weekly_scoped)
-  # - usage API が失敗: claude が保持している値 (five_hour / seven_day / model_scoped)。古いかもしれないので "fallback" を付ける
-  # - usage API が失敗し、保持している値もない: null
-  # - API key などで plan の rate limit がない: rate_limits_available が false
-  # fromdateiso8601 は resets_at の小数秒と +00:00 を読めないため取り除く
-  local fallback=""
-  rows=$(jq -rn '
-    def secs: try (sub("\\.[0-9]+"; "") | sub("\\+00:00$"; "Z") | fromdateiso8601) catch "";
-    def row($name; $pct; $at; $window): [$name, ($pct // ""), (($at // "") | secs), $window] | map(tostring) | join("|");
-    ([inputs | select(.type? == "control_response") | .response?.response? // empty] | first) as $res |
-    ($res.rate_limits? // {}) as $rl |
-    if $res == null then empty
-    elif $res.rate_limits_available? == false then "unavailable"
-    elif $res.rate_limits? == null then "null"
-    elif (($rl.limits // []) | length) > 0 then
-      $rl.limits[] |
-      ( if .kind == "session" then ["5h", 18000]
-        elif .kind == "weekly_all" then ["weekly", 604800]
-        elif .kind == "weekly_scoped" then ["weekly/" + (.scope.model.display_name // "?"), 604800]
-        else empty end ) as [$name, $window] |
-      row($name; .percent; .resets_at; $window)
-    else
-      "fallback",
-      (if $rl.five_hour then row("5h"; $rl.five_hour.utilization; $rl.five_hour.resets_at; 18000) else empty end),
-      (if $rl.seven_day then row("weekly"; $rl.seven_day.utilization; $rl.seven_day.resets_at; 604800) else empty end),
-      (($rl.model_scoped // [])[] | row("weekly/" + (.display_name // "?"); .utilization; .resets_at; 604800))
-    end
-  ' <<<"$json" 2>/dev/null) || true
-
-  local hold_secs
-  hold_secs=$(sed -n 's/.*remembered for this bearer; not asking again for \([0-9][0-9]*\)s.*/\1/p' "$debug_log" | tail -n 1)
-  rm -f "$debug_log"
-
-  if [[ "$rows" == "unavailable" ]]; then
-    echo "claude (cli): plan の rate limit がないログイン方法です (API key / Bedrock / Vertex など)" >&2
-    return
-  fi
-  # usage API から取れなければ mod の記録を出す
-  if [[ "$rows" == "null" ]]; then
-    if [[ -z "$(claude_recorded_rows cli)" ]]; then
-      local reason="usage API から取得できず、保持している値もありません"
-      if [[ -n "$hold_secs" ]]; then
-        reason="usage API が 429 を返したため取得できません。解除は $(fmt_at $((now + hold_secs))) (in $(fmt_remain $((now + hold_secs)))) の見込みです"
-      fi
-      echo "claude (cli): $reason" >&2
-      return
-    fi
-    claude_recorded_usage cli "claude (cli)"
-    return
-  fi
-
-  if [[ "$rows" == fallback* ]]; then
-    fallback=1
-    rows="${rows#fallback}"
-    rows="${rows#$'\n'}"
-  fi
-
-  if [[ -z "$rows" ]]; then
-    echo "claude (cli): usage を取得できませんでした (get_usage の応答を読めない)" >&2
-    return
-  fi
-
-  echo "${dim}claude (cli)${reset}"
-  if [[ -n "$fallback" ]]; then
-    echo "  ${yellow}usage API から取得できず、保持している値を表示中 (429 の可能性。古い値かも)${reset}"
-  fi
-  print_rows "$rows"
+function tokyo(unixSecs) {
+  return Object.fromEntries(tokyoFormat.formatToParts(new Date(unixSecs * 1000)).map((p) => [p.type, p.value]));
 }
 
-codex_usage() {
-  local auth_file="$HOME/.codex/auth.json"
-  if [[ ! -f "$auth_file" ]]; then
-    echo "codex: $auth_file not found" >&2
-    return
-  fi
-
-  local token account_id
-  token=$(jq -r '.tokens.access_token // empty' "$auth_file")
-  account_id=$(jq -r '.tokens.account_id // empty' "$auth_file")
-
-  if [[ -z "$token" ]]; then
-    echo "codex: token not found" >&2
-    return
-  fi
-
-  local res status
-  res=$(curl -s -w '\n%{http_code}' https://chatgpt.com/backend-api/wham/usage \
-    -H "Authorization: Bearer $token" \
-    -H "ChatGPT-Account-Id: $account_id")
-  status="${res##*$'\n'}"
-  res="${res%$'\n'*}"
-
-  if [[ "$status" == "429" ]]; then
-    echo "codex: rate limited (429), しばらく待って再実行してください" >&2
-    return
-  elif [[ "$status" != "200" ]]; then
-    echo "codex: request failed (HTTP $status)" >&2
-    return
-  fi
-
-  echo "${dim}codex${reset}"
-  print_line "5h" \
-    "$(jq -r '.rate_limit.primary_window.used_percent' <<<"$res")" \
-    "$(jq -r '.rate_limit.primary_window.reset_at' <<<"$res")" \
-    "$(jq -r '.rate_limit.primary_window.limit_window_seconds' <<<"$res")"
-  print_line "weekly" \
-    "$(jq -r '.rate_limit.secondary_window.used_percent' <<<"$res")" \
-    "$(jq -r '.rate_limit.secondary_window.reset_at' <<<"$res")" \
-    "$(jq -r '.rate_limit.secondary_window.limit_window_seconds' <<<"$res")"
+function secs(iso) {
+  const ms = Date.parse(iso);
+  return Number.isNaN(ms) ? undefined : ms / 1000;
 }
 
-# claude (cli) の取得は数秒かかるため、codex と並列に取得してから順に表示する
-tmp=$(mktemp -d)
-trap 'rm -rf "$tmp"' EXIT
-claude_cli_usage >"$tmp/claude.out" 2>"$tmp/claude.err" &
-codex_usage >"$tmp/codex.out" 2>"$tmp/codex.err" &
-wait
+function parseJson(text) {
+  try {
+    return JSON.parse(text);
+  } catch {
+    return undefined;
+  }
+}
 
-echo "${dim}$(TZ=Asia/Tokyo date '+%Y-%m-%d(%a) %H:%M:%S')${reset}"
-echo
-cat "$tmp/claude.out"; cat "$tmp/claude.err" >&2
-echo
-claude_recorded_usage desktop "claude (app)"
-echo
-cat "$tmp/codex.out"; cat "$tmp/codex.err" >&2
+function readJson(path) {
+  return readFile(path, "utf8").then(parseJson, () => undefined);
+}
+
+function run(command, args, input) {
+  return new Promise((resolve) => {
+    const child = execFile(command, args, { maxBuffer: 16 * 1024 * 1024 }, (_error, stdout) => resolve(stdout ?? ""));
+    child.stdin.on("error", () => {});
+    child.stdin.end(input);
+  });
+}
+
+async function main() {
+  // claude (cli) の取得は数秒かかるため、すべて並列に取得してから順に表示する
+  const results = await Promise.all([claudeCli(), claudeRecorded("desktop", "claude (app)"), codex()]);
+
+  const t = tokyo(now);
+  console.log(`${dim}${t.year}-${t.month}-${t.day}(${t.weekday}) ${t.hour}:${t.minute}:${t.second}${reset}`);
+  for (const result of results) {
+    console.log();
+    if (result.error) {
+      console.error(result.error);
+      continue;
+    }
+    console.log(`${dim}${result.heading}${reset}`);
+    for (const row of result.rows) console.log(formatRow(row));
+  }
+}
+
+main();
